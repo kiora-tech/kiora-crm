@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'home.title' }}{% endblock %}
+
+{% block body %}
+<turbo-frame id="body">
+    <h1 class="text-3xl mb-6">{{ 'home.welcome'|trans }}</h1>
+    <p class="text-gray-600">On my empty page</p>
+</turbo-frame>
+{% endblock %}

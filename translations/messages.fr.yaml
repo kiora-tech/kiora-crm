@@ -1,0 +1,14 @@
+home:
+    title: Bienvenue sur notre site
+    welcome: Bienvenue sur notre site
+reset:
+    title: Réinitialiser votre mot de passe
+    page_title: Réinitialiser votre mot de passe
+    button: Réinitialiser le mot de passe
+    send: Envoyer un e-mail de réinitialisation du mot de passe
+    email: Entrez votre adresse e-mail, et nous vous enverrons un lien pour réinitialiser votre mot de passe.
+menu:
+    home: Accueil
+    user: Utilisateur
+    company: Entreprise
+    logout: Déconnexion

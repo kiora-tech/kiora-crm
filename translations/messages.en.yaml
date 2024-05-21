@@ -1,0 +1,14 @@
+home:
+    title: Welcome to our site
+    welcome: Welcome to our site
+reset:
+    title: Reset your password
+    page_title: Reset your password
+    button: Reset password
+    send: Send password reset email
+    email: Enter your email address, and we will send you a link to reset your password.
+menu:
+    home: Home
+    user: User
+    company: Company
+    logout: Logout

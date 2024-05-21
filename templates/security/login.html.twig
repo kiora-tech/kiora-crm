@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <div class="flex items-center justify-center h-full">
+        <div class="w-full max-w-md">
+            <form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                {% if error %}
+                    <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                        <strong class="font-bold">{{ error.messageKey|trans(error.messageData, 'security') }}</strong>
+                    </div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-4">
+                        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}" class="text-blue-500 underline">Logout</a>
+                    </div>
+                {% endif %}
+
+                <h1 class="mb-6 text-2xl font-bold text-center">Please sign in</h1>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="inputEmail">
+                        Email
+                    </label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" autocomplete="email" required autofocus>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="inputPassword">
+                        Password
+                    </label>
+                    <input type="password" name="password" id="inputPassword" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" autocomplete="current-password" required>
+                </div>
+                <div class="flex items-center justify-between">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                        Sign in
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

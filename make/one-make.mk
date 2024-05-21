@@ -1,0 +1,7 @@
+PREPROD_IP=13.39.115.88
+PREPROD_USER=ubuntu
+DB_USER=symfony
+DB_HOST=127.0.0.1
+DB_NAME=symfony_docker
+DB_PORT=4306
+DB_TYPE=mysql
