@@ -15,7 +15,7 @@ We generated all the pages using Symfony's make:crud command, so you know it's g
 To get started with this project, you'll need to run the following commands:
 
 ```bash
-docker run --rm --interactive --tty -e UID=$(id -u) -e GID=$(id -g) --volume $PWD:/app composer create-project kiora-tech/user-app my_project
+docker run --rm --interactive --tty --user $(id -u):$(id -g) --volume $PWD:/app composer create-project kiora-tech/user-app my_project
 cd my_project
 make install_symfony
 ```

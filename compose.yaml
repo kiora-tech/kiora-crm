@@ -7,6 +7,10 @@ services:
       MYSQL_DATABASE: symfony_docker
       MYSQL_USER: symfony
       MYSQL_PASSWORD: symfony
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 2s
+      retries: 30
     ports:
       - '4306:3306'
   php:
