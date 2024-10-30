@@ -1,4 +1,4 @@
-PHP ?= php
+HP ?= php
 
 ##@ Symfony
 install_symfony: vendor update_symfony ## install symfony

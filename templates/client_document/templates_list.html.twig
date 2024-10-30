@@ -1,9 +1,0 @@
-<ul>
-    {% for template in templates %}
-        <li>
-            <a href="{{ path('app_client_document_generate', {'id': client.id, 'templateId': template.id}) }}">
-                {{ template.name }}
-            </a>
-        </li>
-    {% endfor %}
-</ul>
