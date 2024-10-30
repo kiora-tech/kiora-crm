@@ -1,0 +1,3 @@
+symfonycasts_sass:
+    root_sass:
+        - '%kernel.project_dir%/assets/NiceAdmin/scss/style.scss'

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ClientDocument{% endblock %}
+
+{% block body %}
+    <div class="pagetitle">
+        <h1>{{ "client_document.index"|trans }}</h1>
+    </div>
+    <section class="section">
+        <div class="card p-4">
+            <div class="card-body">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>{{ "client_document.name.label"|trans }}</th>
+                        <td>{{ client_document.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ "client_document.type.label"|trans }}</th>
+                        <td>{{ client_document.type| trans_enum }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ "client_document.generate_at.label"|trans }}</th>
+                        <td>{{ client_document.generatedAt ? client_document.generatedAt|date('common.date_format'|trans) : '' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <a href="{{ path('app_client_document_download', {'id': client_document.id}) }}" target="_blank"
+                   class="btn btn-primary mb-2">{{ "button.download"|trans }}</a>
+
+                {% if client_document.clientSigningDocument is not null %}
+                    <a href="{{ path('app_document_signature_document_status', {'id': client_document.clientSigningDocument.id}) }}"
+                       class="btn btn-primary">{{ "client_document.show_signature"|trans }}</a>
+                {% else %}
+                    <a href="{{ path('app_document_signature_ask', {'id': client_document.id}) }}"
+                       class="btn btn-primary">{{ "client_document.ask_signature"|trans }}</a>
+                {% endif %}
+
+                <a href="{{ path('app_client_document_index') }}">{{ "button.back"|trans }}</a>
+
+                {{ include('client_document/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </section>
+{% endblock %}

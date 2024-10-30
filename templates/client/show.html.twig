@@ -1,0 +1,182 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client
+{% endblock %}
+
+{% block body %}
+    <div class="pagetitle d-flex justify-content-between">
+        <h1>{{ client.civility|trans }} {{ client.lastName }} {{ client.firstName }}</h1>
+        <div>
+            <a href="{{ path('app_client_index') }}" class="btn btn-secondary">{{ 'button.back'|trans }}</a>
+            <div class="btn-group" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ 'button.manage'|trans }}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    {% if deleted is not defined or deleted != true %}
+                        <li><a href="{{ path('app_client_edit', {'id': client.id}) }}"
+                               class="dropdown-item">{{ 'button.edit'|trans }}</a></li>
+
+                        <li><a href="{{ path('app_client_edit_collaborators', {id: client.id}) }}"
+                               class="dropdown-item">Edit Collaborators</a></li>
+
+                        <li>
+                            <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#templateModal">{{ 'button.generate'|trans }}</a>
+                        </li>
+
+                        {% if client.clientLogin is null %}
+                            <li><a href="{{ path('app_manage_client_access_create', {id: client.id}) }}"
+                                   class="dropdown-item">{{ 'client_access.client.button.generate'|trans }}</a></li>
+                        {% else %}
+                            <li><a href="{{ path('app_manage_client_access_edit', {id: client.clientLogin.id}) }}"
+                                   class="dropdown-item">{{ 'client_access.client.button.show'|trans }}</a></li>
+                        {% endif %}
+
+                        {% if powensUser is not null %}
+                            <li><a href="{{ path('app_powens_user_show', {id: powensUser.id}) }}"
+                                   class="dropdown-item">{{ 'powens.button.show'|trans }}</a></li>
+                        {% endif %}
+                        {% if is_granted(constant('App\\Security\\Voter\\ClientVoter::EDIT'), client) %}
+                            <li>
+                            <form method="post" action="{{ path('app_client_delete', {'id': client.id}) }}"
+                                  data-controller="delete-confirmation" data-action="submit->delete-confirmation#confirm"
+                                  data-delete-confirmation-message="{{ 'delete_confirmation.message'|trans }}">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ client.id) }}">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="dropdown-item text-danger" type="submit">{{ 'client.submit.delete'|trans }}</button>
+                            </form>
+                            </li>
+                        {% endif %}
+                    {% else %}
+                        <li><a href="{{ path('app_client_deleted_restore', {'id': client.id}) }}"
+                               class="dropdown-item">{{ 'button.restore'|trans }}</a></li>
+                        <li>
+                            <form method="post" action="{{ path('app_client_deleted_hard_delete', {'id': client.id}) }}"
+                                  data-controller="delete-confirmation"
+                                  data-action="submit->delete-confirmation#confirm"
+                                  data-delete-confirmation-message="{{ 'delete_confirmation.message'|trans }}">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="dropdown-item text-danger"
+                                        type="submit">{{ 'button.hard_delete'|trans }}</button>
+                            </form>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <section class="section profile">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="card">
+                    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                        <p>{{ client.job }}</p>
+                        <p>{{ client.dbirthdate|date('d/m/Y') }}</p>
+                        <p>{{ client.maritalSituation | trans_enum }}</p>
+                        <p>{{ client.adresseNumber }} {{ client.adresseStreet }}</p>
+                        <p>{{ client.adressePostalCode }} {{ client.adresseCity }}</p>
+                        <p>{{ client.adresseCountry|country_name }}</p>
+                        <div class="social-links mt-2">
+                            {% if client.phone %}
+                                <a href="tel:{{ client.phone }}" class="phone"><i class="bi bi-phone"></i></a>
+                            {% endif %}
+                            {% if client.email %}
+                                <a href="{{ path('app_client_contact', { 'id': client.id }) }}" class="chat"><i class="bi bi-envelope"></i></a>
+                            {% endif %}
+                            <a href="#" class="info" data-bs-toggle="modal" data-bs-target="#verticalycentered"><i
+                                        class="bi bi-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="verticalycentered" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{ 'client_profile.information'|trans }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h6>{{ 'objectives'|trans }}</h6>
+                            <ul>
+                                {% for objective in client.objectives %}
+                                    <li>{{ ('client.objective.' ~ objective)|trans }}</li>
+                                {% endfor %}
+                            </ul>
+                            <hr>
+                            <h6>{{ 'comment'|trans }}</h6>
+                            <p>{{ client.comment }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">{{ 'button.close'|trans }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <div class="card">
+                    <div class="card-body pt-3">
+                        <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="profile-patrimonial-tab" data-bs-toggle="tab"
+                                        data-bs-target="#profile-patrimonial" type="button" role="tab"
+                                        aria-controls="profile-patrimonial"
+                                        aria-selected="false">{{ 'client.patrimonial.label'|trans }}</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="profile-budget-tab" data-bs-toggle="tab"
+                                        data-bs-target="#profile-budget" type="button" role="tab"
+                                        aria-controls="profile-budget"
+                                        aria-selected="false">{{ 'client.budget.label'|trans }}</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="profile-familial-tab" data-bs-toggle="tab"
+                                        data-bs-target="#profile-familial" type="button" role="tab"
+                                        aria-controls="profile-familial"
+                                        aria-selected="true">{{ 'client.familial.label'|trans }}</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content pt-2" id="borderedTabContent">
+                            <div class="tab-pane fade show active pt-3" id="profile-patrimonial" role="tabpanel"
+                                 aria-labelledby="profile-patrimonial-tab">
+                                {% include 'client/show/_clientPatrimonialSituation.html.twig' %}
+                            </div>
+                            <div class="tab-pane fade pt-3" id="profile-budget" role="tabpanel"
+                                 aria-labelledby="profile-budget-tab">
+                                {% include 'client/show/_clientExpenseSituation.html.twig' %}
+                            </div>
+                            <div class="tab-pane fade pt-3" id="profile-familial" role="tabpanel"
+                                 aria-labelledby="profile-familial-tab">
+                                {% include 'client/show/_clientSituation.html.twig' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="templateModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ "template.modal.header"|trans }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex flex-column" data-template-modal-target="modalBody">
+                    {% for template in templates %}
+                        <a href="{{ path('app_client_document_generate', {'id': client.id, 'templateId': template.id}) }}"
+                           class="btn btn-outline-secondary m-2">{{ template.name }}</a>
+                    {% endfor %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">{{ 'button.close'|trans }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,14 +1,1071 @@
+vich_uploader:
+    form_label:
+        delete_confirm: 'Delete?'
+    link:
+        download: Download
+Register: Register
 home:
-    title: Welcome to our site
-    welcome: Welcome to our site
+    title: 'Welcome to our site'
+    welcome: 'Welcome to our site'
 reset:
-    title: Reset your password
-    page_title: Reset your password
-    button: Reset password
-    send: Send password reset email
-    email: Enter your email address, and we will send you a link to reset your password.
+    title: 'Reset your password'
+    page_title: 'Reset your password'
+    button: 'Reset password'
+    send: 'Send password reset email'
+    email: 'Enter your email address, and we will send you a link to reset your password.'
 menu:
     home: Home
+    companies: Companies
     user: User
     company: Company
+    impersonate_exit: 'Exit impersonation'
     logout: Logout
+    login: Login
+    client: Client
+    invite: Invite
+    template: Template
+    client_document: 'Client Document'
+    document_signature: 'Document Signature'
+    create_account: 'Create an account'
+choice:
+    'yes': 'Yes'
+    'no': 'No'
+manage_user:
+    email:
+        label: Email
+    name:
+        label: 'First name'
+    lastname:
+        label: 'Last name'
+    password:
+        label_first: Password
+        label_second: 'Confirm password'
+        error_message: 'The two passwords do not match'
+    error_message:
+        not_blank: 'This field cannot be empty'
+manage_client:
+    assigned_collaborators:
+        title: 'Manage assigned collaborators'
+        label: 'Assigned Collaborators'
+        not_blank: 'This field cannot be empty'
+client: __client
+common:
+    date_format: 'H:i:s m/d/Y'
+    date_day_format: m/d/Y
+loggable:
+    common:
+        action: Action
+        version: Version
+        editor: Editor
+        modified_fields: 'Modified Fields'
+        date: Date
+        actions: Actions
+        details: Details
+        no_records_found: 'No Records Found'
+        old_value: 'Old Value'
+        new_value: 'New Value'
+id: Id
+civility: Civility
+last_name: Name
+first_name: 'First Name'
+dbirthdate: Birthdate
+email: Email
+phone: Phone
+adresse_number: 'Adresse Number'
+adresse_street: 'Adresse Street'
+adresse_postal_code: 'Adresse Postal Code'
+adresse_city: 'Adresse City'
+adresse_country: 'Adresse Country'
+birthplace_postal_code: 'Birthplace Postal Code'
+birthplace_city: 'Birthplace City'
+birthplace_country: 'Birthplace Country'
+nationality: Nationality
+handicap: Handicap
+marital_situation: 'Marital Situation'
+assignedCollaborators: 'Assigned Collaborators'
+users: Users
+object: Object
+roles: Roles
+password: Password
+company: Company
+clients: Clients
+lastName: 'Last Name'
+last name: 'Last Name'
+user: User
+create: Create
+update: Update
+deletedAt: 'Deleting date'
+reset_password:
+    email:
+        expiration: 'This link will expire in %date%.'
+        account: Reset you password to access your account
+    session:
+        token_error: 'No reset password token found in the URL or in the session.'
+        user_not_found_error: 'No user found for the given token'
+        invalid_password_error: 'Invalid password.'
+        no_mail_error: 'User object must have an email.'
+        mail_request: 'Your password reset request'
+button:
+    meet: 'Appointment'
+    reset: Reset
+    restore_version: 'Restore this version'
+    show: Show
+    edit: Edit
+    show_active: 'Show active'
+    show_deleted: 'Show deleted'
+    restore: Restore
+    hard_delete: 'Permanently delete'
+    generate: Generate
+    back: Back
+    download: Download
+    delete: Delete
+    save: Save
+    update: 'Modify user'
+    newUser: 'Create new user'
+    newAddUser: 'New user'
+    actions: Actions
+    updateAll: Update
+    editCompany: 'Edit Company'
+    add_supporting_documents: 'Add supporting documents'
+    close: Close
+    impersonate: Impersonate
+    manage: Manage
+    login: Login
+    company:
+        update: 'Update company'
+        users: 'Company users'
+no_record: 'No record'
+head:
+    action: Actions
+emails:
+    collaborators:
+        notify_client_update: { title: 'Client %clientFullName% modified', text: 'The client %clientFullName% was modified by %modifierFullName%.' }
+        notify_client_delete: { title: 'Client %clientFullName% deleted', text: 'The client %clientFullName% was deleted by %modifierFullName%.' }
+        notify_new_collaborator: { title: 'New collaborator', text: { created: 'An account has been created for you.', password: 'Click the link below to set your password:', login: 'Set my password' } }
+    prospect:
+        invitation: Invitation
+        invitation_by: 'You have been invited to join our platform by'
+        complete_information: 'Please click the link below to complete your information'
+        link_informations: 'Complete your information'
+        invitation_client_created: { title: '%clientFullName% created successfully', text: 'The customer has finalized the creation of his personal data sheet.', link: 'You can view his profile here', button: 'View profile', prospect_text: 'Thank you %clientName% for completing the creation of your personal data sheet.', prospect_thank: 'You will be contacted by %userFullName% if needed as soon as possible.', prospect_title: 'Hello %clientName% !' }
+    hello: Hello
+    sincerely: Sincerely
+    thank: 'Thank you'
+    team: "The Finoptia Team"
+    all_rights: 'All rights reserved'
+    yousign:
+        notify_signer: { title: 'You have a document to sign', text_document: 'Document title: %documentName%', text_link: 'here is the link to sign the document: %link%' }
+    client_access:
+        login: { title: 'Your client area account has been created', text: 'An account has been created by %userFullName% for you to access your client area.', link: 'You can now access your account by clicking on the link below:', button: 'Go to login page', email: 'Email: %email%', password: 'Password: %password%' }
+        powens: { created: { title: 'Powens activated for your account', text: 'Powens has been activated by %userFullName% for your account.', link: 'You can now synchronize your accounts to your client area by clicking on the link below:', button: 'Connect your accounts' } }
+    verify_email:
+        subject: 'Welcome to our platform'
+        text: 'Please confirm your email address by clicking the button below.'
+        button: 'Confirm Email'
+    2fa:
+        alert: "We have detected a login attempt to your account. For security reasons, we have generated a verification code to confirm this action."
+        code: "Your verification code is:"
+        info: "Please enter this code to complete your login within the next few minutes."
+        detail: "Details of the login attempt:"
+        ip: "IP Address:"
+        location: "Approximate location:"
+        warning: "If you are not the originator of this login attempt, we recommend that you immediately change your password and contact our support team."
+prospect:
+    email: 'Prospect email'
+    send: 'Send an email'
+    invite: 'Invite the prospect'
+    invalid_token: 'Invalid token, please contact your advice'
+    statistics: "Invitation Statistics"
+    invitation_explanation: "As a wealth management advisor, you can create a personalized invitation link for a prospect. This link will allow the prospect to enter their information into the system."
+    invited: "Invited"
+    used: "Used"
+    created: "Created"
+    success_message:
+        create: 'Prospect created successfully'
+    create_account:
+        succes: 'Thank you for creating your account. An email has been sent to you!'
+        success: 'Thank you for creating your account. An email has been sent to you!'
+    validate_account:
+        success: 'Your account has been validated'
+    success_mail: Email sent successfuly
+prospect_email:
+    invitation_sent: 'Invitation sent!'
+    invitation: Invitation
+invitation_link:
+    expired: 'The link has expired.'
+    expired_title: 'Link Expired'
+    expired_message: 'Sorry, this invitation link has expired or is invalid.'
+document:
+    supporting_documents:
+        label: 'Supporting documents'
+        add_button: 'Add a document'
+        validity_date: 'Validity date'
+        document_type: 'Document type'
+        error_message: { invalid_pdf: 'The file must be a PDF file', max_size: 'The file must not exceed 5MB' }
+    type:
+        prospect: Prospect
+        resume: Resume
+        cni: 'National Identity Card (CNI)'
+        passport: Passport
+        driver_license: "Driver's License"
+        proof_of_residence: 'Proof of Residence (electricity bill, phone bill, rent receipt, etc.)'
+        bank_statements: 'Bank Statements'
+        financial_asset_statements: 'Financial Asset Statements'
+        birth_certificate: 'Birth Certificate'
+        payslips: Payslips
+        tax_declarations: 'Tax Declarations'
+client_document:
+    name:
+        label: Name
+    type:
+        label: Type
+    generate_at:
+        label: 'Generated at'
+    index: 'Client documents list'
+    delete_success: 'Client document deleted successfully'
+    word_generated:
+        success: 'File generated successfully ! %link%'
+        view_file: 'View file'
+    clients:
+        label: Clients
+    show_signature: 'Consulter la signature'
+    ask_signature: 'Demander une signature'
+template: Template
+delete_confirmation:
+    message: 'Are you sure you want to delete this item?'
+clientDocuments: 'Client documents'
+logo: Logo
+logoName: 'Logo name'
+updatedAt: 'Updated at'
+clientDocument: 'Client document'
+signatureRequestStatus: 'Signature request status'
+signers: Signers
+companyIdentity: 'Company identity'
+edit_identity: 'Edit company identity'
+type: Type
+file: File
+token: Token
+expiresAt: 'Expires at'
+used: Used
+createdBy: 'Created by'
+generatedAt: 'Generated at'
+generatedBy: 'Generated by'
+template.name.label: Name
+template.file.label: File
+template.mime_invalid: 'The file must be a Docx file'
+template.new: 'New template'
+template.edit: 'Edit template'
+template.index: 'Templates list'
+template.show: 'Show template'
+template.modal.header: 'Choose a template'
+template.modal.close: Close
+template.create_success: 'Template created successfully'
+template.delete_success: 'Template deleted successfully'
+document_signature:
+    asked:
+        success_message: 'The signature request has been sent successfully'
+    index:
+        title: 'Signature requests list'
+        h2: 'Signature requests list'
+        signers: Signers
+    signature_request_status: 'Signature request status'
+    document_status:
+        title: 'Document status'
+        h2: 'Document status'
+        cancel_confirmation_message: 'Are you sure you want to cancel this signature request?'
+        cancel: Cancel
+        client_document: 'Client document'
+        signer_status: 'Signer status'
+        signer: Signer
+        reason: Reason
+    cancel:
+        success_message: 'Signature request canceled successfully'
+        error_message: 'An error occurred while canceling the signature request'
+    validate: 'You have been invited'
+clientSigningDocumentSigners: 'Client signing document signers'
+clientSigningDocument: 'Client signing document'
+status: Status
+declineReason: 'Decline reason'
+yousign:
+    signature_request_status:
+        draft: Draft
+        ongoing: Ongoing
+        declined: Declined
+        expired: Expired
+        done: Done
+        deleted: Deleted
+        canceled: Canceled
+    signer_status:
+        initiated: Initiated
+        notified: Notified
+        processing: Processing
+        declined: Declined
+        signed: Signed
+        aborted: Aborted
+        error: Error
+downloaded: Downloaded
+invited:
+    validate: 'You have been invited'
+job: Job
+jobCsp: 'Job CSP'
+retirementAge: 'Retirement age'
+spouse: Spouse
+child: Child
+objectives: Objectives
+comment: Comment
+nonFinancialAssets: 'Non-financial assets'
+financialAsset: 'Financial asset'
+liabilities: Liabilities
+revenues: Revenues
+expenses: Expenses
+contract: Contract
+insurance: Insurance
+saving: Saving
+clientLogin: 'Client login'
+authToken: 'Auth token'
+client_assets:
+    actif:
+        resume: 'Assets Summary'
+    financial_assets:
+        title: 'Financial Assets'
+        label: 'Financial Assets Summary'
+        total: 'Total Financial Assets'
+    non_financial_assets:
+        title: 'Non-Financial Assets'
+        label: 'Non-Financial Assets Summary'
+        total: 'Total Non-Financial Assets'
+    asset_distribution:
+        label: 'Assets Distribution'
+        total: 'Total Assets'
+    liabilities:
+        title: Liabilities
+        label: 'Liabilities Summary'
+        total: 'Total Liabilities'
+    asset_vs_liabilities:
+        label: 'Assets vs Liabilities'
+client_access:
+    login:
+        create: { success: 'Client login created successfully' }
+    powens:
+        create: { success: 'Powens activated successfully for the client' }
+    client:
+        button: { generate: 'Create client access login', show: 'Manage client access' }
+powensUser: 'Powens user'
+category: Category
+nature: Nature
+designation: Designation
+estimatedValue: 'Estimated value'
+heldBy: 'Held by'
+modeOfHolding: 'Mode of holding'
+loanType: 'Loan type'
+subscriptionDate: 'Subscription date'
+borrowedAmount: 'Borrowed amount'
+durationInMonths: 'Duration in months'
+interestRate: 'Interest rate'
+insuranceRate: 'Insurance rate'
+openingDate: 'Opening date'
+dependent: Dependent
+childOf: 'Child of'
+beneficiary: Beneficiary
+annualAmount: 'Annual amount'
+client.form.previous: Previous
+client.form.next: Next
+client.index: 'Clients list'
+client.index_deleted: 'Deleted clients list'
+client.new: 'New client'
+client.civility.label: Civility
+client.civility.placeholder: 'Select your civility'
+client.civility.mr: Mr
+client.civility.mrs: Mrs
+client.name.label: Name
+client.first_name.label: 'First Name'
+client.birthdate.label: Birthdate
+client.email.label: Email
+client.phone.label: Phone
+client.adress: Address
+client.adresse_number.label: 'Address number'
+client.adresse_street.label: 'Address street'
+client.adresse_postal_code.label: 'Address postal code'
+client.adresse_city.label: 'Address city'
+client.adresse_country.label: 'Address country'
+client.adresse_country.placeholder: 'Select the address country'
+client.birthplace: Birthplace
+client.birthplace_postal_code.label: 'Birthplace postal code'
+client.birthplace_city.label: 'Birthplace city'
+client.birthplace_country.label: 'Birthplace country'
+client.birthplace_country.placeholder: 'Select the birthplace country'
+client.nationality.label: Nationality
+client.handicap.label: 'Disabled person'
+client.marital_situation.label: 'Marital status'
+client.marital_situation.married: Married
+client.marital_situation.pacsed: 'Civil Union'
+client.marital_situation.divorced: Divorced
+client.marital_situation.separated: Separated
+client.marital_situation.single: Single
+client.marital_situation.widowed: Widowed
+client.objective.saving_precaution: 'Saving for precaution'
+client.objective.short_term_liquidity: 'Short term liquidity'
+client.objective.additional_income: 'Additional income'
+client.objective.building_wealth: 'Building wealth'
+client.objective.optimize_investments: 'Optimize investments'
+client.objective.optimize_taxes: 'Optimize taxes'
+client.objective.reduce_ifi: 'Reduce IFI'
+client.objective.real_estate_purchase: 'Real estate purchase'
+client.objective.help_children: 'Help children'
+client.objective.protection_accidents: 'Protection against accidents'
+client.objective.protect_surviving_spouse: 'Protect surviving spouse'
+client.objective.protect_relatives: 'Protect relatives'
+client.objective.prepare_retirement: 'Prepare retirement'
+client.objective.prepare_heritage_transfer: 'Prepare heritage transfer'
+client.objective.prepare_business_transfer: 'Prepare business transfer'
+client.submit.update: Update
+client.submit.create: Create
+client.submit.delete: Delete
+client.success_message.create: 'Client %name% created successfully ! %link%'
+client.success_message.delete: 'Client deleted successfully'
+client.success_message.modified: 'Client modified successfully'
+client.success_message.hard_delete: 'Client permanently deleted successfully'
+client.success_message.restore: 'Client restored successfully'
+client.view_profile: 'View client profile'
+client.log.client.title: 'Client Logs'
+client.log.index.title: 'Clients Logs'
+client.log.index.client: Client
+client.log.detail.title: 'Client Log Detail'
+client.error_message.right: 'You do not have the rights to access this page'
+client.error_message.exist.email: 'This client already exists with this email'
+client.error_message.exist.phone: 'This client already exists with this phone number'
+client.non_financial_asset.immobilier_location.label: 'Rental Real Estate'
+client.non_financial_asset.immobilier_location.rental_real_estate: 'Rental Real Estate'
+client.non_financial_asset.immobilier_location.pinel_law: 'Rental Real Estate - Pinel Law'
+client.non_financial_asset.immobilier_location.pinel_law_overseas: 'Rental Real Estate - Pinel Law (overseas)'
+client.non_financial_asset.immobilier_location.denormandie_law: 'Rental Real Estate - Denormandie Law'
+client.non_financial_asset.immobilier_location.denormandie_law_overseas: 'Rental Real Estate - Denormandie Law (overseas)'
+client.non_financial_asset.immobilier_location.duflot_law: 'Rental Real Estate - Duflot Law'
+client.non_financial_asset.immobilier_location.duflot_law_overseas: 'Rental Real Estate - Duflot Law (overseas)'
+client.non_financial_asset.immobilier_location.scellier_law: 'Rental Real Estate - Scellier Law'
+client.non_financial_asset.immobilier_location.scellier_law_bbc: 'Rental Real Estate - Scellier Law (BBC)'
+client.non_financial_asset.immobilier_location.scellier_law_dom_tom: 'Rental Real Estate - Scellier Law (DOM-TOM)'
+client.non_financial_asset.immobilier_location.demessine_law: 'Rental Real Estate - Demessine Law'
+client.non_financial_asset.immobilier_location.girardin_law_new_housing_free_zone: 'Rental Real Estate - Girardin Law (new housing - free zone)'
+client.non_financial_asset.immobilier_location.girardin_law_new_housing_intermediate_zone: 'Rental Real Estate - Girardin Law (new housing - intermediate zone)'
+client.non_financial_asset.immobilier_location.robien_law_classic_outside_zrr: 'Rental Real Estate - Robien Law (classic outside ZRR)'
+client.non_financial_asset.immobilier_location.robien_law_classic_zrr: 'Rental Real Estate - Robien Law (classic in ZRR)'
+client.non_financial_asset.immobilier_location.robien_law_recentrated_outside_zrr: 'Rental Real Estate - Robien Law (recentered outside ZRR)'
+client.non_financial_asset.immobilier_location.robien_law_recentrated_zrr: 'Rental Real Estate - Robien Law (recentered in ZRR)'
+client.non_financial_asset.immobilier_location.borloo_law_new: 'Rental Real Estate - Borloo Law (new)'
+client.non_financial_asset.immobilier_location.borloo_law_old_social: 'Rental Real Estate - Borloo Law (old social)'
+client.non_financial_asset.immobilier_location.borloo_law_old_intermediate: 'Rental Real Estate - Borloo Law (old intermediate)'
+client.non_financial_asset.immobilier_location.besson_law_new: 'Rental Real Estate - Besson Law (new)'
+client.non_financial_asset.immobilier_location.besson_law_old: 'Rental Real Estate - Besson Law (old)'
+client.non_financial_asset.immobilier_location.perissol_law: 'Rental Real Estate - Périssol Law'
+client.non_financial_asset.immobilier_location.malraux_law: 'Rental Real Estate - Malraux Law'
+client.non_financial_asset.immobilier_location.historic_monuments: 'Rental Real Estate - Historic Monuments'
+client.non_financial_asset.immobilier_location.lmp: 'Real Estate - LMP'
+client.non_financial_asset.immobilier_location.lmnp: 'Real Estate - LMNP'
+client.non_financial_asset.immobilier_location.lmnp_bouvard_law: 'Real Estate - LMNP - Bouvard Law'
+client.non_financial_asset.immobilier_location.sci_shares: 'SCI Shares'
+client.non_financial_asset.parts_scpi.label: 'SCPI Shares'
+client.non_financial_asset.parts_scpi.scpi_shares: 'SCPI Shares'
+client.non_financial_asset.parts_scpi.scpi_pinel_law: 'SCPI Shares - Pinel Law'
+client.non_financial_asset.parts_scpi.scpi_pinel_law_overseas: 'SCPI Shares - Pinel Law (overseas)'
+client.non_financial_asset.parts_scpi.scpi_denormandie_law: 'SCPI Shares - Denormandie Law'
+client.non_financial_asset.parts_scpi.scpi_denormandie_law_overseas: 'SCPI Shares - Denormandie Law (overseas)'
+client.non_financial_asset.parts_scpi.scpi_duflot_law: 'SCPI Shares - Duflot Law'
+client.non_financial_asset.parts_scpi.scpi_duflot_law_overseas: 'SCPI Shares - Duflot Law (overseas)'
+client.non_financial_asset.parts_scpi.scpi_scellier_law: 'SCPI Shares - Scellier Law'
+client.non_financial_asset.parts_scpi.scpi_scellier_law_bbc: 'SCPI Shares - Scellier Law (BBC)'
+client.non_financial_asset.parts_scpi.scpi_scellier_law_dom_tom: 'SCPI Shares - Scellier Law (DOM-TOM)'
+client.non_financial_asset.parts_scpi.scpi_demessine_law: 'SCPI Shares - Demessine Law'
+client.non_financial_asset.parts_scpi.scpi_girardin_law_new_housing_free_zone: 'SCPI Shares - Girardin Law (new housing - free zone)'
+client.non_financial_asset.parts_scpi.scpi_girardin_law_new_housing_intermediate_zone: 'SCPI Shares - Girardin Law (new housing - intermediate zone)'
+client.non_financial_asset.parts_scpi.scpi_robien_law_classic_outside_zrr: 'SCPI Shares - Robien Law (classic outside ZRR)'
+client.non_financial_asset.parts_scpi.scpi_robien_law_classic_zrr: 'SCPI Shares - Robien Law (classic in ZRR)'
+client.non_financial_asset.parts_scpi.scpi_robien_law_recentrated_outside_zrr: 'SCPI Shares - Robien Law (recentered outside ZRR)'
+client.non_financial_asset.parts_scpi.scpi_robien_law_recentrated_zrr: 'SCPI Shares - Robien Law (recentered in ZRR)'
+client.non_financial_asset.parts_scpi.scpi_borloo_law_new: 'SCPI Shares - Borloo Law (new)'
+client.non_financial_asset.parts_scpi.scpi_borloo_law_old_social: 'SCPI Shares - Borloo Law (old social)'
+client.non_financial_asset.parts_scpi.scpi_borloo_law_old_intermediate: 'SCPI Shares - Borloo Law (old intermediate)'
+client.non_financial_asset.parts_scpi.scpi_besson_law_new: 'SCPI Shares - Besson Law (new)'
+client.non_financial_asset.parts_scpi.scpi_besson_law_old: 'SCPI Shares - Besson Law (old)'
+client.non_financial_asset.parts_scpi.scpi_perissol_law: 'SCPI Shares - Périssol Law'
+client.non_financial_asset.parts_scpi.scpi_malraux_law: 'SCPI Shares - Malraux Law'
+client.non_financial_asset.parts_scpi.scpi_historic_monuments: 'SCPI Shares - Historic Monuments'
+client.non_financial_asset.professional_property.label: 'Professional Property'
+client.non_financial_asset.professional_property.social_rights: 'Social Rights'
+client.non_financial_asset.professional_property.individual_company: 'Individual Company'
+client.non_financial_asset.professional_property.commercial_fund_customers: 'Commercial Fund Customers'
+client.non_financial_asset.professional_property.professional_buildings: 'Professional Buildings'
+client.non_financial_asset.professional_property.other_professional_goods: 'Other Professional Goods'
+client.non_financial_asset.lead_investment.label: 'Land and Miscellaneous Investments'
+client.non_financial_asset.lead_investment.farmland: 'Farmland (rented)'
+client.non_financial_asset.lead_investment.forestry_group: 'Forestry Group Shares'
+client.non_financial_asset.lead_investment.wood_drill: 'Woodlands and Forests'
+client.non_financial_asset.lead_investment.rural_land: 'Rural Properties (long-term leases)'
+client.non_financial_asset.lead_investment.gfa_gaf: 'GFA/GAF/GFV and GFR Shares'
+client.non_financial_asset.lead_investment.forest_company: 'Forest Savings Company Shares'
+client.non_financial_asset.lead_investment.art: 'Art Objects and Antiques'
+client.non_financial_asset.lead_investment.other_land_investment: 'Other Miscellaneous Investments'
+client.non_financial_asset.designation: Designation
+client.non_financial_asset.estimated_value: 'Estimated Value'
+client.non_financial_asset.held_by: 'Held by'
+client.revenues.label: Revenues
+client.revenues.add_button: 'Add Revenue'
+client.revenues.designation: Designation
+client.revenues.annual_amount: 'Annual Amount'
+client.revenues.beneficiary: Beneficiary
+client.revenues.nature.label: Nature
+client.revenues.nature.salary: Salaries
+client.revenues.nature.industrial_commercial: 'Industrial and Commercial Revenues'
+client.revenues.nature.non_commercial: 'Non-Commercial Revenues'
+client.revenues.nature.agricultural: 'Agricultural Revenues'
+client.revenues.nature.property: 'Property Revenues'
+client.revenues.nature.society_dividends: 'Dividends of Partnership'
+client.revenues.nature.patrimonial_dividends: 'Dividends of Holdings'
+client.revenues.nature.financial: 'Financial Revenues'
+client.revenues.nature.alimony: 'Alimony and Pensions'
+client.revenues.nature.unemployment: 'Unemployment Benefits'
+client.revenues.nature.retraining: 'Retraining Allowance'
+client.revenues.nature.disability: 'Disability Pensions'
+client.revenues.nature.retirement: 'Retirement Pensions'
+client.revenues.nature.rsi: 'RSI / CIPAV'
+client.revenues.nature.microsocial: Micro-Social
+client.revenues.nature.bnc: 'Non-Commercial Profits'
+client.revenues.nature.bic: 'Industrial and Commercial Profits'
+client.revenues.nature.professional: 'Professional Revenues'
+client.revenues.nature.transfers: Transfers
+client.revenues.nature.rental_income: 'Rental Income'
+client.revenues.nature.capital_gains: 'Capital Gains'
+client.revenues.nature.miscellaneous: 'Miscellaneous Revenues'
+client.revenues.nature.tax_exempt_revenue: 'Tax-Exempt Revenues'
+client.revenues.nature.replacement_income: 'Replacement Income'
+client.revenues.nature.profit_income: 'Income from Profitable Activity'
+client.revenues.nature.investment_income: 'Investment Income'
+client.revenues.nature.stock_income: 'Income from Shares/Stocks'
+client.revenues.nature.salary_income: 'Income from Salaries'
+client.revenues.nature.patrimonial_income: 'Income from Patrimony'
+client.revenues.nature.professional_income: 'Professional Income'
+client.revenues.nature.property_income: 'Property Income'
+client.revenues.nature.dividend_income: 'Dividend Income'
+client.revenues.nature.taxable_income: 'Taxable Income'
+client.revenues.nature.untaxable_income: 'Untaxable Income'
+client.revenues.nature.gains: Gains
+client.revenues.nature.transfer_funds: 'Transfer of Funds'
+client.revenues.nature.insurance_benefits: 'Insurance Benefits'
+client.revenues.nature.other: Other
+client.revenues.taxation.label: Taxation
+client.revenues.taxation.taxable: Taxable
+client.revenues.taxation.tax_exempt: Tax-Exempt
+client.revenues.frequency.label: Frequency
+client.revenues.frequency.annual: Annual
+client.revenues.frequency.monthly: Monthly
+client.revenues.frequency.quarterly: Quarterly
+client.revenues.frequency.semester: Semester
+client.revenues.perception_date.label: 'Perception Date'
+client.revenues.perception_date.start_date: 'Start Date'
+client.revenues.perception_date.end_date: 'End Date'
+client.revenues.renewable.label: Renewable
+client.revenues.renewable.yes: 'Yes'
+client.revenues.renewable.no: 'No'
+client.revenues.duration.label: Duration
+client.revenues.duration.fixed: 'Fixed Term'
+client.revenues.duration.indeterminate: Indeterminate
+client.revenues.confirmation: 'Do you want to confirm this revenue entry?'
+client.revenues.modification: 'Do you want to modify this revenue entry?'
+client.revenues.deletion: 'Do you want to delete this revenue entry?'
+client.revenues.total_annual_income: 'Total Annual Income'
+client.revenues.total_monthly_income: 'Total Monthly Income'
+client.revenues.total_quarterly_income: 'Total Quarterly Income'
+client.revenues.total_semester_income: 'Total Semester Income'
+client.revenues.total_taxable_income: 'Total Taxable Income'
+client.revenues.total_tax_exempt_income: 'Total Tax-Exempt Income'
+client.revenues.annual_taxable_income: 'Annual Taxable Income'
+client.revenues.monthly_taxable_income: 'Monthly Taxable Income'
+client.revenues.quarterly_taxable_income: 'Quarterly Taxable Income'
+client.revenues.semester_taxable_income: 'Semester Taxable Income'
+client.revenues.annual_tax_exempt_income: 'Annual Tax-Exempt Income'
+client.revenues.monthly_tax_exempt_income: 'Monthly Tax-Exempt Income'
+client.revenues.quarterly_tax_exempt_income: 'Quarterly Tax-Exempt Income'
+client.revenues.semester_tax_exempt_income: 'Semester Tax-Exempt Income'
+client.revenues.add_revenue: 'Add a Revenue'
+client.revenues.edit_revenue: 'Edit a Revenue'
+client.revenues.delete_revenue: 'Delete a Revenue'
+client.revenues.revenue_saved_successfully: 'Revenue saved successfully'
+client.revenues.revenue_updated_successfully: 'Revenue updated successfully'
+client.revenues.revenue_deleted_successfully: 'Revenue deleted successfully'
+client.revenues.error_saving_revenue: 'Error saving revenue'
+client.revenues.error_updating_revenue: 'Error updating revenue'
+client.revenues.error_deleting_revenue: 'Error deleting revenue'
+client.expenses.label: Expenses
+client.expenses.add_button: 'Add Expense'
+client.expenses.designation: Designation
+client.expenses.annual_amount: 'Annual Amount'
+client.expenses.beneficiary: Beneficiary
+client.expenses.nature.label: Nature
+client.expenses.nature.housing: Housing
+client.expenses.nature.food: Food
+client.expenses.nature.utilities: Utilities
+client.expenses.nature.transportation: Transportation
+client.expenses.nature.insurance: Insurance
+client.expenses.nature.education: Education
+client.expenses.nature.health: Health
+client.expenses.nature.leisure: Leisure
+client.expenses.nature.taxation: Taxation
+client.expenses.nature.loans: Loans
+client.expenses.nature.family_support: 'Family Support'
+client.expenses.nature.donations: Donations
+client.expenses.nature.miscellaneous: Miscellaneous
+client.expenses.taxation.label: Taxation
+client.expenses.taxation.taxable: Taxable
+client.expenses.taxation.tax_exempt: Tax-Exempt
+client.expenses.frequency.label: Frequency
+client.expenses.frequency.annual: Annual
+client.expenses.frequency.monthly: Monthly
+client.expenses.frequency.quarterly: Quarterly
+client.expenses.frequency.semester: Semester
+client.expenses.payment_date.label: 'Payment Date'
+client.expenses.payment_date.start_date: 'Start Date'
+client.expenses.payment_date.end_date: 'End Date'
+client.expenses.renewable.label: Renewable
+client.expenses.renewable.yes: 'Yes'
+client.expenses.renewable.no: 'No'
+client.expenses.duration.label: Duration
+client.expenses.duration.fixed: 'Fixed Term'
+client.expenses.duration.indeterminate: Indeterminate
+client.expenses.confirmation: 'Do you want to confirm this expense entry?'
+client.expenses.modification: 'Do you want to modify this expense entry?'
+client.expenses.deletion: 'Do you want to delete this expense entry?'
+client.expenses.total_annual_expense: 'Total Annual Expense'
+client.expenses.total_monthly_expense: 'Total Monthly Expense'
+client.expenses.total_quarterly_expense: 'Total Quarterly Expense'
+client.expenses.total_semester_expense: 'Total Semester Expense'
+client.expenses.total_taxable_expense: 'Total Taxable Expense'
+client.expenses.total_tax_exempt_expense: 'Total Tax-Exempt Expense'
+client.expenses.annual_taxable_expense: 'Annual Taxable Expense'
+client.expenses.monthly_taxable_expense: 'Monthly Taxable Expense'
+client.expenses.quarterly_taxable_expense: 'Quarterly Taxable Expense'
+client.expenses.semester_taxable_expense: 'Semester Taxable Expense'
+client.expenses.annual_tax_exempt_expense: 'Annual Tax-Exempt Expense'
+client.expenses.monthly_tax_exempt_expense: 'Monthly Tax-Exempt Expense'
+client.expenses.quarterly_tax_exempt_expense: 'Quarterly Tax-Exempt Expense'
+client.expenses.semester_tax_exempt_expense: 'Semester Tax-Exempt Expense'
+client.expenses.add_expense: 'Add an Expense'
+client.expenses.edit_expense: 'Edit an Expense'
+client.expenses.delete_expense: 'Delete an Expense'
+client.expenses.expense_saved_successfully: 'Expense saved successfully'
+client.expenses.expense_updated_successfully: 'Expense updated successfully'
+client.expenses.expense_deleted_successfully: 'Expense deleted successfully'
+client.expenses.error_saving_expense: 'Error saving expense'
+client.expenses.error_updating_expense: 'Error updating expense'
+client.expenses.error_deleting_expense: 'Error deleting expense'
+client.loan.label: Loans
+client.loan.add_button: 'Add Loan'
+client.loan.designation: Designation
+client.loan.amount: Amount
+client.loan.beneficiary: Beneficiary
+client.loan.type.label: Type
+client.loan.type.mortgage: 'Mortgage Loan'
+client.loan.type.consumer: 'Consumer Loan'
+client.loan.type.auto: 'Auto Loan'
+client.loan.type.student: 'Student Loan'
+client.loan.type.personal: 'Personal Loan'
+client.loan.type.business: 'Business Loan'
+client.loan.type.revolving: 'Revolving Loan'
+client.loan.type.other: Other
+client.loan.duration.label: Duration
+client.loan.duration.fixed: 'Fixed Term'
+client.loan.duration.indeterminate: Indeterminate
+client.loan.interest_rate.label: 'Interest Rate'
+client.loan.interest_rate.fixed: 'Fixed Rate'
+client.loan.interest_rate.variable: 'Variable Rate'
+client.loan.repayment.label: Repayment
+client.loan.repayment.annuity: Annuity
+client.loan.repayment.linear: Linear
+client.loan.repayment.interest_only: Interest-Only
+client.loan.confirmation: 'Do you want to confirm this loan entry?'
+client.loan.modification: 'Do you want to modify this loan entry?'
+client.loan.deletion: 'Do you want to delete this loan entry?'
+client.loan.total_loan_amount: 'Total Loan Amount'
+client.loan.total_annual_repayment: 'Total Annual Repayment'
+client.loan.total_monthly_repayment: 'Total Monthly Repayment'
+client.loan.add_loan: 'Add a Loan'
+client.loan.edit_loan: 'Edit a Loan'
+client.loan.delete_loan: 'Delete a Loan'
+client.loan.loan_saved_successfully: 'Loan saved successfully'
+client.loan.loan_updated_successfully: 'Loan updated successfully'
+client.loan.loan_deleted_successfully: 'Loan deleted successfully'
+client.loan.error_saving_loan: 'Error saving loan'
+client.loan.error_updating_loan: 'Error updating loan'
+client.loan.error_deleting_loan: 'Error deleting loan'
+client.insurance.label: Insurance
+client.insurance.add_button: 'Add Insurance'
+client.insurance.designation: Designation
+client.insurance.amount: Amount
+client.insurance.beneficiary: Beneficiary
+client.insurance.type.label: Type
+client.insurance.type.life: 'Life Insurance'
+client.insurance.type.health: 'Health Insurance'
+client.insurance.type.auto: 'Auto Insurance'
+client.insurance.type.home: 'Home Insurance'
+client.insurance.type.travel: 'Travel Insurance'
+client.insurance.type.liability: 'Liability Insurance'
+client.insurance.type.pet: 'Pet Insurance'
+client.insurance.type.business: 'Business Insurance'
+client.insurance.type.other: Other
+client.insurance.premium.label: Premium
+client.insurance.premium.amount: 'Premium Amount'
+client.insurance.premium.frequency.label: Frequency
+client.insurance.premium.frequency.annual: Annual
+client.insurance.premium.frequency.monthly: Monthly
+client.insurance.premium.frequency.quarterly: Quarterly
+client.insurance.premium.frequency.semester: Semester
+client.insurance.coverage_start_date.label: 'Coverage Start Date'
+client.insurance.coverage_end_date.label: 'Coverage End Date'
+client.insurance.duration.label: Duration
+client.insurance.duration.fixed: 'Fixed Term'
+client.insurance.duration.indeterminate: Indeterminate
+client.insurance.confirmation: 'Do you want to confirm this insurance entry?'
+client.insurance.modification: 'Do you want to modify this insurance entry?'
+client.insurance.deletion: 'Do you want to delete this insurance entry?'
+client.insurance.total_premium_amount: 'Total Premium Amount'
+client.insurance.total_annual_premium: 'Total Annual Premium'
+client.insurance.total_monthly_premium: 'Total Monthly Premium'
+client.insurance.add_insurance: 'Add an Insurance'
+client.insurance.edit_insurance: 'Edit an Insurance'
+client.insurance.delete_insurance: 'Delete an Insurance'
+client.insurance.insurance_saved_successfully: 'Insurance saved successfully'
+client.insurance.insurance_updated_successfully: 'Insurance updated successfully'
+client.insurance.insurance_deleted_successfully: 'Insurance deleted successfully'
+client.insurance.error_saving_insurance: 'Error saving insurance'
+client.insurance.error_updating_insurance: 'Error updating insurance'
+client.insurance.error_deleting_insurance: 'Error deleting insurance'
+client.accounting.label: Accounting
+client.accounting.add_button: 'Add Accounting Entry'
+client.accounting.designation: Designation
+client.accounting.amount: Amount
+client.accounting.type.label: Type
+client.accounting.type.revenue: Revenue
+client.accounting.type.expense: Expense
+client.accounting.type.loan: Loan
+client.accounting.type.insurance: Insurance
+client.accounting.type.other: Other
+client.accounting.date.label: Date
+client.accounting.date.start_date: 'Start Date'
+client.accounting.date.end_date: 'End Date'
+client.accounting.confirmation: 'Do you want to confirm this accounting entry?'
+client.accounting.modification: 'Do you want to modify this accounting entry?'
+client.accounting.deletion: 'Do you want to delete this accounting entry?'
+client.accounting.total_amount: 'Total Amount'
+client.accounting.add_entry: 'Add an Accounting Entry'
+client.accounting.edit_entry: 'Edit an Accounting Entry'
+client.accounting.delete_entry: 'Delete an Accounting Entry'
+client.accounting.entry_saved_successfully: 'Accounting entry saved successfully'
+client.accounting.entry_updated_successfully: 'Accounting entry updated successfully'
+client.accounting.entry_deleted_successfully: 'Accounting entry deleted successfully'
+client.accounting.error_saving_entry: 'Error saving accounting entry'
+client.accounting.error_updating_entry: 'Error updating accounting entry'
+client.accounting.error_deleting_entry: 'Error deleting accounting entry'
+client.summary.label: Summary
+client.summary.revenue_summary: 'Revenue Summary'
+client.summary.expense_summary: 'Expense Summary'
+client.summary.loan_summary: 'Loan Summary'
+client.summary.insurance_summary: 'Insurance Summary'
+client.summary.total_revenue: 'Total Revenue'
+client.summary.total_expense: 'Total Expense'
+client.summary.total_loan: 'Total Loan'
+client.summary.total_insurance: 'Total Insurance'
+client.summary.total_accounting: 'Total Accounting'
+client.summary.net_balance: 'Net Balance'
+client.summary.monthly_net_balance: 'Monthly Net Balance'
+client.summary.annual_net_balance: 'Annual Net Balance'
+client.summary.quarterly_net_balance: 'Quarterly Net Balance'
+client.summary.semester_net_balance: 'Semester Net Balance'
+client.summary.total_taxable_revenue: 'Total Taxable Revenue'
+client.summary.total_tax_exempt_revenue: 'Total Tax-Exempt Revenue'
+client.summary.total_taxable_expense: 'Total Taxable Expense'
+client.summary.total_tax_exempt_expense: 'Total Tax-Exempt Expense'
+client.summary.total_taxable_net_balance: 'Total Taxable Net Balance'
+client.summary.total_tax_exempt_net_balance: 'Total Tax-Exempt Net Balance'
+client.summary.confirmation: 'Do you want to confirm this summary?'
+client.summary.modification: 'Do you want to modify this summary?'
+client.summary.deletion: 'Do you want to delete this summary?'
+client.summary.saved_successfully: 'Summary saved successfully'
+client.summary.updated_successfully: 'Summary updated successfully'
+client.summary.deleted_successfully: 'Summary deleted successfully'
+client.summary.error_saving: 'Error saving summary'
+client.summary.error_updating: 'Error updating summary'
+client.summary.error_deleting: 'Error deleting summary'
+isVerified: 'Is verified'
+Civility: Civility
+Name: Name
+'First Name': '__First Name'
+'Birth Name': '__Birth Name'
+'Birth Date': '__Birth Date'
+'Postal Code': '__Postal Code'
+City: City
+Country: Country
+Nationality: Nationality
+Job: Job
+'Job CSP': '__Job CSP'
+'Retirement Age': '__Retirement Age'
+'Marital Situation': '__Marital Situation'
+Handicap: Handicap
+powens:
+    button:
+        show: 'Show Powens'
+Hide: Hide
+Show: Show
+repeated_password:
+    password_same: 'The password and its confirmation must be the same'
+    password_length: 'Password must be at least %value% characters long'
+    password_min_nb_special: 'Password must contain at least %value% special characters'
+    password_min_nb_upper: 'Password must contain at least %value% uppercase characters'
+    password_min_nb_lower: 'Password must contain at least %value% lowercase characters'
+    password_min_nb_digit: 'Password must contain at least %value% digit characters'
+defaultColor: 'Default Color'
+primaryColor: 'Primary Color'
+secondaryColor: 'Secondary Color'
+tertiaryColor: 'Tertiary Color'
+account: 'My account'
+
+content: __content
+contentPath: __contentPath
+resource: __resource
+resourcePath: __resourcePath
+supportingDocument: __supportingDocument
+parsedResult: __parsedResult
+supportingDocuments: __supportingDocuments
+clientMetadata: __clientMetadata
+document_name: __document_name
+validity_date: __validity_date
+document_type: __document_type
+file_size: __file_size
+supportingDocumentPdfParsed: __supportingDocumentPdfParsed
+parsingStatus: __parsingStatus
+cssPath: __cssPath
+powensAccounts: __powensAccounts
+templates: __templates
+createdAt: __createdAt
+powensAccountNonFinancialAsset: __powensAccountNonFinancialAsset
+powensAccountLiability: __powensAccountLiability
+powensAccountContract: __powensAccountContract
+powensAccountFinancialAsset: __powensAccountFinancialAsset
+powensAccountSaving: __powensAccountSaving
+powensAccountInsurance: __powensAccountInsurance
+personneId: __personneId
+personneRef: __personneRef
+client.non_financial_asset.biens_usage.label: 'Usage of Non-Financial Assets'
+client.expenses.nature.rent: 'Rent'
+client.expenses.nature.education_expenses: 'Education Expenses'
+client.expenses.nature.home_employee: 'Home Employee'
+client.expenses.nature.childcare: 'Childcare'
+client.expenses.nature.alimony: 'Alimony'
+client.expenses.nature.property_tax: 'Property Tax'
+client.expenses.nature.housing_tax: 'Housing Tax'
+client.expenses.nature.other_expenses: 'Other Expenses'
+client.insurance.nature.multisupport_life_insurance: 'Multisupport Life Insurance'
+client.insurance.nature.euro_growth_life_insurance: 'Euro-Growth Life Insurance'
+client.insurance.nature.euro_life_insurance: 'Euro Life Insurance'
+client.insurance.nature.generation_life_insurance: 'Generation Life Insurance'
+client.insurance.nature.multisupport_pep_life_insurance: 'Multisupport PEP Life Insurance'
+client.insurance.nature.uc_capitalization_bonds_contracts: 'UC Capitalization Bonds Contracts'
+client.insurance.nature.euro_capitalization_bonds_contracts: 'Euro Capitalization Bonds Contracts'
+client.financial_asset.financial_investments.securities_account: 'Securities Account'
+client.financial_asset.financial_investments.pea: 'PEA'
+client.financial_asset.financial_investments.pea_pme: 'PEA-PME'
+client.financial_asset.financial_investments.equity_mutual_fund: 'Equity Mutual Fund'
+client.financial_asset.financial_investments.bond_mutual_fund: 'Bond Mutual Fund'
+client.financial_asset.financial_investments.monetary_mutual_fund: 'Monetary Mutual Fund'
+client.financial_asset.financial_investments.french_and_european_shares: 'French and European Shares'
+client.financial_asset.financial_investments.foreign_shares: 'Foreign Shares'
+client.financial_asset.financial_investments.bonds: 'Bonds'
+client.financial_asset.financial_investments.sofica_shares: 'SOFICA Shares'
+client.financial_asset.financial_investments.fcpi_shares: 'FCPI Shares'
+client.financial_asset.financial_investments.fcpr_shares: 'FCPR Shares'
+client.financial_asset.financial_investments.fip_shares: 'FIP Shares'
+client.financial_asset.financial_investments.isf_holding_shares: 'ISF Holding Shares'
+client.financial_asset.financial_investments.sme_tpe_capital: 'SME/TPE Capital'
+client.financial_asset.financial_investments.dutreil_pact_social_rights: 'Dutreil Pact Social Rights'
+client.financial_asset.financial_investments.social_rights_employees_managers: 'Social Rights of Employees/Managers'
+client.financial_asset.financial_investments.other_social_rights: 'Other Social Rights'
+client.financial_asset.financial_investments.other_securities: 'Other Securities'
+client.contract.nature.temporary_death: 'Temporary Death'
+client.contract.nature.whole_life: 'Whole Life'
+client.contract.nature.deferred_capital: 'Deferred Capital'
+client.contract.nature.individual_protection_contract: 'Individual Protection Contract'
+client.liability.loan_type.constant_installments: 'Constant Installments'
+client.liability.loan_type.constant_installments_excluding_insurance: 'Constant Installments (Excluding Insurance)'
+client.liability.loan_type.bullet_loan: 'Bullet Loan'
+client.liability.loan_type.non_amortizable_debt: 'Non-Amortizable Debt'
+client.financial_asset.availability.label: 'Availability'
+client.financial_asset.financial_investments.label: 'Financial Investments'
+client.revenues.nature.pension_retirement: 'Pension/Retirement'
+client.revenues.nature.annuity: 'Annuity'
+client.revenues.nature.movable_income: 'Movable Income'
+client.revenues.nature.other_regular_income: 'Other Regular Income'
+client.saving.nature.pee_pei: 'PEE/PEI'
+client.saving.nature.per_individual_insurance: 'PER Individual Insurance'
+client.saving.nature.per_enterprise_collective_insurance: 'PER Enterprise Collective Insurance'
+client.saving.nature.per_enterprise_mandatory_insurance: 'PER Enterprise Mandatory Insurance'
+client.saving.nature.per_individual_securities_account: 'PER Individual Securities Account'
+client.saving.nature.per_enterprise_collective_securities_account: 'PER Enterprise Collective Securities Account'
+client.saving.nature.per_enterprise_mandatory_securities_account: 'PER Enterprise Mandatory Securities Account'
+client.saving.nature.perco_percoi: 'PERCO/PERCOI'
+client.saving.nature.perp: 'PERP'
+client.saving.nature.madelin_contract: 'Madelin Contract'
+client.saving.nature.madelin_agricultural_contract: 'Madelin Agricultural Contract'
+client.saving.nature.article_83_contract: 'Article 83 Contract'
+client.saving.nature.article_82_contract: 'Article 82 Contract'
+client.saving.nature.prefon_retirement_contract: 'Prefon Retirement Contract'
+client.financial_asset.availability.current_account: 'Current Account'
+client.financial_asset.availability.savings_account: 'Savings Account'
+client.financial_asset.availability.sustainable_development_booklet: 'Sustainable Development Booklet'
+client.financial_asset.availability.a_booklet: 'A Booklet'
+client.financial_asset.availability.blue_booklet: 'Blue Booklet'
+client.financial_asset.availability.popular_savings_booklet: 'Popular Savings Booklet'
+client.financial_asset.availability.youth_booklet: 'Youth Booklet'
+client.financial_asset.availability.home_savings_account: 'Home Savings Account'
+client.financial_asset.availability.term_account: 'Term Account'
+client.financial_asset.availability.associates_current_account: 'Associates Current Account'
+client.financial_asset.availability.cash_bonds: 'Cash Bonds'
+client.financial_asset.availability.other_availabilities: 'Other Availabilities'
+client.financial_asset.availability.home_savings_plan: 'Home Savings Plan'
+client.financial_asset.availability.bank_pep: 'Bank PEP'
+client.financial_asset.availability.other_deposits: 'Other Deposits'
+client.liability.nature.home_loan: 'Home Loan'
+client.liability.nature.real_estate_loan: 'Real Estate Loan'
+client.liability.nature.professional_loan: 'Professional Loan'
+client.liability.nature.consumer_credit: 'Consumer Credit'
+client.liability.nature.cash_advances: 'Cash Advances'
+client.liability.nature.tax_debts: 'Tax Debts'
+client.liability.nature.family_debts: 'Family Debts'
+client.liability.nature.other_debts: 'Other Debts'
+client.non_financial_asset.biens_usage.principal_residence: 'Principal Residence'
+client.non_financial_asset.biens_usage.secondary_residences: 'Secondary Residences'
+client.non_financial_asset.biens_usage.lands: 'Lands'
+client.non_financial_asset.biens_usage.other_usage_goods: 'Other Usage Goods'
+client.non_financial_asset.biens_usage.furnished_furniture: 'Furnished Furniture'
+client.familial.label: 'Familial'
+client.patrimonial.label: 'Patrimonial'
+client.budget.label: 'Budget'
+client.objectives.label: 'Objectives'
+client.you: 'You'
+client.job.label: 'Job'
+client.spouse.label: 'Spouse'
+client.contact.label: 'Contact'
+client.spouse.add: 'Add Spouse'
+registrationFormCompanyName: 'Enter your company name'
+company.index: 'Company Index'
+user.index: "User Index"
+Admin: 'Admin'
+Email: 'Email'
+name: 'Name'
+Nature: Nature
+Select a category first: Select a category first
+Objectives: Objectives
+Comment: Comment
+Search: 'Search for clients...'
+Type: Type
+Logo: Logo
+Client Form: Client Form
+Create new Company: Create new Company
+client_document.subject: Subject
+update_profile:
+    overview: 'Overview'
+    edit_profile: 'Edit Profile'
+    change_password: 'Change Password'
+    profile_details: 'Profile Details'
+    last_name: 'Last Name'
+    first_name: 'First Name'
+    profile_picture:
+        label: 'Profile Picture'
+        mime_type: 'Please upload a valid image file (JPEG/PNG).'
+        delete_sumbit: 'Delete the profile picture'
+    email: 'Email'
+    submit_changes: 'Save Changes'
+    current_password: 'Current Password'
+    new_password: 'New Password'
+    confirm_new_password: 'Confirm New Password'
+    submit_password_change: 'Change Password'
+    tooltip_name: 'To change your last name, please contact the administrator.'
+    tooltip_first_name: 'To change your first name, please contact the administrator.'
+    2fa:
+        label: 'Authentication'
+        enable_email: 'Enable Email Authentication'
+        enable_google: "Enable Google Authentication"
+        disable_google: "Disable Google Authentication"
+        warning: "Enabling Google Authenticator will disable email authentication and vice versa."
+header:
+    search:
+        placeholder: "Search"
+        title: "Enter search keyword"
+        button:
+            title: "Search"
+    profile:
+        my_profile: "My Profile"
+        account_settings: "Account Settings"
+        sign_out: "Sign Out"
+    company:
+        settings: "Company Settings"
+clientTurboError: Error Occurred
+login:
+    title: "Login to Your Account"
+    subtitle: "Enter your email & password to login"
+client_profile:
+    information: "Information"
+    expenses:
+        label: "Expenses"
+        total: "Total Expenses"
+    revenues:
+        label: "Revenues"
+        total: "Total Revenues"
+    balance:
+        label: "Balance"
+        total: "Total Balance"
+    beneficiary:
+        client: "Client"
+        spouse: "Spouse"
+        two: "Client & Spouse"
+    spouse:
+        job_information: "Job Information"
+        birth_information: "Birth Information"
+client_stats:
+    increase: "Increase"
+    decrease: "Decrease"
+    stable: "Stable"
+dashboard:
+    hello: "Hello"
+    history_signature:
+        label: "History Signature"
+    actuality:
+        label: "Actuality"
+2fa:
+    title: "Two-Factor Authentication"
+    enter_google_code: "Enter the code from Google Authenticator"
+    enter_email_code: "Enter the code sent to your email"
+    google_code_info: "Please enter the code generated by Google Authenticator."
+    email_code_info: "Please enter the code sent to your email."
+    enter_code: "Enter the 2FA code"
+    code_sent: "We have sent a verification code."
+    code_label: "Authentication code"
+    invalid_code: "Invalid authentication code."
+    submit: "Submit"
+    resend: "Resend code"
+    google:
+        title: "Set up Google Authenticator"
+        scan: "Scan this QR code with your Google Authenticator app to link your account."
+        manual_code: "If you cannot scan the QR code, you can manually enter this code in the app:"
+flash_message:
+    google_authenticator:
+        enabled: "Google Authenticator has been enabled."
+        disabled: "Google Authenticator has been disabled."
+    mail_authenticator:
+        enabled: "Email Authenticator has been enabled."
+        disabled: "Email Authenticator has been disabled."
+    change_password:
+        success: "Your password has been successfully changed."
+        invalid_format: "The password has an invalid format."
+    profile_updated:
+        success: "Your profile has been successfully updated."
+        deleted_profile_picture: "Your profile picture has been successfully deleted."
+
+        

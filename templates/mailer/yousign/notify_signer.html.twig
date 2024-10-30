@@ -1,0 +1,17 @@
+{% extends 'mailer/base_email.html.twig' %}
+
+{% block email_content %}
+    <p>
+        {% trans with {'%documentName%': documentName} %}
+            emails.yousign.notify_signer.text_document
+        {% endtrans %}
+    </p>
+    <p>
+        {% set aLink %}
+            <a href="{{ link }}">{{ documentName }}</a>
+        {% endset %}
+        {% trans with {'%link%': aLink} %}
+            emails.yousign.notify_signer.text_link
+        {% endtrans %}
+    </p>
+{% endblock %}

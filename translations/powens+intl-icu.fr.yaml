@@ -1,0 +1,70 @@
+account_type:
+    article83: 'Article 83'
+    capitalisation: Capitalisation
+    card: Carte
+    checking: 'Compte courant'
+    crowdlending: Crowdlending
+    deposit: Dépôt
+    joint: 'Compte joint'
+    ldds: LDDS
+    lifeinsurance: 'Assurance vie'
+    loan: Prêt
+    madelin: Madelin
+    market: Marché
+    pea: PEA
+    pee: PEE
+    per: PER
+    perco: PERCO
+    perp: PERP
+    real_estate: Immobilier
+    rsp: RSP
+    savings: Épargne
+    unknown: Inconnu
+show:
+    title: Comptes
+    h2: Comptes
+    client: Client
+    table:
+        name: Nom
+        type: Type
+        currency: Devise
+        iban: IBAN
+        last_update: 'Dernière mise à jour'
+        error: Erreur
+        actions: Actions
+        linked: Lié
+        button:
+            modify: 'Modifier le lien'
+            add: 'Ajouter un lien'
+            unlink: 'Supprimer le lien'
+unknown: Inconnu
+none: Aucun
+no_record: 'Aucun compte trouvé'
+select:
+    back: Retour
+    tab:
+        contract: Contrat
+        insurance: Assurance
+        saving: Épargne
+        liability: Obligation
+        financial_asset: 'Actif financier'
+        non_financial_asset: 'Actif non financier'
+    table:
+        nature: Nature
+        opening_date: "Date d'ouverture"
+        estimated_value: 'Valeur estimée'
+        held_by: 'Détenu par'
+        loan_type: 'Type de prêt'
+        subscription_date: 'Date de souscription'
+        borrowed_amount: 'Montant emprunté'
+        category: Catégorie
+        designation: Désignation
+        mode_of_holding: 'Mode de détention'
+    button:
+        link: Lié
+account:
+    flash:
+        success:
+            linked: 'Le compte a été lié avec succès'
+        warning:
+            already_linked: 'Aucun changement, le compte est déjà lié à ce contrat'

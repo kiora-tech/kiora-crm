@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Company;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -10,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
 
 #[Route('/user')]
 class UserController extends AbstractController
@@ -41,7 +43,19 @@ class UserController extends AbstractController
             'form' => $form,
         ]);
     }
+    #[Route('/company/{id}', name: 'app_user_company_index', requirements: ['id' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    public function companyIndex(Company $company): Response
+    {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            throw new \LogicException('User is not valid');
+        }
 
+        return $this->render('user/index.html.twig', [
+            'users' => $company->getUsers(),
+            'impersonate' => true,
+        ]);
+    }
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
@@ -77,5 +91,14 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/edit/profile', name: 'app_user_profile', methods: ['GET', 'POST'])]
+    public function profile(): void
+    {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            throw new \LogicException('User is not valid');
+        }
+
     }
 }

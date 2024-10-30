@@ -1,0 +1,85 @@
+{% extends 'knp_menu.html.twig' %}
+
+{% block item %}
+{% if item.displayed %}
+{# building the class of the item #}
+    {%- set classes = ['nav-item'] %}
+    {%- if matcher.isCurrent(item) %}
+        {%- set classes = classes|merge([options.currentClass]) %}
+    {%- elseif matcher.isAncestor(item, options.matchingDepth) %}
+        {%- set classes = classes|merge([options.ancestorClass]) %}
+    {%- endif %}
+
+    {# Mark item as "leaf" (no children) or as "branch" (has children that are displayed) #}
+    {% if item.hasChildren and options.depth is not same as(0) %}
+        {% if options.branch_class is not empty and item.displayChildren %}
+            {%- set classes = classes|merge([options.branch_class]) %}
+        {% endif %}
+    {% elseif options.leaf_class is not empty %}
+        {%- set classes = classes|merge([options.leaf_class]) %}
+    {%- endif %}
+
+    {%- set attributes = item.attributes %}
+    {%- if classes is not empty %}
+        {%- set attributes = attributes|merge({'class': classes|join(' ')}) %}
+    {%- endif %}
+{# displaying the item #}
+    {% import _self as knp_menu %}
+    <li{{ knp_menu.attributes(attributes) }}>
+        {%- if item.uri is not empty and (not matcher.isCurrent(item) or options.currentAsLink) %}
+        {{ block('linkElement') }}
+        {%- else %}
+        {{ block('spanElement') }}
+        {%- endif %}
+{# render the list of children#}
+        {%- set childrenClasses = item.childrenAttribute('class') is not empty ? [item.childrenAttribute('class')] : [] %}
+        {%- set childrenClasses = childrenClasses|merge(['menu_level_' ~ item.level]) %}
+        {%- set listAttributes = item.childrenAttributes|merge({'class': childrenClasses|join(' ') }) %}
+        {{ block('list') }}
+    </li>
+{% endif %}
+{% endblock %}
+
+{% block linkElement %}
+    {% import _self as knp_menu %}
+    <a href="{{ app.user is not null ? item.uri : path('app_login') }}" class="nav-link collapsed"{{ knp_menu.attributes(item.linkAttributes) }}>
+        {{ block('label') }}  {# Use block to ensure label is rendered #}
+    </a>
+{% endblock %}
+
+{% block spanElement %}
+    {% import _self as knp_menu %}
+<span{{ knp_menu.attributes(item.labelAttributes) }}>{{ item.label|raw }}</span> {# Fallback for non-clickable item #}
+{% endblock %}
+
+{% block list %}
+    {% if item.hasChildren and options.depth is not same as(0) and item.displayChildren %}
+        {% import _self as knp_menu %}
+        <ul class="sidebar-nav"{{ knp_menu.attributes(listAttributes) }}>
+            {{ block('children') }}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+
+{% block label %}
+    {%- set translation_domain = item.extra('translation_domain', 'messages') -%}
+    {%- set label = item.label -%}
+
+    {# Ensure the label gets translated #}
+    {%- if translation_domain is not same as(false) -%}
+        {%- set label = label|trans(item.extra('translation_params', {}), translation_domain) -%}
+    {%- endif -%}
+
+    {# Render the icon only if it's passed via 'extra' #}
+    {%- if item.extra('icon') is not empty -%}
+        <i class="{{ item.extra('icon') }}"></i> 
+    {%- endif -%}
+
+    {{ label|raw }} {# Render the translated label with raw HTML #}
+{% endblock %}
+
+
+
+
+

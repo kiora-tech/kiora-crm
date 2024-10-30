@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ "client_document.index"|trans }}
+{% endblock %}
+
+{% block body %}
+    <div class="pagetitle">
+        <h1>{{ "client_document.index"|trans }}</h1>
+    </div>
+    <section class="section">
+        <div class="card p-4">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr class="table-primary">
+                        <th>{{ "client_document.name.label"|trans }}</th>
+                        <th>{{ 'client_document.clients.label'|trans }}</th>
+                        <th>{{ "client_document.type.label"|trans }}</th>
+                        <th>{{ "client_document.generate_at.label"|trans }}</th>
+                        <th>{{ "head.action"|trans }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for client_document in client_documents %}
+                        <tr>
+                            <td>{{ client_document.name }}</td>
+
+                            <td>
+                                <ul>
+                                    {% for client in client_document.client %}
+                                        <li>{{ client.fullName }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+
+                            <td>{{ client_document.type|trans_enum }}</td>
+
+                            <td>{{ client_document.generatedAt ? client_document.generatedAt|date('common.date_format'|trans) : '' }}</td>
+                            <td>
+                                <a href="{{ path('app_client_document_show', {'id': client_document.id}) }}">{{ "button.show"|trans }}</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">{{ "no_record"|trans }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock %}

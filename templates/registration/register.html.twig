@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Register'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="flex items-center justify-center h-full">
+        <div class="w-full max-w-md">
+            {{ form_start(registrationForm, {'attr': {'class': 'bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4'}}) }}
+            <div class="card-header">
+                <h1 class="card-title">{{ 'Register'|trans }}</h1>
+            </div>
+            <div class="card-body">
+                <div class="mb-4 mt-4 d-flex align-items-center justify-content-between widthLogin">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="registration_form_email">
+                        {{- registrationForm.email.vars.label|trans -}}
+                    </label>
+                    {{ form_widget(registrationForm.email, {'attr': {'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}}) }}
+                    {{ form_help(registrationForm.email) }}
+                    {{ form_errors(registrationForm.email) }}
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="registration_form_name">
+                        {{- registrationForm.name.vars.label|trans -}}
+                    </label>
+                    {{ form_widget(registrationForm.name, {'attr': {'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}}) }}
+                    {{ form_help(registrationForm.name) }}
+                    {{ form_errors(registrationForm.name) }}
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="registration_form_lastName">
+                        {{- registrationForm.lastName.vars.label|trans -}}
+                    </label>
+                    {{ form_widget(registrationForm.lastName, {'attr': {'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}}) }}
+                    {{ form_help(registrationForm.lastName) }}
+                    {{ form_errors(registrationForm.lastName) }}
+                </div>
+                <div class="mb-4">
+                    {{ form_row(registrationForm.password) }}
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="registration_form_company_name">
+                        {{"registrationFormCompanyName"|trans}}
+                    </label>
+                    {{ form_widget(registrationForm.company.name, {'attr': {'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}}) }}
+                    {{ form_help(registrationForm.company.name) }}
+                    {{ form_errors(registrationForm.company.name) }}
+                </div>
+                <div class="flex items-center justify-between">
+                    <button class="btn btn-primary" type="submit" data-turbo="false">
+                        {{ 'Register'|trans }}
+                    </button>
+                </div>
+            </div>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CompanyIdentityController!
+{% endblock %}
+
+{% block body %}
+    <div class="pagetitle">
+        <h1>{{ "edit_identity"|trans }}</h1>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="card p-4">
+                <div class="card-body" data-controller="color-preview">
+                    {{ form_start(form) }}
+                    <div class="d-flex flex-column gap-3">
+                        {% if companyIdentity.logo is defined %}
+                            <img src="{{ vich_uploader_asset(companyIdentity, 'logo') }}" alt="logo" width="100">
+                        {% endif %}
+                        {{ form_row(form.logo) }}
+                        <div class="d-flex flex-row gap-3 justify-content-between">
+                            {{ form_row(form.defaultColor, {'attr': {'data-color-preview-target': 'defaultColor'}}) }}
+                            {{ form_row(form.primaryColor, {'attr': {'data-color-preview-target': 'primaryColor'}}) }}
+                            {{ form_row(form.secondaryColor, {'attr': {'data-color-preview-target': 'secondaryColor'}}) }}
+                            {{ form_row(form.tertiaryColor, {'attr': {'data-color-preview-target': 'tertiaryColor'}}) }}
+                        </div>
+                        <button class="btn btn-primary"
+                                data-action="click->color-preview#showPreview">{{ "button.save"|trans }}</button>
+                        <button type="submit" data-turbo="false" class="d-none"
+                                data-color-preview-target="saveButton">{{ "button.save"|trans }}</button>
+                    </div>
+                    {{ form_end(form) }}
+                    <form action="{{ path('app_company_identity_reset_color', {'id': companyIdentity.company.id}) }}"
+                          method="post" class="d-flex flex-column gap-3 mt-3">
+                        <button data-turbo="false" class="btn btn-primary"
+                                type="submit">{{ "button.reset"|trans }}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

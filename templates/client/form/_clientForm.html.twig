@@ -1,0 +1,122 @@
+<div data-controller="show-spouse">
+<div class="row">
+    <div class="col-12">
+        <h3 class="mb-3">{{ 'client.you'|trans }}</h3>
+    </div>
+    <div class="col-md-6">
+        <div class="mb-3 form-floating">
+            {{ form_widget(form.civility, { 'attr': { 'class': 'form-select', 'placeholder' : '' } }) }}
+            {{ form_errors(form.civility) }}
+            <label for="floatingSelectGrid">{{ 'client.civility.label'|trans }}</label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-floating mb-3">
+            {{ form_widget(form.last_name, { 'attr': { 'class': 'form-control', 'placeholder' : '' } }) }}
+            {{ form_label(form.last_name) }}
+            {{ form_errors(form.last_name) }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-floating mb-3">
+            {{ form_widget(form.first_name, { 'attr': { 'class': 'form-control', 'placeholder' : '' } }) }}
+            {{ form_label(form.first_name) }}
+            {{ form_errors(form.first_name) }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-floating mb-3">
+            {{ form_widget(form.birth_name, { 'attr': { 'class': 'form-control', 'placeholder' : '' } }) }}
+            {{ form_label(form.birth_name) }}
+            {{ form_errors(form.birth_name) }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-floating mb-3">
+            {{ form_widget(form.dbirthdate, { 'attr': { 'class': 'form-control' } }) }}
+            {{ form_label(form.dbirthdate) }}
+            {{ form_errors(form.dbirthdate) }}
+        </div>
+    </div>
+</div>
+<div class="row mt-4" data-controller="postal-code" data-postal-code-postal-code-cities-url-value="{{ path('postal_code_cities') }}">
+    <div class="col-12">
+        <h5 class="mb-3">{{ 'client.birthplace'|trans }}</h5>
+    </div>
+    <div class="col-md-6">
+        <div class="form-floating mb-3">
+            {{ form_widget(form.birthplace_postal_code, { 'attr': { 'class': 'form-control', 'data-postal-code-target': 'postalCode', 'data-action': 'input->postal-code#postalCodeUpdate', 'placeholder': '' } }) }}
+            {{ form_label(form.birthplace_postal_code) }}
+            {{ form_errors(form.birthplace_postal_code) }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-floating mb-3">
+            {{ form_widget(form.birthplace_city, { 'attr': { 'class': 'form-control', 'data-postal-code-target': 'city', 'placeholder' : '' } }) }}
+            <datalist id="{{ form.birthplace_city.vars.id }}List"></datalist>
+            {{ form_label(form.birthplace_city, null, { 'label_attr': { 'class': 'form-label' } }) }}
+            {{ form_errors(form.birthplace_city) }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="mb-3 form-floating">
+            {{ form_widget(form.birthplace_country, { 'attr': { 'class': 'form-select', 'data-postal-code-target': 'country', 'placeholder' : '' } }) }}
+            {{ form_errors(form.birthplace_country) }}
+            <label for="floatingSelectGrid">{{ 'client.birthplace_country.label'|trans }}</label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-floating mb-3">
+            {{ form_widget(form.nationality, { 'attr': { 'class': 'form-control', 'placeholder': '' } }) }}
+            {{ form_label(form.nationality) }}
+            {{ form_errors(form.nationality) }}
+        </div>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-12">
+        <h5 class="mb-3">{{ 'client.job.label'|trans }}</h5>
+    </div>
+    <div class="col-md-6">
+        <div class="form-floating mb-3">
+            {{ form_widget(form.job, { 'attr': { 'class': 'form-control', 'placeholder': '' } }) }}
+            {{ form_label(form.job) }}
+            {{ form_errors(form.job) }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-floating mb-3">
+            {{ form_widget(form.job_csp, { 'attr': { 'class': 'form-control', 'placeholder': '' } }) }}
+            {{ form_label(form.job_csp) }}
+            {{ form_errors(form.job_csp) }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-floating mb-3">
+            {{ form_widget(form.retirement_age, { 'attr': { 'class': 'form-control', 'placeholder' : '' } }) }}
+            {{ form_label(form.retirement_age, null, { 'label_attr': { 'class': 'form-label' } }) }}
+            {{ form_errors(form.retirement_age) }}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-floating mb-3">
+            {{ form_widget(form.marital_situation, { 'attr': { 'class': 'form-select', 'data-action': 'change->show-spouse#change', 'data-show-spouse-target': 'maritalSituation', 'placeholder' : '' } }) }}
+            {{ form_errors(form.marital_situation) }}
+            <label for="floatingSelectGrid">{{ 'client.marital_situation.label'|trans }}</label>
+        </div>
+    </div>
+    <div class="col-md-6 d-flex align-items-end justify-content-center">
+        <div class="form-check mb-3">
+            {{ form_widget(form.handicap, { 'attr': { 'class': 'form-check-input', 'id': 'handicapCheckbox', 'placeholder' : '' } }) }}
+            {{ form_label(form.handicap, null, { 'label_attr': { 'class': 'form-check-label', 'for': 'handicapCheckbox' } }) }}
+            {{ form_errors(form.handicap) }}
+        </div>
+    </div>
+</div>
+<hr>
+<div  data-show-spouse-target="spouse" style="display: none;">
+    {{ include('client/form/_spouseForm.html.twig') }}
+</div>
+</div>

@@ -1,44 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-    {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
-    {% endblock %}
+{% extends "simple_base.html.twig" %}
 
-    {% block javascripts %}
-        {% block importmap %}{{ importmap('app') }}{% endblock %}
-    {% endblock %}
-</head>
-<body class="flex h-screen">
-{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <nav class="bg-blue-900 text-white w-1/5 p-6 hidden md:block">
-        {{ include('_menu.html.twig') }}
-    </nav>
-    <div class="md:hidden">
-        <button class="bg-blue-900 text-white px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" id="menu-button">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-        </button>
-    </div>
-{% endif %}
-<main class="w-4/5 p-6 overflow-y-auto md:block">
-    {% block body %}{% endblock %}
-</main>
-{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <div class="md:hidden fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 hidden" id="menu-overlay">
-        <nav class="bg-blue-900 text-white p-6">
-            {{ include('_menu.html.twig') }}
-        </nav>
-    </div>
-    <script>
-        document.getElementById('menu-button').addEventListener('click', function() {
-            document.getElementById('menu-overlay').classList.toggle('hidden');
-        });
-    </script>
-{% endif %}
-</body>
-</html>
+{% block inner_header %}
+	{% if is_granted('ROLE_USER') %}
+
+		<i class="toggle-sidebar-btn"><twig:ux:icon name="bi:list"/></i>
+
+	{% endif %}
+
+{% endblock %}
+
+{% block header %}
+
+	{{ parent() }}
+
+	{% if is_granted('ROLE_USER') %}
+		<aside
+			id="sidebar" class="sidebar" data-turbo-frame="body">
+			{# <turbo-frame id="sidebar-frame" data-turbo-action="advance">#}
+			{{ include('_menu.html.twig') }}
+			{#  </turbo-frame>#}
+		</aside>
+	{% endif %}
+{% endblock %}

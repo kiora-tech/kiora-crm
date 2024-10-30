@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'document_signature.document_status.title'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="pagetitle">
+        <h1>{{ 'document_signature.document_status.h2'|trans }}</h1>
+    </div>
+    <section class="section">
+        {% if document.signatureRequestStatus in [
+            constant('App\\Enum\\YousignSignatureRequestStatus::DRAFT'),
+            constant('App\\Enum\\YousignSignatureRequestStatus::ONGOING'),
+        ] %}
+            <form method="post" action="{{ path('app_document_signature_document_cancel', {'id': document.id}) }}"
+                  data-controller="delete-confirmation" data-action="submit->delete-confirmation#confirm"
+                  data-delete-confirmation-message="{{ 'document_signature.document_status.cancel_confirmation_message'|trans }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('cancel-' ~ document.id) }}">
+                <button class="btn btn-danger">{{ "document_signature.document_status.cancel"|trans }}</button>
+            </form>
+        {% elseif document.downloaded %}
+            <a href="{{ path('app_document_signature_document_download', {'id': document.id}) }}" target="_blank"
+               class="btn btn-primary">{{ 'button.download'|trans }}</a>
+        {% endif %}
+
+        <div class="row p-4">
+            <div class="col-xl-4">
+                <div class="card">
+                    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                        <p>{{ 'document_signature.document_status.client_document'|trans }} :</p>
+                        <a href="{{ path('app_client_document_show', {id: document.clientDocument.id}) }}">
+                            {{ document.clientDocument.name }}
+                        </a>
+                        <br>
+                        <p>{{ 'document_signature.document_status.client_document'|trans }} :</p>
+                        <p><span class="badge
+                                    {% if document.signatureRequestStatus.value == 'initiated' %}text-bg-light
+                                    {% elseif document.signatureRequestStatus.value == 'notified' %}text-bg-info
+                                    {% elseif document.signatureRequestStatus.value == 'processing' %}text-bg-primary
+                                    {% elseif document.signatureRequestStatus.value == 'declined' %}text-bg-danger
+                                    {% elseif document.signatureRequestStatus.value == 'signed' %}text-bg-success
+                                    {% elseif document.signatureRequestStatus.value == 'aborted' %}text-bg-secondary
+                                    {% elseif document.signatureRequestStatus.value == 'error' %}text-bg-danger
+                                    {% endif %}">
+                                    {{ document.signatureRequestStatus.label|trans }}
+                                </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-8">
+                <div class="card">
+                    <div class="card-body pt-3">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                <tr>
+                                    <th scope="col"
+                                        class="text-start text-secondary">{{ 'document_signature.document_status.signer'|trans }}</th>
+                                    <th scope="col"
+                                        class="text-start text-secondary">{{ 'document_signature.signature_request_status'|trans }}</th>
+                                    <th scope="col"
+                                        class="text-start text-secondary">{{ 'document_signature.document_status.reason'|trans }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for clientSigning in document.clientSigningDocumentSigners %}
+                                    <tr>
+                                        <td class="text-start">{{ clientSigning.client.fullName }}</td>
+                                        <td class="text-start">{{ clientSigning.status.label|trans }}</td>
+                                        <td class="text-start">
+                                            {% if clientSigning.declineReason %}
+                                                <button type="button" class="btn btn-danger btn-sm"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#declineReasonModal-{{ loop.index }}">
+                                                    {{ 'button.show'|trans }}
+                                                </button>
+
+                                                <div class="modal fade" id="declineReasonModal-{{ loop.index }}"
+                                                     tabindex="-1"
+                                                     aria-labelledby="declineReasonModalLabel-{{ loop.index }}"
+                                                     aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title"
+                                                                    id="declineReasonModalLabel-{{ loop.index }}">Raison
+                                                                    du refus</h5>
+                                                                <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                {{ clientSigning.declineReason }}
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">{{ 'button.close'|trans }}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="3" class="text-center">{{ 'no_record'|trans }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

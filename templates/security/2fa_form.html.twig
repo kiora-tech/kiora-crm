@@ -1,0 +1,80 @@
+{% extends 'fullscreen_base.html.twig' %}
+
+{% block title %}{{ '2fa.title'|trans }}{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <section
+                    class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+                            <div class="d-flex justify-content-center py-4">
+                                <a href="{{ path('homepage') }}" class="logo d-flex align-items-center w-auto">
+                                    <img src="{{ asset('assets/NiceAdmin/img/logo-95c3f894b59abf75c34cb26d7eedacc8.png') }}"
+                                         alt="Default Logo"/>
+                                    <span class="d-none d-lg-block">Finoptia</span>
+                                </a>
+                            </div>
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="pt-4 pb-2">
+                                        <h5 class="card-title text-center pb-0 fs-4">
+                                            {% if app.user.isGoogleAuthenticatorEnabled %}
+                                                {{ '2fa.enter_google_code'|trans }}
+                                            {% elseif app.user.isEmailAuthEnabled %}
+                                                {{ '2fa.enter_email_code'|trans }}
+                                            {% else %}
+                                                {{ '2fa.enter_code'|trans }}
+                                            {% endif %}
+                                        </h5>
+                                        <p class="text-center small">
+                                            {% if app.user.isGoogleAuthenticatorEnabled %}
+                                                {{ '2fa.google_code_info'|trans }}
+                                            {% elseif app.user.isEmailAuthEnabled %}
+                                                {{ '2fa.email_code_info'|trans }}
+                                            {% else %}
+                                                {{ '2fa.code_sent'|trans }}
+                                            {% endif %}
+                                        </p>
+                                    </div>
+
+                                    <form method="post" action="/2fa_check" class="row g-3 needs-validation" novalidate>
+                                        <div class="col-12">
+                                            <label for="_auth_code"
+                                                   class="form-label">{{ '2fa.code_label'|trans }}</label>
+                                            <div class="input-group has-validation">
+                                                <input id="_auth_code" type="text" name="_auth_code"
+                                                       autocomplete="one-time-code" class="form-control" required
+                                                       autofocus>
+                                                <div class="invalid-feedback">
+                                                    {{ '2fa.invalid_code'|trans }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <input type="hidden" name="_csrf_token"
+                                               value="{{ csrf_token('authenticate_2fa') }}">
+
+                                        <div class="col-12">
+                                            <button class="btn btn-primary w-100"
+                                                    type="submit">{{ '2fa.submit'|trans }}</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            {% if app.user.isEmailAuthEnabled %}
+                                <div class="text-center">
+                                    <form method="post" action="{{ path('2fa_resend_code') }}">
+                                        <button type="submit" class="btn btn-link">{{ '2fa.resend'|trans }}</button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+{% endblock %}

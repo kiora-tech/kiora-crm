@@ -1,0 +1,85 @@
+{% set totalFinancialAssets = 0 %}
+{% if financialAssets is not empty %}
+    <div class="row">
+        <div class="col-lg-3 col-md-4 label">{{ 'client_assets.financial_assets.label'|trans }}</div>
+        <div class="col-lg-9 col-md-8">
+            <div class="mb-3 card" data-controller="pie-chart"
+                 data-pie-chart-values="{{ financialAssets|map(a => a.estimatedValue)|join(',') }}"
+                 data-pie-chart-labels="{{ financialAssets|map(a => a.designation)|join(',') }}">
+                <div class="card-body">
+                    <div class="chart-container" style="height: 350px;"></div>
+                    <ul>
+                        {% for asset in financialAssets %}
+                            <li>{{ asset.designation }}: {{ asset.estimatedValue }} € ({{ asset.category|trans_enum }}, {{ asset.nature|trans_enum }})</li>
+                            {% set totalFinancialAssets = totalFinancialAssets + asset.estimatedValue %}
+                        {% endfor %}
+                    </ul>
+                    <p><strong>{{ 'client_assets.financial_assets.total'|trans }}:</strong> {{ totalFinancialAssets }} €</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% set totalNonFinancialAssets = 0 %}
+{% if nonFinancialAssets is not empty %}
+    <div class="row">
+        <div class="col-lg-3 col-md-4 label">{{ 'client_assets.non_financial_assets.label'|trans }}</div>
+        <div class="col-lg-9 col-md-8">
+            <div class="mb-3 card" data-controller="pie-chart"
+                 data-pie-chart-values="{{ nonFinancialAssets|map(a => a.estimatedValue)|join(',') }}"
+                 data-pie-chart-labels="{{ nonFinancialAssets|map(a => a.designation)|join(',') }}">
+                <div class="card-body">
+                    <div class="chart-container" style="height: 350px;"></div>
+                    <ul>
+                        {% for asset in nonFinancialAssets %}
+                            <li>{{ asset.designation }}: {{ asset.estimatedValue }} € ({{ asset.category|trans_enum }}, {{ asset.nature|trans_enum }})</li>
+                            {% set totalNonFinancialAssets = totalNonFinancialAssets + asset.estimatedValue %}
+                        {% endfor %}
+                    </ul>
+                    <p><strong>{{ 'client_assets.non_financial_assets.total'|trans }}:</strong> {{ totalNonFinancialAssets }} €</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% set totalAssets = (totalFinancialAssets ?? 0) + (totalNonFinancialAssets ?? 0) %}
+{% if totalAssets > 0 %}
+    <div class="row">
+        <div class="col-lg-3 col-md-4 label">{{ 'client_assets.asset_distribution.label'|trans }}</div>
+        <div class="col-lg-9 col-md-8">
+            <div class="mb-3 card" data-controller="pie-chart"
+                 data-pie-chart-values="{{ totalFinancialAssets }},{{ totalNonFinancialAssets }}"
+                 data-pie-chart-labels="{{ 'client_assets.financial_assets.title'|trans }},{{ 'client_assets.non_financial_assets.title'|trans }}">
+                <div class="card-body">
+                    <div class="chart-container" style="height: 350px;"></div> <!-- Conteneur du graphique -->
+                    <p><strong>{{ 'client_assets.asset_distribution.total'|trans }}:</strong> {{ totalAssets }} €</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% set totalLiabilities = 0 %}
+{% if liabilities is not empty %}
+    <div class="row">
+        <div class="col-lg-3 col-md-4 label">{{ 'client_assets.liabilities.label'|trans }}</div>
+        <div class="col-lg-9 col-md-8">
+            <div class="mb-3 card" data-controller="pie-chart"
+                 data-pie-chart-values="{{ liabilities|map(l => l.borrowedAmount)|join(',') }}"
+                 data-pie-chart-labels="{{ liabilities|map(l => l.loanType|trans_enum)|join(',') }}">
+                <div class="card-body">
+                    <div class="chart-container" style="height: 350px;"></div> <!-- Conteneur du graphique -->
+                    <ul>
+                        {% for liability in liabilities %}
+                            <li>{{ liability.loanType|trans_enum }}: {{ liability.borrowedAmount }} € ({{ liability.nature|trans_enum }})</li>
+                            {% set totalLiabilities = totalLiabilities + liability.borrowedAmount %}
+                        {% endfor %}
+                    </ul>
+                    <p><strong>{{ 'client_assets.liabilities.total'|trans }}:</strong> {{ totalLiabilities }} €</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
