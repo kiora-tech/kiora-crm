@@ -1,4 +1,11 @@
 {% extends 'knp_menu.html.twig' %}
+{% block menu %}
+    {# Your custom menu code here #}
+    <ul>
+        <li>Custom Item 1</li>
+        <li>Custom Item 2</li>
+    </ul>
+{% endblock %}
 
 {% block item %}
 {% if item.displayed %}
