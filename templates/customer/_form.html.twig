@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ "menu.customer"|trans }}
+{% endblock %}
+
+{% block body %}
+    <div class="pagetitle">
+        <h1>{{ "menu.customer"|trans }}</h1>
+    </div>
+
+    <section class="section">
+        <div class="card p-4">
+            <div class="card-body">
+                <!-- Début du formulaire -->
+                {{ form_start(form) }}
+
+                <!-- Champ pour le nom -->
+                <div class="mb-3">
+                    {{ form_label(form.name) }}
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                </div>
+
+                <!-- Champ pour L'origine du lead -->
+                <div class="mb-3">
+                    {{ form_label(form.leadOrigin) }}
+                    {{ form_widget(form.leadOrigin, {'attr': {'class': 'form-control'}}) }}
+                </div>
+
+                <!-- Gestion des Business Entities -->
+                <div class="mb-4">
+                    <h3>{{ 'customer.business_entities'|trans }}</h3>
+                    <div data-controller="form-collection" data-form-collection-index-value="{{ form.businessEntities|length }}" data-form-collection-template-value="{{ form_widget(form.businessEntities.vars.prototype)|e('html_attr') }}">
+                        <div data-form-collection-target="container">
+                            {% for businessEntityForm in form.businessEntities %}
+                                <div class="form-item">
+                                    {{ form_row(businessEntityForm) }}
+                                    <button type="button" class="btn btn-danger" data-action="form-collection#removeItem">{{ 'button.delete'|trans }}</button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <button type="button" class="btn btn-secondary" data-action="form-collection#addItem">{{ 'document.add_business_entity'|trans }}</button>
+                    </div>
+                </div>
+
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
+{% endblock %}
