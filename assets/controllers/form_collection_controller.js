@@ -4,6 +4,11 @@ export default class extends Controller {
     static targets = ['container'];
     static values = { index: Number, template: String };
 
+    connect() {
+        if (this.containerTarget.dataset.initialized) return;
+        this.containerTarget.dataset.initialized = true;
+    }
+
     addItem(event) {
         event.preventDefault();
 
