@@ -1,0 +1,36 @@
+:root {
+  --custom-default: #{$default};
+  --custom-primary: #{$primary};
+  --custom-secondary: #{$secondary};
+  --custom-tertiary: #{$tertiary};
+
+  --custom-default-l20: #{lighten($default, 20)};
+  --custom-default-l30: #{lighten($default, 30)};
+
+  --custom-primary-l5: #{lighten($primary, 5)};
+  --custom-primary-l8: #{lighten($primary, 8)};
+  --custom-primary-l10: #{lighten($primary, 10)};
+  --custom-primary-l36: #{lighten($primary, 36)};
+  --custom-primary-l38: #{lighten($primary, 38)};
+  --custom-primary-l58: #{lighten($primary, 58)};
+
+  --custom-secondary-l60: #{lighten($secondary, 60)};
+  --custom-secondary-l68: #{lighten($secondary, 68)};
+  --custom-secondary-l76: #{lighten($secondary, 76)};
+
+  --custom-secondary-rgba-0-1: #{rgba($secondary, 0.1)};
+  --custom-secondary-rgba-0-15: #{rgba($secondary, 0.15)};
+  --custom-secondary-rgba-0-2: #{rgba($secondary, 0.2)};
+  --custom-secondary-rgba-0-3: #{rgba($secondary, 0.3)};
+  --custom-secondary-rgba-0-5: #{rgba($secondary, 0.5)};
+  --custom-secondary-rgba-0-6: #{rgba($secondary, 0.6)};
+  --custom-secondary-rgba-1-0: #{rgba($secondary, 1.0)};
+
+  --custom-tertiary-l10: #{lighten($tertiary, 10)};
+  --custom-tertiary-l20: #{lighten($tertiary, 20)};
+  --custom-tertiary-l30: #{lighten($tertiary, 30)};
+  --custom-tertiary-l35: #{lighten($tertiary, 35)};
+  --custom-tertiary-l40: #{lighten($tertiary, 40)};
+  --custom-tertiary-l50: #{lighten($tertiary, 50)};
+  --custom-tertiary-l70: #{lighten($tertiary, 70)};
+}

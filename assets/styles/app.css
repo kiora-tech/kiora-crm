@@ -1,3 +1,60 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+#rss-feed{
+    height: 255px !important;
+    width: 100% !important;
+    overflow: auto;
+    scroll-behavior: smooth;
+    overflow: hidden;
+}
+.rss-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+body, html {
+    scroll-behavior: smooth;
+}
+.rss-item h2 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.rss-item p {
+    margin: 0.5em 0;
+}
+
+.rss-item a {
+    color: blue;
+    text-decoration: underline;
+}
+
+.chart-container {
+    height: 350px;
+}
+
+.section{
+    padding: 20px 20px !important;
+}
+
+.form-control {
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.tab-pane {
+    transition: opacity 0.2s ease-in-out;
+}
+
+@media (max-width: 900px) {
+    .toggle-sidebar #main, .toggle-sidebar #footer {
+        margin-left: 0 !important;
+    }
+
+    #main {
+        padding: 10px !important;
+    }
+}

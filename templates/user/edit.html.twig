@@ -1,15 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit User{% endblock %}
+{% block title %}{{ "button.update"|trans }}{% endblock %}
 
 {% block body %}
-<turbo-frame id="body">
-    <h1>Edit User</h1>
-
-    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_user_index') }}">back to list</a>
-
-    {{ include('user/_delete_form.html.twig') }}
-</turbo-frame>
+    <div class="pagetitle">
+        <h1>{{ "button.update"|trans }}</h1>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="card p-4">
+                <div class="card-body">
+                    {{ include('user/_form.html.twig', {'button_label': "button.updateAll"|trans}) }}
+                    <a class="btn btn-primary mt-3" href="{{ path('app_user_index') }}">{{ "button.back"|trans }}</a>
+                    {{ include('user/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

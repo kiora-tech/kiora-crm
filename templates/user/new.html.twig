@@ -1,13 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New User{% endblock %}
+{% block title %}
+    {{ "button.newAddUser"|trans }}
+{% endblock %}
 
 {% block body %}
-<turbo-frame id="body">
-    <h1>Create new User</h1>
-
-    {{ include('user/_form.html.twig') }}
-
-    <a href="{{ path('app_user_index') }}">back to list</a>
-</turbo-frame>
+    <div class="pagetitle">
+        <h1>{{ "button.newUser"|trans }}</h1>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="card p-4">
+                <div class="card-body">
+                    {{ include('user/_form.html.twig') }}
+                    <a class="btn btn-primary mt-4" href="{{ path('app_user_index') }}">{{ "button.back"|trans }}</a>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

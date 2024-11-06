@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> {% block stylesheets %}{% endblock %}{% block javascripts %}{% endblock %}
+
+		{% block importmap %}
+			{{ importmap('app', {'nonce': csp_nonce('script')}) }}
+		{% endblock %}
+	</head>
+	<body>
+		<div class="container">
+			<section class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
+				<h1>{{ status_code }}</h1>
+
+				<h2>{{message}}</h2>
+
+				<a class="btn" href="/">{{ 'button.back'|trans }}</a>
+				{% if status_code == 404 %}
+					<img src="{{ asset('img/not-found.svg') }}" class="img-fluid py-5" style="margin-left:unset;">
+				{% elseif status_code >= 400 and status_code < 500 %}
+					<img src="{{ asset('img/error_40X.jpg') }}" class="img-fluid py-5" style="margin-left:unset;">
+				{% elseif status_code == 500 %}
+					<img src="{{ asset('img/error_500.jpg') }}" class="img-fluid py-5" style="margin-left:unset;">
+				{% endif %}
+			</section>
+		</div>
+	</body>
+</html>

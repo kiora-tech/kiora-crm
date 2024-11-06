@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %} - Finoptia
+		</title>
+		<link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}">
+		{% block stylesheets %}{% endblock %}
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	{#	{% if getCompanyIdentity().cssPath != constant('\\App\\Entity\\CompanyIdentity::TO_BE_GENERATED') -%}
+			<link rel="stylesheet" href="{{ asset(getCompanyIdentity().cssPath) }}">
+		{%- endif %}#}
+
+		{% block javascripts %}{% endblock %}
+
+		{% block importmap %}
+			{{ importmap('app') }}
+		{% endblock %}
+	</head>
+	<body>
+		{% block simple_body %}
+			{% block header %}
+				<header class="header fixed-top d-flex align-items-center" id="menu-overlay">
+					<div class="d-flex align-items-center justify-content-between">
+						<a href="/" class="logo d-flex align-items-center">
+						{#	{% if company_logo_url() %}
+								<img src="{{ company_logo_url() }}" alt="Company Logo"/>
+							{% else %}#}
+								<img src="{{ asset('assets/NiceAdmin/img/logo-95c3f894b59abf75c34cb26d7eedacc8.png') }}" alt="Default Logo"/>
+							{#{% endif %}#}
+							<span class="d-none d-lg-block">Finoptia</span>
+						</a>
+						{% block inner_header %}{% endblock %}
+					</div>
+
+					<div class="search-bar">
+					{#	{{ component('client_search') }}#}
+					</div>
+						{% if is_granted('ROLE_USER') %}
+					<nav class="header-nav ms-auto">
+						<ul class="d-flex align-items-center">
+							<li class="nav-item d-block d-lg-none">
+								<div class="nav-link nav-icon search-bar-toggle">
+									<i class="bi bi-search"></i>
+								</div>
+							</li>
+							
+							<li class="nav-item dropdown pe-3">
+								<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+									{% if app.user.profilePicture is not null %}
+										<img src="{{ asset('uploads/user_profile/' ~ app.user.profilePicture) }}" alt="" class="rounded-circle">
+									{% else %}
+										<img src="{{ asset('img/default_user.png') }}" alt="" class="rounded-circle">
+									{% endif %}
+									<span class="d-none d-md-block dropdown-toggle ps-2">{{ app.user.name ~ ' ' ~ app.user.lastName }}</span>
+								</a>
+								<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+									<li class="dropdown-header">
+										<h6>{{ app.user.name ~ ' ' ~ app.user.lastName }}</h6>
+										<span>{{ app.user.company.name }}</span>
+									</li>
+									<li>
+										<hr class="dropdown-divider">
+									</li>
+									<li>
+										<a class="dropdown-item d-flex align-items-center" href="{{ path('app_user_profile') }}">
+											<i class="bi bi-person"></i>
+											<span>{{ 'header.profile.my_profile'|trans }}</span>
+										</a>
+									</li>
+									<li>
+										<hr class="dropdown-divider">
+									</li>
+									{% if is_granted('ROLE_COMPANY_ADMIN') %}
+										<li>
+											<a class="dropdown-item d-flex align-items-center" href="{{ path('app_company_show', { 'id': app.user.company.id }) }}">
+												<i class="bi bi-gear"></i>
+												<span>{{ 'header.company.settings'|trans }}</span>
+											</a>
+										</li>
+										<li>
+											<hr class="dropdown-divider">
+										</li>
+									{% endif %}
+									<li>
+										<a class="dropdown-item d-flex align-items-center" href="{{ path('app_logout') }}">
+											<i class="bi bi-box-arrow-right"></i>
+											<span>{{ 'header.profile.sign_out'|trans }}</span>
+										</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+					{% endif %}
+				</header>
+			{% endblock %}
+			<main id="main" class="main">
+				<turbo-frame id="body" data-turbo-action="advance">
+					<div class="container">
+						{% for label, messages in app.flashes %}
+							<div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+								{% for message in messages %}
+									<p>{{ message|raw }}</p>
+								{% endfor %}
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+						{% endfor %}
+					</div>
+					<div class="main">
+						{% block body %}{% endblock %}
+					</div>
+				</turbo-frame>
+			</main>
+		{% endblock %}
+	</body>
+</html>

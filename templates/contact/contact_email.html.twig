@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Message from {{ client.fullName }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body class="card">
+    <h1>{{ user.fullName }}</h1>
+
+    <p><strong>{{ 'client_document.subject'|trans }} :</strong> {{ subject }}</p>
+
+    <p>{{ message }}</p>
+
+    {{ user.fullName }}</p>
+</body>
+</html>

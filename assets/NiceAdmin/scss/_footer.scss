@@ -1,0 +1,21 @@
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+.footer {
+  padding: 20px 0;
+  font-size: 14px;
+  transition: all 0.3s;
+  border-top: 1px solid var(--custom-secondary-l68);
+
+  .copyright {
+    text-align: center;
+    color: var(--custom-secondary);
+  }
+
+  .credits {
+    padding-top: 5px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--custom-secondary);
+  }
+}

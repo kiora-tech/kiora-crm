@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6156f7a7ec7a4b9357accda724d8877d",
+    "content-hash": "f496c3d01e90fe9f739a59ed0e9ff1ed",
     "packages": [
         {
             "name": "composer/semver",
@@ -1378,6 +1378,93 @@
             "time": "2023-10-06T06:47:41+00:00"
         },
         {
+            "name": "knplabs/knp-components",
+            "version": "v5.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KnpLabs/knp-components.git",
+                "reference": "a1ccc001fd243670ca1e970356027a53d6fca2af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KnpLabs/knp-components/zipball/a1ccc001fd243670ca1e970356027a53d6fca2af",
+                "reference": "a1ccc001fd243670ca1e970356027a53d6fca2af",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1",
+                "symfony/event-dispatcher-contracts": "^3.0"
+            },
+            "conflict": {
+                "doctrine/dbal": "<3.8"
+            },
+            "require-dev": {
+                "doctrine/dbal": "^3.8 || ^4.0",
+                "doctrine/mongodb-odm": "^2.5.5",
+                "doctrine/orm": "^2.13 || ^3.0",
+                "doctrine/phpcr-odm": "^1.8 || ^2.0",
+                "ext-pdo_sqlite": "*",
+                "jackalope/jackalope-doctrine-dbal": "^1.12 || ^2.0",
+                "phpunit/phpunit": "^10.5 || ^11.3",
+                "propel/propel1": "^1.7",
+                "ruflin/elastica": "^7.0",
+                "solarium/solarium": "^6.0",
+                "symfony/http-foundation": "^5.4.38 || ^6.4.4 || ^7.0",
+                "symfony/http-kernel": "^5.4.38 || ^6.4.4 || ^7.0",
+                "symfony/property-access": "^5.4.38 || ^6.4.4 || ^7.0"
+            },
+            "suggest": {
+                "doctrine/common": "to allow usage pagination with Doctrine ArrayCollection",
+                "doctrine/mongodb-odm": "to allow usage pagination with Doctrine ODM MongoDB",
+                "doctrine/orm": "to allow usage pagination with Doctrine ORM",
+                "doctrine/phpcr-odm": "to allow usage pagination with Doctrine ODM PHPCR",
+                "propel/propel1": "to allow usage pagination with Propel ORM",
+                "ruflin/elastica": "to allow usage pagination with ElasticSearch Client",
+                "solarium/solarium": "to allow usage pagination with Solarium Client",
+                "symfony/http-foundation": "to retrieve arguments from Request",
+                "symfony/property-access": "to allow sorting arrays"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Knp\\Component\\": "src/Knp/Component"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "KnpLabs Team",
+                    "homepage": "https://knplabs.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://github.com/KnpLabs/knp-components/contributors"
+                }
+            ],
+            "description": "Knplabs component library",
+            "homepage": "https://github.com/KnpLabs/knp-components",
+            "keywords": [
+                "components",
+                "knp",
+                "knplabs",
+                "pager",
+                "paginator"
+            ],
+            "support": {
+                "issues": "https://github.com/KnpLabs/knp-components/issues",
+                "source": "https://github.com/KnpLabs/knp-components/tree/v5.1.0"
+            },
+            "time": "2024-09-20T12:03:01+00:00"
+        },
+        {
             "name": "knplabs/knp-menu",
             "version": "v3.5.0",
             "source": {
@@ -1452,16 +1539,16 @@
         },
         {
             "name": "knplabs/knp-menu-bundle",
-            "version": "v3.4.1",
+            "version": "v3.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpMenuBundle.git",
-                "reference": "925dd71fc9d7c31dd852a0537757be60c25e3afe"
+                "reference": "6a1e3e1f4131f9a5a967e36717a1fe680c183637"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpMenuBundle/zipball/925dd71fc9d7c31dd852a0537757be60c25e3afe",
-                "reference": "925dd71fc9d7c31dd852a0537757be60c25e3afe",
+                "url": "https://api.github.com/repos/KnpLabs/KnpMenuBundle/zipball/6a1e3e1f4131f9a5a967e36717a1fe680c183637",
+                "reference": "6a1e3e1f4131f9a5a967e36717a1fe680c183637",
                 "shasum": ""
             },
             "require": {
@@ -1511,9 +1598,83 @@
             ],
             "support": {
                 "issues": "https://github.com/KnpLabs/KnpMenuBundle/issues",
-                "source": "https://github.com/KnpLabs/KnpMenuBundle/tree/v3.4.1"
+                "source": "https://github.com/KnpLabs/KnpMenuBundle/tree/v3.4.2"
             },
-            "time": "2024-04-15T13:35:09+00:00"
+            "time": "2024-06-03T08:48:36+00:00"
+        },
+        {
+            "name": "knplabs/knp-paginator-bundle",
+            "version": "v6.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KnpLabs/KnpPaginatorBundle.git",
+                "reference": "1a00f88149d25418bd99d8954eba951f04cc3acf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/1a00f88149d25418bd99d8954eba951f04cc3acf",
+                "reference": "1a00f88149d25418bd99d8954eba951f04cc3acf",
+                "shasum": ""
+            },
+            "require": {
+                "knplabs/knp-components": "^4.4 || ^5.0",
+                "php": "^8.1",
+                "symfony/config": "^6.4 || ^7.0",
+                "symfony/dependency-injection": "^6.4 || ^7.0",
+                "symfony/event-dispatcher": "^6.4 || ^7.0",
+                "symfony/http-foundation": "^6.4 || ^7.0",
+                "symfony/http-kernel": "^6.4 || ^7.0",
+                "symfony/routing": "^6.4 || ^7.0",
+                "symfony/translation": "^6.4 || ^7.0",
+                "twig/twig": "^3.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.11",
+                "phpunit/phpunit": "^10.5 || ^11.3",
+                "symfony/expression-language": "^6.4 || ^7.0",
+                "symfony/templating": "^6.4 || ^7.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "6.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Knp\\Bundle\\PaginatorBundle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "KnpLabs Team",
+                    "homepage": "https://knplabs.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://github.com/KnpLabs/KnpPaginatorBundle/contributors"
+                }
+            ],
+            "description": "Paginator bundle for Symfony to automate pagination and simplify sorting and other features",
+            "homepage": "https://github.com/KnpLabs/KnpPaginatorBundle",
+            "keywords": [
+                "bundle",
+                "knp",
+                "knplabs",
+                "pager",
+                "pagination",
+                "paginator",
+                "symfony"
+            ],
+            "support": {
+                "issues": "https://github.com/KnpLabs/KnpPaginatorBundle/issues",
+                "source": "https://github.com/KnpLabs/KnpPaginatorBundle/tree/v6.6.1"
+            },
+            "time": "2024-10-07T16:11:50+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -6685,16 +6846,16 @@
         },
         {
             "name": "symfony/twig-bridge",
-            "version": "v7.0.7",
+            "version": "v7.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/twig-bridge.git",
-                "reference": "214237f7b3b82eeb430e85ea415c4a2915c304f6"
+                "reference": "c8e05d7545962198df715d705c132de0674dc5b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/twig-bridge/zipball/214237f7b3b82eeb430e85ea415c4a2915c304f6",
-                "reference": "214237f7b3b82eeb430e85ea415c4a2915c304f6",
+                "url": "https://api.github.com/repos/symfony/twig-bridge/zipball/c8e05d7545962198df715d705c132de0674dc5b2",
+                "reference": "c8e05d7545962198df715d705c132de0674dc5b2",
                 "shasum": ""
             },
             "require": {
@@ -6773,7 +6934,7 @@
             "description": "Provides integration for Twig with various Symfony components",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/twig-bridge/tree/v7.0.7"
+                "source": "https://github.com/symfony/twig-bridge/tree/v7.0.8"
             },
             "funding": [
                 {
@@ -6789,7 +6950,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-18T09:29:19+00:00"
+            "time": "2024-05-31T14:55:39+00:00"
         },
         {
             "name": "symfony/twig-bundle",
@@ -6874,6 +7035,278 @@
                 }
             ],
             "time": "2024-04-18T09:29:19+00:00"
+        },
+        {
+            "name": "symfony/ux-autocomplete",
+            "version": "v2.21.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/ux-autocomplete.git",
+                "reference": "357a4b8eef612b279568292a878e60b8b0992413"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/ux-autocomplete/zipball/357a4b8eef612b279568292a878e60b8b0992413",
+                "reference": "357a4b8eef612b279568292a878e60b8b0992413",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/dependency-injection": "^6.3|^7.0",
+                "symfony/deprecation-contracts": "^2.5|^3",
+                "symfony/http-foundation": "^6.3|^7.0",
+                "symfony/http-kernel": "^6.3|^7.0",
+                "symfony/property-access": "^6.3|^7.0"
+            },
+            "conflict": {
+                "doctrine/orm": "2.9.0 || 2.9.1"
+            },
+            "require-dev": {
+                "doctrine/collections": "^1.6.8|^2.0",
+                "doctrine/doctrine-bundle": "^2.4.3",
+                "doctrine/orm": "^2.9.4|^3.0",
+                "fakerphp/faker": "^1.22",
+                "mtdowling/jmespath.php": "^2.6",
+                "symfony/form": "^6.3|^7.0",
+                "symfony/framework-bundle": "^6.3|^7.0",
+                "symfony/maker-bundle": "^1.40",
+                "symfony/options-resolver": "^6.3|^7.0",
+                "symfony/phpunit-bridge": "^6.3|^7.0",
+                "symfony/process": "^6.3|^7.0",
+                "symfony/security-bundle": "^6.3|^7.0",
+                "symfony/twig-bundle": "^6.3|^7.0",
+                "symfony/uid": "^6.3|^7.0",
+                "twig/twig": "^2.14.7|^3.0.4",
+                "zenstruck/browser": "^1.1",
+                "zenstruck/foundry": "1.37.*"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "thanks": {
+                    "name": "symfony/ux",
+                    "url": "https://github.com/symfony/ux"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\UX\\Autocomplete\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "JavaScript Autocomplete functionality for Symfony",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "symfony-ux"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/ux-autocomplete/tree/v2.21.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-10-21T19:02:15+00:00"
+        },
+        {
+            "name": "symfony/ux-icons",
+            "version": "v2.21.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/ux-icons.git",
+                "reference": "c3b3fd29b3f90e977b267251ef15ea06f3cec553"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/ux-icons/zipball/c3b3fd29b3f90e977b267251ef15ea06f3cec553",
+                "reference": "c3b3fd29b3f90e977b267251ef15ea06f3cec553",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/framework-bundle": "^6.4|^7.0",
+                "symfony/twig-bundle": "^6.4|^7.0"
+            },
+            "conflict": {
+                "symfony/flex": "<1.13",
+                "symfony/ux-twig-component": "<2.21"
+            },
+            "require-dev": {
+                "psr/log": "^2|^3",
+                "symfony/asset-mapper": "^6.4|^7.0",
+                "symfony/console": "^6.4|^7.0",
+                "symfony/http-client": "6.4|^7.0",
+                "symfony/phpunit-bridge": "^6.3|^7.0",
+                "symfony/ux-twig-component": "^2.14",
+                "zenstruck/console-test": "^1.5"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "thanks": {
+                    "name": "symfony/ux",
+                    "url": "https://github.com/symfony/ux"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\UX\\Icons\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kevin Bond",
+                    "email": "kevinbond@gmail.com"
+                },
+                {
+                    "name": "Simon André",
+                    "email": "smn.andre@gmail.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Renders local and remote SVG icons in your Twig templates.",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "icons",
+                "svg",
+                "symfony-ux",
+                "twig"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/ux-icons/tree/v2.21.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-10-21T19:01:22+00:00"
+        },
+        {
+            "name": "symfony/ux-live-component",
+            "version": "v2.21.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/ux-live-component.git",
+                "reference": "1cc963a50a31a8ca92fbd145b29b27231b199b1b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/ux-live-component/zipball/1cc963a50a31a8ca92fbd145b29b27231b199b1b",
+                "reference": "1cc963a50a31a8ca92fbd145b29b27231b199b1b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/property-access": "^5.4.5|^6.0|^7.0",
+                "symfony/stimulus-bundle": "^2.9",
+                "symfony/ux-twig-component": "^2.8",
+                "twig/twig": "^3.8.0"
+            },
+            "conflict": {
+                "symfony/config": "<5.4.0"
+            },
+            "require-dev": {
+                "doctrine/annotations": "^1.0",
+                "doctrine/collections": "^1.6.8|^2.0",
+                "doctrine/doctrine-bundle": "^2.4.3",
+                "doctrine/orm": "^2.9.4",
+                "doctrine/persistence": "^2.5.2|^3.0",
+                "phpdocumentor/reflection-docblock": "5.x-dev",
+                "symfony/dependency-injection": "^5.4|^6.0|^7.0",
+                "symfony/expression-language": "^5.4|^6.0|^7.0",
+                "symfony/form": "^5.4|^6.0|^7.0",
+                "symfony/framework-bundle": "^5.4|^6.0|^7.0",
+                "symfony/options-resolver": "^5.4|^6.0|^7.0",
+                "symfony/phpunit-bridge": "^6.1|^7.0",
+                "symfony/property-info": "^5.4|^6.0|^7.0",
+                "symfony/security-bundle": "^5.4|^6.0|^7.0",
+                "symfony/serializer": "^5.4|^6.0|^7.0",
+                "symfony/twig-bundle": "^5.4|^6.0|^7.0",
+                "symfony/validator": "^5.4|^6.0|^7.0",
+                "zenstruck/browser": "^1.2.0",
+                "zenstruck/foundry": "^2.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "thanks": {
+                    "name": "symfony/ux",
+                    "url": "https://github.com/symfony/ux"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\UX\\LiveComponent\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Live components for Symfony",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "components",
+                "symfony-ux",
+                "twig"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/ux-live-component/tree/v2.21.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-10-15T10:36:54+00:00"
         },
         {
             "name": "symfony/ux-turbo",
@@ -6970,6 +7403,89 @@
                 }
             ],
             "time": "2024-04-22T13:58:54+00:00"
+        },
+        {
+            "name": "symfony/ux-twig-component",
+            "version": "v2.21.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/ux-twig-component.git",
+                "reference": "5b60b239fffcb04fc8bdb2a5a4001d19442d575d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/ux-twig-component/zipball/5b60b239fffcb04fc8bdb2a5a4001d19442d575d",
+                "reference": "5b60b239fffcb04fc8bdb2a5a4001d19442d575d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/dependency-injection": "^5.4|^6.0|^7.0",
+                "symfony/deprecation-contracts": "^2.2|^3.0",
+                "symfony/event-dispatcher": "^5.4|^6.0|^7.0",
+                "symfony/property-access": "^5.4|^6.0|^7.0",
+                "twig/twig": "^3.8"
+            },
+            "conflict": {
+                "symfony/config": "<5.4.0"
+            },
+            "require-dev": {
+                "symfony/console": "^5.4|^6.0|^7.0",
+                "symfony/css-selector": "^5.4|^6.0|^7.0",
+                "symfony/dom-crawler": "^5.4|^6.0|^7.0",
+                "symfony/framework-bundle": "^5.4|^6.0|^7.0",
+                "symfony/phpunit-bridge": "^6.0|^7.0",
+                "symfony/stimulus-bundle": "^2.9.1",
+                "symfony/twig-bundle": "^5.4|^6.0|^7.0",
+                "symfony/webpack-encore-bundle": "^1.15"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "thanks": {
+                    "name": "symfony/ux",
+                    "url": "https://github.com/symfony/ux"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\UX\\TwigComponent\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Twig components for Symfony",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "components",
+                "symfony-ux",
+                "twig"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/ux-twig-component/tree/v2.21.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-10-05T22:11:16+00:00"
         },
         {
             "name": "symfony/validator",
@@ -7425,37 +7941,37 @@
             "time": "2024-03-05T20:31:46+00:00"
         },
         {
-            "name": "symfonycasts/tailwind-bundle",
-            "version": "v0.5.2",
+            "name": "symfonycasts/sass-bundle",
+            "version": "v0.8.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/SymfonyCasts/tailwind-bundle.git",
-                "reference": "1c075f2f7b487380eec8b6d23be439ed2be3f2a5"
+                "url": "https://github.com/SymfonyCasts/sass-bundle.git",
+                "reference": "4637a176b5adfb03f83c409c3f9f566e30426318"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SymfonyCasts/tailwind-bundle/zipball/1c075f2f7b487380eec8b6d23be439ed2be3f2a5",
-                "reference": "1c075f2f7b487380eec8b6d23be439ed2be3f2a5",
+                "url": "https://api.github.com/repos/SymfonyCasts/sass-bundle/zipball/4637a176b5adfb03f83c409c3f9f566e30426318",
+                "reference": "4637a176b5adfb03f83c409c3f9f566e30426318",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.1",
                 "symfony/asset-mapper": "^6.3|^7.0",
-                "symfony/cache": "^6.3|^7.0",
                 "symfony/console": "^5.4|^6.3|^7.0",
+                "symfony/filesystem": "^5.4|^6.3|^7.0",
                 "symfony/http-client": "^5.4|^6.3|^7.0",
                 "symfony/process": "^5.4|^6.3|^7.0"
             },
             "require-dev": {
-                "phpstan/phpstan": "1.11.x-dev",
-                "symfony/filesystem": "^6.3|^7.0",
+                "matthiasnoback/symfony-config-test": "^5.0",
+                "phpunit/phpunit": "^9.6",
                 "symfony/framework-bundle": "^6.3|^7.0",
-                "symfony/phpunit-bridge": "^6.3|^7.0"
+                "symfony/phpunit-bridge": "^6.3.9|^7.0"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Symfonycasts\\TailwindBundle\\": "src"
+                    "Symfonycasts\\SassBundle\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -7464,20 +7980,20 @@
             ],
             "authors": [
                 {
-                    "name": "Ryan Weaver",
-                    "homepage": "https://symfonycasts.com"
+                    "name": "Mathéo Daninos",
+                    "homepage": "https://github.com/WebMamba"
                 }
             ],
-            "description": "Delightful Tailwind Support for Symfony + AssetMapper",
+            "description": "Delightful Sass Support for Symfony + AssetMapper",
             "keywords": [
                 "asset-mapper",
-                "tailwind"
+                "sass"
             ],
             "support": {
-                "issues": "https://github.com/SymfonyCasts/tailwind-bundle/issues",
-                "source": "https://github.com/SymfonyCasts/tailwind-bundle/tree/v0.5.2"
+                "issues": "https://github.com/SymfonyCasts/sass-bundle/issues",
+                "source": "https://github.com/SymfonyCasts/sass-bundle/tree/v0.8.1"
             },
-            "time": "2024-05-21T09:29:38+00:00"
+            "time": "2024-10-17T10:46:06+00:00"
         },
         {
             "name": "twig/extra-bundle",

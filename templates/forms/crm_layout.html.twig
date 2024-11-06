@@ -1,0 +1,78 @@
+{% use 'bootstrap_5_layout.html.twig' %}
+
+{%- block widget_attributes -%}
+    {%- set attr = attr|merge({ class: attr.class|default(widget_class|default('inputClass')) ~ (disabled ? ' ' ~ widget_disabled_class|default('border-gray-300 text-gray-500')) ~ (errors|length ? ' ' ~ widget_errors_class|default('border-red-700')) }) -%}
+    {{- parent() -}}
+{%- endblock widget_attributes -%}
+
+{%- block repeated_password_row -%}
+    <div
+        {% for attrname, attrvalue in (attr | default('mt-3')) %}
+            {{- (" " ~ attrname ~ '="' ~ attrvalue ~ '"') | raw('html') }}
+        {% endfor %}
+        data-controller="repeated-password"
+        data-repeated-password-length-value="{{ password_length }}"
+        data-repeated-password-min-nb-special-value="{{ password_min_nb_special }}"
+        data-repeated-password-min-nb-upper-value="{{ password_min_nb_upper }}"
+        data-repeated-password-min-nb-lower-value="{{ password_min_nb_lower }}"
+        data-repeated-password-min-nb-digit-value="{{ password_min_nb_digit }}"
+        data-repeated-password-checked-value='{{ ux_icon('bi:check-circle', {color: 'green'}) }}'
+        data-repeated-password-not-checked-value='{{ ux_icon('bi:x-circle', {color: 'red'}) }}'
+        >
+		<div class="mt-3">
+            {{- form_label(form.first) -}}
+            {{- form_widget(form.first, form.first.vars|merge({'attr': {'data-repeated-password-target': 'firstInput', 'data-action': 'input->repeated-password#changedFirst'}})) -}}
+            {{- form_help(form.first) -}}
+            {{- form_errors(form.first) -}}
+            <ul class="form-text mb-0 help-text">
+                <li><span data-repeated-password-target="firstPasswordLength"></span> <span>{{ 'repeated_password.password_length'|trans({'%value%': password_length}) }}</span></li>
+                <li><span data-repeated-password-target="firstPasswordMinNbSpecial"></span> <span>{{ 'repeated_password.password_min_nb_special'|trans({'%value%': password_min_nb_special}) }}</span></li>
+                <li><span data-repeated-password-target="firstPasswordMinNbUpper"></span> <span>{{ 'repeated_password.password_min_nb_upper'|trans({'%value%': password_min_nb_upper}) }}</span></li>
+                <li><span data-repeated-password-target="firstPasswordMinNbLower"></span> <span>{{ 'repeated_password.password_min_nb_lower'|trans({'%value%': password_min_nb_lower}) }}</span></li>
+                <li><span data-repeated-password-target="firstPasswordMinNbDigit"></span> <span>{{ 'repeated_password.password_min_nb_digit'|trans({'%value%': password_min_nb_digit}) }}</span></li>
+            </ul>
+        </div>
+		<div class="mt-3">
+            {{- form_label(form.second) -}}
+            {{- form_widget(form.second, form.second.vars|merge({'attr': {'data-repeated-password-target': 'secondInput', 'data-action': 'input->repeated-password#changedSecond'}})) -}}
+            {{- form_help(form.second) -}}
+            {{- form_errors(form.second) -}}
+            <ul class="form-text mb-0 help-text">
+                <li><span data-repeated-password-target="secondPasswordSame"></span> <span>{{ 'repeated_password.password_same'|trans }}</span></li>
+            </ul>
+        </div>
+	</div>
+{%- endblock -%}
+
+{%- block color_row -%}
+    <div 
+        {% for attrname, attrvalue in (attr | default('mt-3')) %}
+            {{- (" " ~ attrname ~ '="' ~ attrvalue ~ '"') | raw('html') }}
+        {% endfor %}
+        data-controller="color-picker">
+		<input type="hidden" id="{{ form.vars.id }}" name="{{ form.vars.full_name }}" value="{{ form.vars.value }}" data-color-picker-target="input"/>
+        <label for="{{ form.vars.id }}">{{ form.vars.label | default(form.vars.name) | trans }}</label>
+		<div data-color-picker-target="button"></div>
+        {{ form_help(form) }}
+        {{ form_errors(form) }}
+	</div>
+{%- endblock color_row -%}
+
+{%- block form_label -%}
+    {% if label is not same as(false) -%}
+        {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+        {%- if compound is defined and compound -%}
+            {%- set element = 'legend' -%}
+            {%- if 'col-form-label' not in parent_label_class -%}
+                {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' col-form-label' )|trim}) -%}
+            {%- endif -%}
+        {%- else -%}
+            {%- set row_class = row_class|default(row_attr.class|default('')) -%}
+            {%- set label_attr = label_attr|merge({for: id}) -%}
+            {%- if 'col-form-label' not in parent_label_class -%}
+                {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ('input-group' in row_class ? ' input-group-text' : ' form-label') )|trim}) -%}
+            {%- endif -%}
+        {%- endif -%}
+    {%- endif -%}
+    {{- parent() -}}
+{%- endblock form_label %}

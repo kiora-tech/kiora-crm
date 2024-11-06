@@ -1,0 +1,102 @@
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+:root {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-default;
+  background: var(--custom-secondary-l76);
+  color: var(--custom-default);
+}
+
+a {
+  color: var(--custom-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--custom-primary-l10);
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-primary;
+}
+
+/*--------------------------------------------------------------
+# Main
+--------------------------------------------------------------*/
+#main {
+  margin-top: 60px;
+  padding: 20px 30px;
+  transition: all 0.3s;
+  @media (max-width: 1199px) {
+    padding: 20px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Page Title
+--------------------------------------------------------------*/
+.pagetitle {
+  margin-bottom: 10px;
+  h1 {
+    font-size: 24px;
+    margin-bottom: 0;
+    font-weight: 600;
+    color: var(--custom-secondary);
+  }
+} 
+
+/*--------------------------------------------------------------
+# Back to top button
+--------------------------------------------------------------*/
+.back-to-top {
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  right:15px;
+  bottom: 15px;
+  z-index: 99999;
+  background: var(--custom-primary);
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  transition: all 0.4s;
+
+  i {
+    font-size: 24px;
+    color: #fff;
+    line-height: 0;
+  }
+
+  &:hover  {
+    background: var(--custom-primary-l8);
+    color: #fff;
+  }
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+}
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--custom-primary);
+  --bs-btn-border-color: var(--custom-primary);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--custom-primary);
+  --bs-btn-hover-border-color: var(--custom-primary);
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--custom-primary);
+  --bs-btn-active-border-color: var(--custom-primary);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: var(--custom-primary);
+  --bs-btn-disabled-border-color: var(--custom-primary);
+}

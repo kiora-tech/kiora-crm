@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Company;
 use App\Form\CompanyType;
 use App\Repository\CompanyRepository;
+use App\Services\PaginationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,10 +16,14 @@ use Symfony\Component\Routing\Attribute\Route;
 class CompanyController extends AbstractController
 {
     #[Route('/', name: 'app_company_index', methods: ['GET'])]
-    public function index(CompanyRepository $companyRepository): Response
+    public function index(CompanyRepository $companyRepository, PaginationService $paginationService, Request $request): Response
     {
+        $query = $companyRepository->findAll();
+
+        $companies = $paginationService->paginate($query, $request);
+
         return $this->render('company/index.html.twig', [
-            'companies' => $companyRepository->findAll(),
+            'companies' => $companies,
         ]);
     }
 

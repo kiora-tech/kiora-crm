@@ -1,0 +1,17 @@
+<div {{ attributes }} class="search-form d-flex align-items-center position-relative">
+    <input type="text" name="query" value="{{ this.query }}" data-model="query" placeholder="{{ 'Search'|trans }}" class="form-control">
+    <button type="submit" title="{{ 'Search'|trans }}" class="btn btn-outline-secondary">
+        <i class="bi bi-search"></i>
+    </button>
+    <div class="position-absolute w-100" style="top: 100%; left: 0;">
+        <ul class="list-group mt-2" style="z-index: 1000; max-height: 200px; overflow-y: auto;">
+            {% for client in this.results %}
+                <li class="list-group-item">
+                    <a href="{{ path('app_client_show', {id: client.id}) }}">
+                        {{ client.getFullName() }} ({{ client.email }})
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
