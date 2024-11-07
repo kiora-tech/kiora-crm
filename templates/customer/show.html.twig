@@ -19,7 +19,7 @@
                     <div class="col-md-6">
                         <div class="card info-card sales-card">
                             <div class="card-body">
-                                <h5 class="card-title">{{ "customer.new"|trans }}</h5>
+                                <h5 class="card-title">{{ "menu.customer"|trans }}</h5>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-people"></i>
@@ -60,6 +60,7 @@
                                         <tr class="table-primary">
                                             <th scope="col" class="text-start">{{ "provider"|trans }}</th>
                                             <th scope="col" class="text-start">{{ "energy.type"|trans }}</th>
+                                            <th scope="col" class="text-start">{{ "energy.code"|trans }}</th>
                                             <th scope="col" class="text-start">{{ "energy.expiry_date"|trans }}</th>
                                         </tr>
                                         </thead>
@@ -68,7 +69,8 @@
                                             <tr>
                                                 <td>{{ energy.provider }}</td>
                                                 <td>{{ energy.type }}</td>
-                                                <td>{{ energy.contract_end ? energy.contract_end|date('d/m/Y') : "-" }}</td>
+                                                <td>{{ energy.code }}</td>
+                                                <td>{{ energy.contractEnd ? energy.contractEnd|date('d/m/Y') : "-" }}</td>
                                             </tr>
                                         {% else %}
                                             <tr>

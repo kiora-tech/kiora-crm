@@ -20,7 +20,7 @@ class Energy
     #[ORM\Column(length: 8)]
     private ?string $type = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: Types::BIGINT, nullable: true)]
     private ?int $code = null;
 
     #[ORM\Column(length: 255, nullable: true)]

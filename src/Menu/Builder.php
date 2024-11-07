@@ -53,7 +53,7 @@ final readonly class Builder
 
         $menu->addChild('menu.customers', ['route' => 'app_customer_index'])
             ->setLabel((string) t('menu.customers'))
-            ->setExtra('icon', 'bi bi-journal-text')
+            ->setExtra('icon', 'bi bi-person')
             ->setExtra('safe_label', true);
         
     #   $menu->addChild('menu.client', ['route' => 'app_client_index'])

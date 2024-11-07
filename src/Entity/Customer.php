@@ -24,25 +24,25 @@ class Customer
     /**
      * @var Collection<int, BusinessEntity>
      */
-    #[ORM\OneToMany(targetEntity: BusinessEntity::class, mappedBy: 'customer', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: BusinessEntity::class, mappedBy: 'customer', cascade: ['persist'], orphanRemoval: true)]
     private Collection $businessEntities;
 
     /**
      * @var Collection<int, Energy>
      */
-    #[ORM\OneToMany(targetEntity: Energy::class, mappedBy: 'customer')]
+    #[ORM\OneToMany(targetEntity: Energy::class, mappedBy: 'customer', cascade: ['persist'], orphanRemoval: true)]
     private Collection $energies;
 
     /**
      * @var Collection<int, Contact>
      */
-    #[ORM\OneToMany(targetEntity: Contact::class, mappedBy: 'customer', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Contact::class, mappedBy: 'customer', cascade: ['persist'], orphanRemoval: true)]
     private Collection $contacts;
 
     /**
      * @var Collection<int, Prospect>
      */
-    #[ORM\OneToMany(targetEntity: Prospect::class, mappedBy: 'customer', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Prospect::class, mappedBy: 'customer', cascade: ['persist'], orphanRemoval: true)]
     private Collection $prospects;
 
     public function __construct()

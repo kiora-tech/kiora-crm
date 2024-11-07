@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Customer index{% endblock %}
+{% block title %}{{ "customer.edit"|trans }}{% endblock %}
 
 {% block body %}
     <div class="pagetitle d-flex justify-content-between">
-        <h1>{{ "menu.customer"|trans }}</h1>
+        <h1>{{ "customer.edit"|trans }}</h1>
         <a href="{{ path('app_customer_new') }}" class="btn btn-primary">
             {{ "create"|trans }}
         </a>
@@ -13,6 +13,13 @@
     <section class="section">
         <div class="card p-4">
             <div class="card-body">
+                <form action="{{ path('app_customer_upload') }}" method="post" enctype="multipart/form-data" class="mb-4">
+                    <div class="input-group">
+                        <input type="file" name="file" class="form-control" required>
+                        <button type="submit" class="btn btn-success">{{ "upload_file"|trans }}</button>
+                    </div>
+                </form>
+
                 <table class="table">
                     <thead class="bg-gray-50">
                     <tr class="table-primary">
