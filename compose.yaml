@@ -1,7 +1,6 @@
 services:
   database:
     image: mysql:8.0.40
-    command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: symfony_docker
@@ -11,24 +10,35 @@ services:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
       timeout: 2s
       retries: 30
-    ports:
-      - '4306:3306'
+    networks:
+      - user_app
+    restart:
+      always
   php:
-    build:
-      context: ./docker/php
-    volumes:
-      - .:/var/www/website
+    image: registry.kiora.tech/kiora/user-app_php:0.0.1
     depends_on:
       - database
-    environment:
-      - COMPOSER_MEMORY_LIMIT=-1
+    networks:
+      - user_app
+    entrypoint: [ "sh", "/var/www/website/entrypoint.sh" ]
+    restart:
+      always
   nginx:
-    image: nginx:stable-alpine
-    ports:
-      - '8080:80'
-    volumes:
-      - .:/var/www/website
-      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    image: registry.kiora.tech/kiora/user-app_nginx:0.0.1
     depends_on:
       - php
       - database
+    networks:
+      - kiora_network
+      - user_app
+    restart:
+      always
+volumes:
+  database_data: { }
+  uploads: { }
+
+networks:
+  kiora_network:
+    external: true
+  user_app:
+    driver: bridge
