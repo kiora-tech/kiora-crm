@@ -58,7 +58,7 @@
                                     <table class="table table-hover mb-0">
                                         <thead class="table-light">
                                         <tr class="table-primary">
-                                            <th scope="col" class="text-start">{{ "provider"|trans }}</th>
+                                            <th scope="col" class="text-start">{{ "energy.provider"|trans }}</th>
                                             <th scope="col" class="text-start">{{ "energy.type"|trans }}</th>
                                             <th scope="col" class="text-start">{{ "energy.code"|trans }}</th>
                                             <th scope="col" class="text-start">{{ "energy.expiry_date"|trans }}</th>
@@ -104,8 +104,8 @@
                                             <tr>
                                                 <td>{{ contact.name }}</td>
                                                 <td>{{ contact.position }}</td>
-                                                <td>{{ contact.email }}</td>
-                                                <td>{{ contact.phone ? contact.phone : "-" }}</td>
+                                                <td><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></td>
+                                                <td><a href="tel:{{ contact.phone}}">{{ contact.phone}}</a></td>
                                             </tr>
                                         {% else %}
                                             <tr>
@@ -134,7 +134,7 @@
                             <div class="list-group">
                                 {% for entity in customer.businessEntities %}
                                     <div class="list-group-item d-flex justify-content-between align-items-center">
-                                        <span>{{ "siret"|trans }}: {{ entity.siret }}</span>
+                                        <a href="https://www.pappers.fr/recherche?q={{ entity.siret }}" target="_blank">{{ "siret"|trans }}: {{ entity.siret }}</a>
                                     </div>
                                 {% endfor %}
                             </div>

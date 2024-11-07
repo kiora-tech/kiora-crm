@@ -884,6 +884,7 @@ contact:
   phone: Téléphone
 
 energy:
+  provider: Fournisseur
   type: Type
   code: Code
   expiry_date: Date d'expiration
