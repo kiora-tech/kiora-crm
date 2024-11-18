@@ -1,66 +1,97 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "customer.edit"|trans }}{% endblock %}
+{% block title %}
+	{{ "customer.edit"|trans }}
+{% endblock %}
 
 {% block body %}
-    <div class="pagetitle d-flex justify-content-between">
-        <h1>{{ "customer.edit"|trans }}</h1>
-        <a href="{{ path('app_customer_new') }}" class="btn btn-primary">
-            {{ "create"|trans }}
-        </a>
-    </div>
+	<div class="pagetitle d-flex justify-content-between">
+		<h1>{{ "customer.edit"|trans }}</h1>
+		<a href="{{ path('app_customer_new') }}" class="btn btn-primary">
+			{{ "create"|trans }}
+		</a>
+	</div>
 
-    <section class="section">
-        <div class="card p-4">
-            <div class="card-body">
-                <form action="{{ path('app_customer_upload') }}" method="post" enctype="multipart/form-data" class="mb-4">
-                    <div class="input-group">
-                        <input type="file" name="file" class="form-control" required>
-                        <button type="submit" class="btn btn-success">{{ "upload_file"|trans }}</button>
-                    </div>
-                </form>
+	<section class="section">
+		<div class="card p-4">
+			<div class="card-body">
+				<form action="{{ path('app_customer_upload') }}" method="post" enctype="multipart/form-data" class="mb-4">
+					<div class="input-group">
+						<input type="file" name="file" class="form-control" required>
+						<button type="submit" class="btn btn-success">{{ "upload_file"|trans }}</button>
+					</div>
+				</form>
 
-                <table class="table">
-                    <thead class="bg-gray-50">
-                    <tr class="table-primary">
-                        <th scope="col"
-                            class="px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ "name"|trans }}
-                        </th>
-                        <th scope="col"
-                            class="px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ "button.actions"|trans }}
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                    {% for customer in customers %}
-                    {{dump(customer.energies)}}
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">{{ customer.name }}</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <a href="{{ path('app_customer_show', {'id': customer.id}) }}"
-                                   class="btn btn-primary">{{ "button.show"|trans }}</a>
-                                <a href="{{ path('app_customer_edit', {'id': customer.id}) }}"
-                                   class="btn btn-primary">{{ "button.edit"|trans }}</a>
-                            </td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="5"
-                                class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-500">
-                                {{ "no_record"|trans }}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-                <div class="navigation mt-4 d-flex justify-content-center">
-                    {{ knp_pagination_render(customers) }}
-                </div>
-            </div>
-        </div>
-    </section>
+				<table class="table">
+					<thead class="bg-gray-50">
+						<tr class="table-primary">
+							<th scope="col" class="px-6 py-4 whitespace-nowrap flex justify-center items-center">
+								{{ "name"|trans }}
+							</th>
+							<th scope="col" class="px-6 py-4 whitespace-nowrap flex justify-center items-center">
+								Numéro de Siret
+							</th>
+                            <th scope="col" class="px-6 py-4 whitespace-nowrap flex justify-center items-center">
+								Status
+							</th>
+                            <th scope="col" class="px-6 py-4 whitespace-nowrap flex justify-center items-center">
+								Commentaire
+							</th>
+                             <th scope="col" class="px-6 py-4 whitespace-nowrap flex justify-center items-center">
+								Nom du Contact
+							</th>
+                            </th>
+                            <th scope="col" class="px-6 py-4 whitespace-nowrap flex justify-center items-center">
+								{{ "button.actions"|trans }}
+							</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						{% for customer in customers %} 
+							<tr>
+								<td class="px-6 py-4 whitespace-nowrap flex justify-center items-center">
+							   		<div class="text-sm text-gray-900">{{ customer.name }}</div>
+							   	</td>
+						    	{% if customer.businessEntities is not empty %}
+							    		<!-- Liste des SIRETs dans une boucle -->
+							    		<td class="px-6 py-4 whitespace-nowrap flex justify-center items-center">
+							    			{% for entity in customer.businessEntities %}
+							    	
+							    					<a href="https://www.pappers.fr/recherche?q={{ entity.siret }}" target="_blank">{{ "siret"|trans }}:
+							    						{{ entity.siret }}</a>
+							    				
+							    			{% endfor %}
+							    		</td>
+							    	{% else %}
+							    		<!-- Message affiché s'il n'y a pas de SIRET -->
+							    		<td class="px-6 py-4 whitespace-nowrap flex justify-center items-center">{{ "customer.no_siret"|trans }}</td>
+							    	{% endif %}
+                                    {% for prospects in customer.prospects %}
+							    			<td class="px-6 py-4 whitespace-nowrap flex justify-center items-center">{{prospects.status}}</td>
+											<td class="px-6 py-4 whitespace-nowrap flex justify-center items-center">{{prospects.comments}}</td>
+											<td class="px-6 py-4 whitespace-nowrap flex justify-center items-center">{{prospects.customer.leadOrigin}}</td>
+                                   
+							    	{% else %}
+							    			<td colspan="3" class="px-6 py-4 whitespace-nowrap flex justify-center items-center text-center">{{ "table.no_data"|trans }}</td>
+    
+							    	{% endfor %}
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+							    		<a href="{{ path('app_customer_show', {'id': customer.id}) }}" class="btn btn-primary">{{ "button.show"|trans }}</a>
+							    		<a href="{{ path('app_customer_edit', {'id': customer.id}) }}" class="btn btn-primary">{{ "button.edit"|trans }}</a>
+							    	</td>
+						{% else %}
+								<td colspan="5" class="px-6 py-4 whitespace-nowrap flex justify-center items-center">
+									{{ "no_record"|trans }}
+								</td>
+						{% endfor %}
+						</tr>
+					</tbody>
+				</table>
+
+				<div class="navigation mt-4 d-flex justify-content-center">
+					{{ knp_pagination_render(customers) }}
+				</div>
+			</div>
+		</div>
+	</section>
 {% endblock %}
