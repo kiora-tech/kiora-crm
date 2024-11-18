@@ -876,6 +876,7 @@ customer:
   siret_list: Liste des SIRET
   edit: Modifier
   new: Nouveau
+  siret: Numéro de Siret	
 
 contact:
   name: Nom
