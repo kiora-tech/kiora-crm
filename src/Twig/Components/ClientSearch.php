@@ -2,7 +2,7 @@
 
 namespace App\Twig\Components;
 
-use App\Entity\Client;
+use App\Entity\Customer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
@@ -24,7 +24,7 @@ class ClientSearch
     }
 
     /**
-     * @return Client[]
+     * @return Customer[]
      */
     public function getResults(): array
     {
@@ -32,9 +32,23 @@ class ClientSearch
             return [];
         }
 
-        /** @var Client[] $result */
-        $result = $this->entityManager->getRepository(Client::class)->createQueryBuilder('c')
-            ->where('c.lastName LIKE :query OR c.firstName LIKE :query OR c.email LIKE :query OR c.phone LIKE :query')
+        /** @var Customer[] $result */
+        $result = $this->entityManager->getRepository(Customer::class)->createQueryBuilder('c')
+            ->where(
+                'c.name LIKE :query OR 
+                be.siret LIKE :query OR 
+                e.type LIKE :query OR 
+                e.code LIKE :query OR 
+                e.provider LIKE :query OR
+                co.name LIKE :query OR
+                co.email LIKE :query OR
+                co.phone LIKE :query OR
+                co.position LIKE :query
+                '
+            )
+            ->leftJoin('c.businessEntities', 'be')
+            ->leftJoin('c.energies', 'e')
+            ->leftJoin('c.contacts', 'co')
             ->setParameter('query', '%'.$this->query.'%')
             ->getQuery()
             ->getResult();
