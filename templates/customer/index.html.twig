@@ -75,7 +75,7 @@
 							    			<td colspan="3" class="px-6 py-4 whitespace-nowrap flex justify-center items-center text-center">{{ "table.no_data"|trans }}</td>
     
 							    	{% endfor %}
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <td class="px-6 py-4 whitespace-nowrap text-right buttonDisplay text-sm font-medium">
 							    		<a href="{{ path('app_customer_show', {'id': customer.id}) }}" class="btn btn-primary">{{ "button.show"|trans }}</a>
 							    		<a href="{{ path('app_customer_edit', {'id': customer.id}) }}" class="btn btn-primary">{{ "button.edit"|trans }}</a>
 							    	</td>
