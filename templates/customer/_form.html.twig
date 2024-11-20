@@ -3,7 +3,7 @@
 </div>
 
 <section class="section">
-    <div class="card p-4">
+    <div >
         <div class="card-body">
             <!-- Début du formulaire -->
             {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
@@ -39,11 +39,12 @@
                                 {{ form(form.businessEntities) }}
                             {% endfor %}
                         </div>
-                        <button type="button" class="btn btn-secondary mt-3" data-action="form-collection#addItem">{{ 'customer.add_business_entity'|trans }}</button>
+                        <button type="button" class="btn btn-light mt-3" data-action="form-collection#addItem">{{ 'customer.add_business_entity'|trans }}</button>
                     </div>
                 </div>
 
-                <div class="col-md-6 mb-4">
+             <div class="col-md-6 mb-4">
+             <div>
                     <h3>{{ 'customer.contacts'|trans }}</h3>
                     <div data-controller="form-collection" data-form-collection-index-value="{{ form.contacts|length }}" data-form-collection-template-value="{{ form_widget(form.contacts.vars.prototype)|e('html_attr') }}">
                         <div data-form-collection-target="container">
@@ -56,8 +57,9 @@
                                 {{ form(form.contacts) }}
                             {% endfor %}
                         </div>
-                        <button type="button" class="btn btn-secondary mt-3" data-action="form-collection#addItem">{{ 'customer.add_contact'|trans }}</button>
+                        <button type="button" class="btn btn-light mt-3" data-action="form-collection#addItem">{{ 'customer.add_contact'|trans }}</button>
                     </div>
+                    
                 </div>
             </div>
 
@@ -76,7 +78,7 @@
                                 {{ form(form.energies) }}
                             {% endfor %}
                         </div>
-                        <button type="button" class="btn btn-secondary mt-3" data-action="form-collection#addItem">{{ 'customer.add_energy'|trans }}</button>
+                        <button type="button" class="btn btn-light mt-3" data-action="form-collection#addItem">{{ 'customer.add_energy'|trans }}</button>
                     </div>
                 </div>
 
@@ -93,12 +95,15 @@
                                 {{ form(form.prospects) }}
                             {% endfor %}
                         </div>
-                        <button type="button" class="btn btn-secondary mt-3" data-action="form-collection#addItem">{{ 'customer.add_prospect'|trans }}</button>
+                        <button type="button" class="btn btn-light mt-3" data-action="form-collection#addItem">{{ 'customer.add_prospect'|trans }}</button>
                     </div>
                 </div>
             </div>
 
-            <button class="btn btn-primary mt-4">{{ button_label|default('Save') }}</button>
+            <div style="display:flex;gap:5px;">
+                <button class="btn btn-primary mt-4">{{ "button.save"|trans }}</button>
+                <a class="btn btn-secondary mt-4" href="{{ path('app_customer_index') }}">{{ "button.back"|trans }}</a>
+            </div>
             {{ form_end(form) }}
         </div>
     </div>

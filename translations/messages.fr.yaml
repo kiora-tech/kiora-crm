@@ -860,7 +860,20 @@ flash_message:
     profile_updated:
         success: "Votre profil a été mis à jour avec succès."
         deleted_profile_picture: "Votre photo de profil a été supprimée avec succès."
-
+siret: siret
+upload_file:	Télécharger
+Enter customer name:	Entrez le nom du client
+Lead origin:	Origine du prospect
+Enter lead origin:	"Entrer l'origine du prospect"
+Siret:	Siret
+Code:	Code
+Provider:	Fournisseur
+Contract end:	Fin Contrat
+Status:	Status
+Comments:	Commentaire
+Contacts:	Contact
+Position:	Position
+Phone:	Telephone
 customer:
   add_prospect: Ajouter un prospect
   add_energy: Ajouter une énergie
@@ -876,6 +889,7 @@ customer:
   siret_list: Liste des SIRET
   edit: Modifier
   new: Nouveau
+  siret: Numéro de Siret	
 
 contact:
   name: Nom
