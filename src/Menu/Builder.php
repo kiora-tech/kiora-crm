@@ -46,10 +46,10 @@ final readonly class Builder
             ->setExtra('icon', 'bi bi-grid')
             ->setExtra('safe_label', true);
 
-        $menu->addChild('menu.companies', ['route' => 'app_company_index'])
-            ->setLabel((string) t('menu.companies'))
-            ->setExtra('icon', 'bi bi-journal-text')
-            ->setExtra('safe_label', true);
+//        $menu->addChild('menu.companies', ['route' => 'app_company_index'])
+//            ->setLabel((string) t('menu.companies'))
+//            ->setExtra('icon', 'bi bi-journal-text')
+//            ->setExtra('safe_label', true);
 
         $menu->addChild('menu.customers', ['route' => 'app_customer_index'])
             ->setLabel((string) t('menu.customers'))
