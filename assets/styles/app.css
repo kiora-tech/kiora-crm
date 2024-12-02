@@ -66,3 +66,93 @@ body, html {
     gap: 5px;
 }
 }
+
+#customer_businessEntities, 
+#customer_businessEntities ~ div,
+#customer_prospects,
+#customer_prospects ~ div,
+#customer_energies,
+#customer_energies ~ div,
+#customer_contacts,
+#customer_contacts ~ div,
+[id^="customer_contacts_"],
+[id^="customer_energies_"] {
+    padding: 10px;
+    background-color: #f0f0f0; 
+}
+
+
+#customer_businessEntities label, 
+#customer_businessEntities ~ div label,
+#customer_prospects label, 
+#customer_prospects ~ div label,
+#customer_energies label, 
+#customer_energies ~ div label,
+#customer_contacts label, 
+#customer_contacts ~ div label,
+[id^="customer_contacts_"] label,
+[id^="customer_energies_"] label {
+    font-weight: bold;
+    color: #4a4a4a;
+    font-size: 15px;
+    margin-bottom: 6px;
+    display: block;
+}
+
+
+#customer_businessEntities input[type="text"], 
+#customer_businessEntities ~ div input[type="text"],
+#customer_prospects input[type="text"], 
+#customer_prospects ~ div input[type="text"],
+#customer_energies input[type="text"], 
+#customer_energies ~ div input[type="text"],
+#customer_contacts input[type="text"], 
+#customer_contacts ~ div input[type="text"],
+[id^="customer_contacts_"] input[type="text"], 
+[id^="customer_contacts_"] ~ div input[type="text"],
+[id^="customer_energies_"] input[type="text"], 
+[id^="customer_energies_"] ~ div input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+
+#customer_businessEntities input[type="text"]:focus, 
+#customer_businessEntities ~ div input[type="text"]:focus,
+#customer_prospects input[type="text"]:focus, 
+#customer_prospects ~ div input[type="text"]:focus,
+#customer_energies input[type="text"]:focus, 
+#customer_energies ~ div input[type="text"]:focus,
+#customer_contacts input[type="text"]:focus, 
+#customer_contacts ~ div input[type="text"]:focus,
+[id^="customer_contacts_"] input[type="text"]:focus, 
+[id^="customer_contacts_"] ~ div input[type="text"]:focus,
+[id^="customer_energies_"] input[type="text"]:focus, 
+[id^="customer_energies_"] ~ div input[type="text"]:focus {
+    border-color: #007bff;
+    background-color: #fff;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+}
+
+
+#customer_businessEntities .mb-6, 
+#customer_businessEntities ~ div .mb-6,
+#customer_prospects .mb-6, 
+#customer_prospects ~ div .mb-6,
+#customer_energies .mb-6, 
+#customer_energies ~ div .mb-6,
+#customer_contacts .mb-6, 
+#customer_contacts ~ div .mb-6,
+[id^="customer_contacts_"] .mb-6, 
+[id^="customer_contacts_"] ~ div .mb-6,
+[id^="customer_energies_"] .mb-6, 
+[id^="customer_energies_"] ~ div .mb-6 {
+    margin-bottom: 16px;
+}
+

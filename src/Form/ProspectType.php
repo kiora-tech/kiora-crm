@@ -6,13 +6,18 @@ use App\Entity\Prospect;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ProspectType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('status')  // Statut du prospect (par exemple, "En attente", "A rappeler")
+        ->add('status', ChoiceType::class, [
+            'choices' => [
+                'Acquistion' => 'Acquisition',
+                'Renouvellement' => 'Renouvellement',
+            ]])
             ->add('comments')  // Commentaires, notes concernant la prospection
         ;
     }

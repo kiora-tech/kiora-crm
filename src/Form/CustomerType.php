@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class CustomerType extends AbstractType
 {
@@ -15,6 +16,14 @@ class CustomerType extends AbstractType
         $builder
             ->add('name')
             ->add('leadOrigin')
+            ->add('action')
+            ->add('worth')
+            ->add('commision')
+            ->add('contract', ChoiceType::class, [
+                'choices' => [
+                    'Gagner' => 'Gagner',
+                    'Perdu' => 'Perdu',
+                ]])
 
             // Ajout de la collection des Business Entities (liée au Customer)
             ->add('businessEntities', CollectionType::class, [

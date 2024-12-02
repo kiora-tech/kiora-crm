@@ -82,23 +82,25 @@
                     </div>
                 </div>
 
+                <!-- Prospects -->
                 <div class="col-md-6 mb-4">
                     <h3>{{ 'customer.prospects'|trans }}</h3>
                     <div data-controller="form-collection" data-form-collection-index-value="{{ form.prospects|length }}" data-form-collection-template-value="{{ form_widget(form.prospects.vars.prototype)|e('html_attr') }}">
                         <div data-form-collection-target="container">
                             {% for prospectForm in form.prospects %}
                                 <div class="form-item mb-3 border p-3 rounded">
-                                    {{ form_row(prospectForm, {'attr': {'class': 'mb-3'}}) }}
+                                    {{ form_row(prospectForm) }}
                                     <button type="button" class="btn btn-danger mt-2" data-action="form-collection#removeItem">{{ 'button.delete'|trans }}</button>
                                 </div>
                             {% else %}
-                                {{ form(form.prospects) }}
+                                {{ form_widget(form.prospects) }}
                             {% endfor %}
                         </div>
                         <button type="button" class="btn btn-light mt-3" data-action="form-collection#addItem">{{ 'customer.add_prospect'|trans }}</button>
                     </div>
                 </div>
             </div>
+            
 
             <div style="display:flex;gap:5px;">
                 <button class="btn btn-primary mt-4">{{ "button.save"|trans }}</button>
