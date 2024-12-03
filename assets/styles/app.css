@@ -67,19 +67,19 @@ body, html {
 }
 }
 
-/* Apply general styling to all dynamically added sections */
+
 [id^="customer_businessEntities_"],
 [id^="customer_prospects_"],
 [id^="customer_energies_"],
 [id^="customer_contacts_"] {
     padding: 10px;
-    background-color: #f9f9f9; /* Light background for separation */
+    background-color: #f9f9f9; 
     border: 1px solid #ddd;
     border-radius: 8px;
     margin-bottom: 16px;
 }
 
-/* Labels Styling */
+
 #customer_businessEntities label,
 #customer_prospects label,
 #customer_energies label,
@@ -95,7 +95,7 @@ body, html {
     margin-bottom: 6px;
 }
 
-/* Input Fields Styling */
+
 #customer_prospects select,
 #customer_prospects textarea,
 #customer_businessEntities input[type="text"],
@@ -116,7 +116,7 @@ body, html {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Focus and Hover Effects */
+
 #customer_prospects select:focus,
 #customer_prospects textarea:focus,
 #customer_businessEntities input[type="text"]:focus,
@@ -133,7 +133,7 @@ body, html {
     background-color: #fff;
 }
 
-/* Spacing between form groups */
+
 #customer_prospects .mb-6,
 [id^="customer_prospects_"] .mb-6,
 #customer_businessEntities .mb-6,
@@ -142,7 +142,7 @@ body, html {
     margin-bottom: 16px;
 }
 
-/* Button Styling */
+
 .form-item .btn-danger {
     background-color: #dc3545;
     color: white;
@@ -157,7 +157,7 @@ body, html {
     background-color: #c82333;
 }
 
-/* Textarea Specific Styling */
+
 #customer_prospects textarea,
 [id^="customer_prospects_"] textarea {
     resize: vertical;
@@ -166,6 +166,6 @@ body, html {
 
 
 .scrollable-container {
-    overflow-y: auto;         /* Enables vertical scrolling */
-    max-height: 100px;        /* Sets a fixed height for scroll activation */
+    overflow-y: auto;         
+    max-height: 100px;        
 }
