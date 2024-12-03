@@ -22,6 +22,32 @@
                     {{ form_widget(form.leadOrigin, {'attr': {'class': 'form-control', 'placeholder': 'Enter lead origin'}}) }}
                     {{ form_errors(form.leadOrigin) }}
                 </div>
+
+                                <div class="col-md-6 mb-3">
+                    {{ form_label(form.action, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.action, {'attr': {'class': 'form-control', 'placeholder': 'Action a mener'}}) }}
+                    {{ form_errors(form.action) }}
+                </div>
+
+                <!-- Champ pour L'origine du lead -->
+                <div class="col-md-6 mb-3">
+                    {{ form_label(form.worth, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.worth, {'attr': {'class': 'form-control', 'placeholder': 'Valeur du contrat'}}) }}
+                    {{ form_errors(form.worth) }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    {{ form_label(form.commision, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.commision, {'attr': {'class': 'form-control', 'placeholder': 'Commission du commercial'}}) }}
+                    {{ form_errors(form.commision) }}
+                </div>
+
+                <!-- Champ pour L'origine du lead -->
+                <div class="col-md-6 mb-3">
+                    {{ form_label(form.contract, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.contract, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.contract) }}
+                </div>
             </div>
 
             <!-- Gestion des Business Entities et Contacts en deux colonnes -->
@@ -31,7 +57,7 @@
                     <div data-controller="form-collection" data-form-collection-index-value="{{ form.businessEntities|length }}" data-form-collection-template-value="{{ form_widget(form.businessEntities.vars.prototype)|e('html_attr') }}">
                         <div data-form-collection-target="container">
                             {% for businessEntityForm in form.businessEntities %}
-                                <div class="form-item mb-3 border p-3 rounded">
+                                <div class="form-item mb-3 p-3 rounded">
                                     {{ form_row(businessEntityForm, {'attr': {'class': 'mb-3'}}) }}
                                     <button type="button" class="btn btn-danger mt-2" data-action="form-collection#removeItem">{{ 'button.delete'|trans }}</button>
                                 </div>
@@ -49,7 +75,7 @@
                     <div data-controller="form-collection" data-form-collection-index-value="{{ form.contacts|length }}" data-form-collection-template-value="{{ form_widget(form.contacts.vars.prototype)|e('html_attr') }}">
                         <div data-form-collection-target="container">
                             {% for contactForm in form.contacts %}
-                                <div class="form-item mb-3 border p-3 rounded">
+                                <div class="form-item mb-3 p-3 rounded">
                                     {{ form_row(contactForm, {'attr': {'class': 'mb-3'}}) }}
                                     <button type="button" class="btn btn-danger mt-2" data-action="form-collection#removeItem">{{ 'button.delete'|trans }}</button>
                                 </div>
@@ -70,7 +96,7 @@
                     <div data-controller="form-collection" data-form-collection-index-value="{{ form.energies|length }}" data-form-collection-template-value="{{ form_widget(form.energies.vars.prototype)|e('html_attr') }}">
                         <div data-form-collection-target="container">
                             {% for energyForm in form.energies %}
-                                <div class="form-item mb-3 border p-3 rounded">
+                                <div class="form-item mb-3 p-3 rounded">
                                     {{ form_row(energyForm, {'attr': {'class': 'mb-3'}}) }}
                                     <button type="button" class="btn btn-danger mt-2" data-action="form-collection#removeItem">{{ 'button.delete'|trans }}</button>
                                 </div>
@@ -88,7 +114,7 @@
                     <div data-controller="form-collection" data-form-collection-index-value="{{ form.prospects|length }}" data-form-collection-template-value="{{ form_widget(form.prospects.vars.prototype)|e('html_attr') }}">
                         <div data-form-collection-target="container">
                             {% for prospectForm in form.prospects %}
-                                <div class="form-item mb-3 border p-3 rounded">
+                                <div class="form-item mb-3 p-3 rounded">
                                     {{ form_row(prospectForm) }}
                                     <button type="button" class="btn btn-danger mt-2" data-action="form-collection#removeItem">{{ 'button.delete'|trans }}</button>
                                 </div>
