@@ -151,7 +151,7 @@ emails:
     hello: Hello
     sincerely: Sincerely
     thank: 'Thank you'
-    team: "The Finoptia Team"
+    team: "The GDB consulting Team"
     all_rights: 'All rights reserved'
     yousign:
         notify_signer: { title: 'You have a document to sign', text_document: 'Document title: %documentName%', text_link: 'here is the link to sign the document: %link%' }
@@ -1038,6 +1038,24 @@ dashboard:
         label: "History Signature"
     actuality:
         label: "Actuality"
+siret: siret
+customer:
+  add_prospect: Add a prospect
+  add_energy: Add an energy
+  add_contact: Add a contact
+  add_business_entity: Add a commercial entity
+  prospects: Prospects
+  energies: Energy
+  business_entities: Business entity
+  no_siret: No SIRET found
+  contacts: Contacts
+  contract_energies: Energy contract
+  lead_origin: Lead origin
+  siret_list: Siret List
+  edit: Modify
+  new: New
+  siret: Siret Number
+
 2fa:
     title: "Two-Factor Authentication"
     enter_google_code: "Enter the code from Google Authenticator"
