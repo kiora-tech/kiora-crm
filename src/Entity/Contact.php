@@ -29,6 +29,12 @@ class Contact
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $phone = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $mobilePhone = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $address = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +96,30 @@ class Contact
     public function setPhone(?string $phone): static
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getMobilePhone(): ?string
+    {
+        return $this->mobilePhone;
+    }
+
+    public function setMobilePhone(?string $mobilePhone): static
+    {
+        $this->mobilePhone = $mobilePhone;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): static
+    {
+        $this->address = $address;
 
         return $this;
     }

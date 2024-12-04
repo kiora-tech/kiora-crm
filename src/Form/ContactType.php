@@ -15,7 +15,9 @@ class ContactType extends AbstractType
             ->add('name')
             ->add('position')
             ->add('email')
-            ->add('phone')  // Ajoute le formulaire individuel pour chaque contact
+            ->add('phone')
+            ->add('mobilePhone')
+            ->add('address')  // Ajoute le formulaire individuel pour chaque contact
         ;
     }
 

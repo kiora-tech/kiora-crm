@@ -45,6 +45,21 @@ class Customer
     #[ORM\OneToMany(targetEntity: Prospect::class, mappedBy: 'customer', cascade: ['persist'], orphanRemoval: true)]
     private Collection $prospects;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $address = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $action = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $contract = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $worth = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $commision = null;
+
     public function __construct()
     {
         $this->businessEntities = new ArrayCollection();
@@ -198,6 +213,66 @@ class Customer
                 $prospect->setCustomer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): static
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getAction(): ?string
+    {
+        return $this->action;
+    }
+
+    public function setAction(?string $action): static
+    {
+        $this->action = $action;
+
+        return $this;
+    }
+
+    public function getContract(): ?string
+    {
+        return $this->contract;
+    }
+
+    public function setContract(?string $contract): static
+    {
+        $this->contract = $contract;
+
+        return $this;
+    }
+
+    public function getWorth(): ?string
+    {
+        return $this->worth;
+    }
+
+    public function setWorth(?string $worth): static
+    {
+        $this->worth = $worth;
+
+        return $this;
+    }
+
+    public function getCommision(): ?string
+    {
+        return $this->commision;
+    }
+
+    public function setCommision(?string $commision): static
+    {
+        $this->commision = $commision;
 
         return $this;
     }
