@@ -35,6 +35,9 @@ class Energy
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $basePrice = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $segment = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +123,18 @@ class Energy
     public function setBasePrice(?string $basePrice): static
     {
         $this->basePrice = $basePrice;
+
+        return $this;
+    }
+
+    public function getSegment(): ?string
+    {
+        return $this->segment;
+    }
+
+    public function setSegment(?string $segment): static
+    {
+        $this->segment = $segment;
 
         return $this;
     }

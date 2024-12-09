@@ -6,6 +6,7 @@ use App\Entity\Energy;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class EnergyType extends AbstractType
 {
@@ -18,6 +19,14 @@ class EnergyType extends AbstractType
             ->add('contractEnd')  // Date de fin de contrat
             ->add('power')
             ->add('basePrice')
+            ->add('segment', ChoiceType::class, [
+                'choices' => [
+                    'C1' => 'C1',
+                    'C2' => 'C2',
+                    'C3' => 'C3',
+                    'C4' => 'C4',
+                    'C5' => 'C5',
+                ]])
         ;
     }
 
