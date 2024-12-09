@@ -19,6 +19,13 @@ class EnergyType extends AbstractType
             ->add('contractEnd')  // Date de fin de contrat
             ->add('power')
             ->add('basePrice')
+            ->add('peakHour')
+            ->add('offPeakHour')
+            ->add('peakHourSummer')
+            ->add('offPeakHourWinter')
+            ->add('offPeakHourSummer')
+            ->add('peakHourWinter')
+            ->add('horoSeason')
             ->add('segment', ChoiceType::class, [
                 'choices' => [
                     'C1' => 'C1',
