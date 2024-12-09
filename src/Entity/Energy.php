@@ -38,6 +38,30 @@ class Energy
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $segment = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $peakHour = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $offPeakHour = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $horoSeason = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $peakHourWinter = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $peakHourSummer = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $offPeakHourWinter = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $offPeakHourSummer = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $total = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,6 +159,102 @@ class Energy
     public function setSegment(?string $segment): static
     {
         $this->segment = $segment;
+
+        return $this;
+    }
+
+    public function getPeakHour(): ?string
+    {
+        return $this->peakHour;
+    }
+
+    public function setPeakHour(?string $peakHour): static
+    {
+        $this->peakHour = $peakHour;
+
+        return $this;
+    }
+
+    public function getOffPeakHour(): ?string
+    {
+        return $this->offPeakHour;
+    }
+
+    public function setOffPeakHour(?string $offPeakHour): static
+    {
+        $this->offPeakHour = $offPeakHour;
+
+        return $this;
+    }
+
+    public function getHoroSeason(): ?string
+    {
+        return $this->horoSeason;
+    }
+
+    public function setHoroSeason(?string $horoSeason): static
+    {
+        $this->horoSeason = $horoSeason;
+
+        return $this;
+    }
+
+    public function getPeakHourWinter(): ?string
+    {
+        return $this->peakHourWinter;
+    }
+
+    public function setPeakHourWinter(?string $peakHourWinter): static
+    {
+        $this->peakHourWinter = $peakHourWinter;
+
+        return $this;
+    }
+
+    public function getPeakHourSummer(): ?string
+    {
+        return $this->peakHourSummer;
+    }
+
+    public function setPeakHourSummer(?string $peakHourSummer): static
+    {
+        $this->peakHourSummer = $peakHourSummer;
+
+        return $this;
+    }
+
+    public function getOffPeakHourWinter(): ?string
+    {
+        return $this->offPeakHourWinter;
+    }
+
+    public function setOffPeakHourWinter(string $offPeakHourWinter): static
+    {
+        $this->offPeakHourWinter = $offPeakHourWinter;
+
+        return $this;
+    }
+
+    public function getOffPeakHourSummer(): ?string
+    {
+        return $this->offPeakHourSummer;
+    }
+
+    public function setOffPeakHourSummer(?string $offPeakHourSummer): static
+    {
+        $this->offPeakHourSummer = $offPeakHourSummer;
+
+        return $this;
+    }
+
+    public function getTotal(): ?string
+    {
+        return $this->total;
+    }
+
+    public function setTotal(?string $total): static
+    {
+        $this->total = $total;
 
         return $this;
     }
