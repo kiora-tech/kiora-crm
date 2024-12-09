@@ -29,6 +29,15 @@ class Energy
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $contractEnd = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $power = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $basePrice = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $segment = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +99,42 @@ class Energy
     public function setContractEnd(?\DateTimeInterface $contractEnd): static
     {
         $this->contractEnd = $contractEnd;
+
+        return $this;
+    }
+
+    public function getPower(): ?string
+    {
+        return $this->power;
+    }
+
+    public function setPower(?string $power): static
+    {
+        $this->power = $power;
+
+        return $this;
+    }
+
+    public function getBasePrice(): ?string
+    {
+        return $this->basePrice;
+    }
+
+    public function setBasePrice(?string $basePrice): static
+    {
+        $this->basePrice = $basePrice;
+
+        return $this;
+    }
+
+    public function getSegment(): ?string
+    {
+        return $this->segment;
+    }
+
+    public function setSegment(?string $segment): static
+    {
+        $this->segment = $segment;
 
         return $this;
     }
