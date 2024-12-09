@@ -59,6 +59,9 @@ class Energy
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $offPeakHourSummer = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $total = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -240,6 +243,18 @@ class Energy
     public function setOffPeakHourSummer(?string $offPeakHourSummer): static
     {
         $this->offPeakHourSummer = $offPeakHourSummer;
+
+        return $this;
+    }
+
+    public function getTotal(): ?string
+    {
+        return $this->total;
+    }
+
+    public function setTotal(?string $total): static
+    {
+        $this->total = $total;
 
         return $this;
     }

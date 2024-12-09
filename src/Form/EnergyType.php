@@ -34,6 +34,7 @@ class EnergyType extends AbstractType
                     'C4' => 'C4',
                     'C5' => 'C5',
                 ]])
+        ->add('total')
         ;
     }
 
