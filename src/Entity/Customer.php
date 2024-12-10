@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CustomerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
@@ -39,20 +40,25 @@ class Customer
     #[ORM\OneToMany(targetEntity: Contact::class, mappedBy: 'customer', cascade: ['persist'], orphanRemoval: true)]
     private Collection $contacts;
 
+    #[ORM\Column(type: Types::STRING, enumType: ProspectOrigin::class)]
+    #[Assert\NotBlank]
+    private ProspectOrigin $origin;
+
+    #[ORM\Column(type: 'string', enumType: ProspectStatus::class)]
+    #[Assert\NotBlank]
+    private ProspectStatus $status;
+
     /**
-     * @var Collection<int, Prospect>
+     * @var Collection<int, Comment>
      */
-    #[ORM\OneToMany(targetEntity: Prospect::class, mappedBy: 'customer', cascade: ['persist'], orphanRemoval: true)]
-    private Collection $prospects;
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'customer', cascade: ['persist'], orphanRemoval: true)]
+    private Collection $comments;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $address = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $action = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $contract = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $worth = null;
@@ -71,7 +77,7 @@ class Customer
         $this->businessEntities = new ArrayCollection();
         $this->energies = new ArrayCollection();
         $this->contacts = new ArrayCollection();
-        $this->prospects = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -193,30 +199,54 @@ class Customer
         return $this;
     }
 
-    /**
-     * @return Collection<int, Prospect>
-     */
-    public function getProspects(): Collection
+    public function getOrigin(): ?ProspectOrigin
     {
-        return $this->prospects;
+        return $this->origin;
     }
 
-    public function addProspect(Prospect $prospect): static
+    public function setOrigin(ProspectOrigin $origin): static
     {
-        if (!$this->prospects->contains($prospect)) {
-            $this->prospects->add($prospect);
-            $prospect->setCustomer($this);
+        $this->origin = $origin;
+
+        return $this;
+    }
+
+    public function getStatus(): ?ProspectStatus
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?ProspectStatus $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setCustomer($this);
         }
 
         return $this;
     }
 
-    public function removeProspect(Prospect $prospect): static
+    public function removeComment(Comment $comment): static
     {
-        if ($this->prospects->removeElement($prospect)) {
+        if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($prospect->getCustomer() === $this) {
-                $prospect->setCustomer(null);
+            if ($comment->getCustomer() === $this) {
+                $comment->setCustomer(null);
             }
         }
 
@@ -243,18 +273,6 @@ class Customer
     public function setAction(?string $action): static
     {
         $this->action = $action;
-
-        return $this;
-    }
-
-    public function getContract(): ?string
-    {
-        return $this->contract;
-    }
-
-    public function setContract(?string $contract): static
-    {
-        $this->contract = $contract;
 
         return $this;
     }

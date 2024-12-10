@@ -3,10 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Energy;
+use App\Entity\Segment;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class EnergyType extends AbstractType
 {
@@ -26,15 +27,8 @@ class EnergyType extends AbstractType
             ->add('offPeakHourSummer')
             ->add('peakHourWinter')
             ->add('horoSeason')
-            ->add('segment', ChoiceType::class, [
-                'choices' => [
-                    'C1' => 'C1',
-                    'C2' => 'C2',
-                    'C3' => 'C3',
-                    'C4' => 'C4',
-                    'C5' => 'C5',
-                ]])
-        ->add('total')
+            ->add('segment', EnumType::class, ['class' => Segment::class])  // Segment de consommation
+            ->add('total')
         ;
     }
 
