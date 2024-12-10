@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\EnergyRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EnergyRepository::class)]
 class Energy
@@ -29,14 +30,15 @@ class Energy
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $contractEnd = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $power = null;
+     #[ORM\Column(nullable: true)]
+    private ?int $power = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $basePrice = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $segment = null;
+    #[ORM\Column(type: Types::STRING, nullable: true, enumType: Segment::class, options: ['default' => 'C1'])]
+    #[Assert\Choice(callback: [Segment::class, 'values'])]
+    private ?Segment $segment = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $peakHour = null;
@@ -47,20 +49,20 @@ class Energy
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $horoSeason = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $peakHourWinter = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $peakHourWinter = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $peakHourSummer = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $peakHourSummer = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $offPeakHourWinter = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $offPeakHourWinter = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $offPeakHourSummer = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $offPeakHourSummer = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $total = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $total = null;
 
     public function getId(): ?int
     {
@@ -151,12 +153,12 @@ class Energy
         return $this;
     }
 
-    public function getSegment(): ?string
+    public function getSegment(): ?Segment
     {
         return $this->segment;
     }
 
-    public function setSegment(?string $segment): static
+    public function setSegment(?Segment $segment): static
     {
         $this->segment = $segment;
 

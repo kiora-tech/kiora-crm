@@ -3,11 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Customer;
+use App\Entity\ProspectOrigin;
+use App\Entity\ProspectStatus;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class CustomerType extends AbstractType
 {
@@ -16,16 +18,26 @@ class CustomerType extends AbstractType
         $builder
             ->add('name')
             ->add('leadOrigin')
+            ->add('origin', EnumType::class, [
+                'class' => ProspectOrigin::class,
+                'choice_label' => fn(ProspectOrigin $origin) => $origin->value,
+            ])
+            ->add('status', EnumType::class, [
+                'class' => ProspectStatus::class,
+                'choice_label' => fn(ProspectStatus $status) => $status->value,
+            ])
+            ->add('comments', CollectionType::class, [
+                'entry_type' => CommentType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+            ])
             ->add('action')
             ->add('worth')
             ->add('commision')
             ->add('margin')
             ->add('companyGroup')
-            ->add('contract', ChoiceType::class, [
-                'choices' => [
-                    'Gagner' => 'Gagner',
-                    'Perdu' => 'Perdu',
-                ]])
 
             // Ajout de la collection des Business Entities (liée au Customer)
             ->add('businessEntities', CollectionType::class, [
@@ -48,15 +60,6 @@ class CustomerType extends AbstractType
             // Ajout de la collection des Energies
             ->add('energies', CollectionType::class, [
                 'entry_type' => EnergyType::class,  // Sous-formulaire Energy
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-            ])
-
-            // Ajout de la collection des Prospects
-            ->add('prospects', CollectionType::class, [
-                'entry_type' => ProspectType::class,  // Sous-formulaire Prospect
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
