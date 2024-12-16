@@ -36,13 +36,7 @@ services:
       - '1025:1025'
     networks:
       - kiora_network
-      - user_app
-
-volumes:
-  ###> symfony/mercure-bundle ###
-  mercure_data:
-  mercure_config:
-###< symfony/mercure-bundle ###
+      - gdb_internal_network
 
 networks:
   kiora_network:
