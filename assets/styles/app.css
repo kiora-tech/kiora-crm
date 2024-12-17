@@ -168,3 +168,51 @@ body, html {
     overflow-y: auto;         
     max-height: 100px;        
 }
+.hidden {
+    display: none;
+  }
+  
+  .flex {
+    display: block;
+  }
+
+  .dataUpdate {
+    background-color: #f9f9f9;
+    padding: 20px; 
+    border-radius: 8px;
+  }
+  
+  .dataUpdate .card-title {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: #333; 
+  }
+  
+  .dataUpdate .form-label {
+    font-weight: 600;
+    color: #555; 
+  }
+  
+  .dataUpdate .form-control {
+    border: 1px solid #ddd;
+    border-radius: 4px; 
+    padding: 8px 10px; 
+    font-size: 1rem; 
+  }
+  
+  .dataUpdate .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 4px;
+  }
+  
+  .dataUpdate .btn-primary:hover {
+    background-color: #0056b3; 
+    border-color: #0056b3;
+  }
+  
+  .dataUpdate .mb-3 {
+    margin-bottom: 1rem; 
+  }

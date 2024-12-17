@@ -73,13 +73,27 @@ class CustomerController extends AbstractController
         return $this->render('customer/upload.html.twig');
     }
 
-    #[Route('/{id}', name: 'app_customer_show', methods: ['GET'])]
-    public function show(Customer $customer): Response
+    #[Route('/{id}', name: 'app_customer_show', methods: ['GET', 'POST'])]
+    public function show(Request $request, Customer $customer, EntityManagerInterface $entityManager): Response
     {
+        $form = $this->createForm(CustomerType::class, $customer);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Customer updated successfully.');
+
+            // Stay on the same page to reflect updated data
+            return $this->redirectToRoute('app_customer_show', ['id' => $customer->getId()]);
+        }
+
         return $this->render('customer/show.html.twig', [
             'customer' => $customer,
+            'form' => $form->createView(),
         ]);
     }
+
 
     #[Route('/{id}/edit', name: 'app_customer_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Customer $customer, EntityManagerInterface $entityManager): Response
@@ -102,7 +116,7 @@ class CustomerController extends AbstractController
     #[Route('/{id}', name: 'app_customer_delete', methods: ['POST'])]
     public function delete(Request $request, Customer $customer, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$customer->getId(), $request->getPayload()->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $customer->getId(), $request->getPayload()->get('_token'))) {
             $entityManager->remove($customer);
             $entityManager->flush();
         }

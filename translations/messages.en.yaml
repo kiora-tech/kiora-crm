@@ -259,6 +259,7 @@ template.index: 'Templates list'
 template.show: 'Show template'
 template.modal.header: 'Choose a template'
 template.modal.close: Close
+template.btn.edit: Quick Edit
 template.create_success: 'Template created successfully'
 template.delete_success: 'Template deleted successfully'
 document_signature:
@@ -313,6 +314,7 @@ spouse: Spouse
 child: Child
 objectives: Objectives
 comment: Comment
+NoComments:	No comment
 nonFinancialAssets: 'Non-financial assets'
 financialAsset: 'Financial asset'
 liabilities: Liabilities
@@ -1055,7 +1057,7 @@ customer:
   edit: Modify
   new: New
   siret: Siret Number
-
+  update_details: Update
 2fa:
     title: "Two-Factor Authentication"
     enter_google_code: "Enter the code from Google Authenticator"

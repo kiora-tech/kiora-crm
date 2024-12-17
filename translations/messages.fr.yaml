@@ -278,6 +278,7 @@ template.index: "Liste des modèles"
 template.show: Visualiser
 template.modal.header: "Choisir un modèle"
 template.modal.close: Fermer
+template.btn.edit: Edition Rapide
 template.create_success: "Modèle créé avec succès"
 template.delete_success: "Modèle supprimé avec succès"
 client_access:
@@ -871,6 +872,7 @@ Provider:	Fournisseur
 Contract end:	Fin Contrat
 Status:	Status
 Comments:	Commentaire
+NoComments:	Pas de commentaire
 Contacts:	Contact
 Position:	Position
 Phone:	Telephone
@@ -890,7 +892,7 @@ customer:
   edit: Modifier
   new: Nouveau
   siret: Numéro de Siret	
-
+  update_details: Mise à jour
 contact:
   name: Nom
   position: Poste
