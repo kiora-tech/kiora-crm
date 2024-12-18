@@ -105,6 +105,9 @@ body, html {
 [id^="customer_prospects_"] select,
 [id^="customer_prospects_"] textarea,
 [id^="customer_energies_"] input[type="text"],
+[id^="customer_energies_"] input[type="number"],
+[id^="customer_energies_"] input[type="date"],
+[id^="customer_energies_"] select,
 [id^="customer_contacts_"] input[type="text"] {
     width: 100%;
     padding: 10px;
