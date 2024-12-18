@@ -1058,6 +1058,7 @@ customer:
   new: New
   siret: Siret Number
   update_details: Update
+  add_comment: Add a comment
 2fa:
     title: "Two-Factor Authentication"
     enter_google_code: "Enter the code from Google Authenticator"

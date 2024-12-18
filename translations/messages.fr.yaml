@@ -893,6 +893,7 @@ customer:
   new: Nouveau
   siret: Numéro de Siret	
   update_details: Mise à jour
+  add_comment: Ajouter un commentaire
 contact:
   name: Nom
   position: Poste
