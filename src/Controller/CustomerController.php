@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Customer;
+use App\Entity\Document;
 use App\Form\CustomerType;
+use App\Form\DropzoneForm;
 use App\Repository\CustomerRepository;
 use App\Service\ImportService;
 use App\Services\PaginationService;
@@ -79,6 +81,9 @@ class CustomerController extends AbstractController
         $form = $this->createForm(CustomerType::class, $customer);
         $form->handleRequest($request);
 
+        $document = new Document();
+        $formDocument = $this->createForm(DropzoneForm::class, $document);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
@@ -91,6 +96,7 @@ class CustomerController extends AbstractController
         return $this->render('customer/show.html.twig', [
             'customer' => $customer,
             'form' => $form->createView(),
+            'formDocument' => $formDocument->createView(),
         ]);
     }
 

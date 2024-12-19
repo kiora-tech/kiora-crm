@@ -1,0 +1,8 @@
+<ul>
+    {% for document in documents %}
+        <li>
+            <a href="{{ path('app_document_download', {'id': document.id}) }}" data-turbo="false" >{{ document.name }}</a>
+            <a href="{{ path('app_document_delete', {'id': document.id}) }}">❌</a>
+        </li>
+    {% endfor %}
+</ul>

@@ -176,6 +176,21 @@
 						</div>
 					</div>
 				</div>
+				<div>
+					<div class="row card">
+						<div class="card-body">
+							<h5 class="card-title">{{ "document"|trans }}</h5>
+							<turbo-frame id="list_document">
+							<div class="d-flex align-items-center">
+								<div class="ps-3">
+									{% include 'document/_document_list.html.twig' with {'documents': customer.documents} %}
+								</div>
+							</div>
+							{% include 'document/_dropzone.html.twig' with {'form': formDocument} %}
+							</turbo-frame>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div data-controller="modal">
@@ -274,5 +289,5 @@
 
 			</div>
 		</div>
-	</div>
-</section>{% endblock %}
+    </section>
+{% endblock %}
