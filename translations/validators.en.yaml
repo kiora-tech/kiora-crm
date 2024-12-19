@@ -71,3 +71,4 @@ manage_user:
         error_message: 'The password fields must match.'
     error_message:
         not_blank: 'This field cannot be empty'
+
