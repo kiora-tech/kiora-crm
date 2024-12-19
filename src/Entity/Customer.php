@@ -72,12 +72,19 @@ class Customer
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $companyGroup = null;
 
+    /**
+     * @var Collection<int, Document>
+     */
+    #[ORM\OneToMany(targetEntity: Document::class, mappedBy: 'customer', orphanRemoval: true)]
+    private Collection $documents;
+
     public function __construct()
     {
         $this->businessEntities = new ArrayCollection();
         $this->energies = new ArrayCollection();
         $this->contacts = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->documents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -321,6 +328,36 @@ class Customer
     public function setCompanyGroup(?string $companyGroup): static
     {
         $this->companyGroup = $companyGroup;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Document>
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(Document $document): static
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents->add($document);
+            $document->setCustomer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Document $document): static
+    {
+        if ($this->documents->removeElement($document)) {
+            // set the owning side to null (unless already changed)
+            if ($document->getCustomer() === $this) {
+                $document->setCustomer(null);
+            }
+        }
 
         return $this;
     }

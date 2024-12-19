@@ -274,5 +274,10 @@
 
 			</div>
 		</div>
-	</div>
-</section>{% endblock %}
+    </section>
+    <div>
+        {{ render(controller(
+            'App\\Controller\\CustomerController::uploadDocument', {'id': customer.id}
+        )) }}
+    </div>
+{% endblock %}

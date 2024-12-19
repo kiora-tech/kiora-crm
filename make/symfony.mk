@@ -1,7 +1,7 @@
 HP ?= php
 
 ##@ Symfony
-install_symfony: vendor update_symfony ## install symfony
+install_symfony: vendor update_symfony ready ## install symfony
 	@if ls src/DataFixtures/*.php 1> /dev/null 2>&1; then ${PHP} bin/console doctrine:fixtures:load --no-interaction; fi
 
 update_symfony: up ## update symfony
