@@ -55,6 +55,16 @@ final readonly class Builder
             ->setLabel((string) t('menu.customers'))
             ->setExtra('icon', 'bi bi-person')
             ->setExtra('safe_label', true);
+
+        $menu->addChild('menu.contacts', ['route' => 'app_contact_index'])
+        ->setLabel((string) t('menu.contacts'))
+        ->setExtra('icon', 'bi bi-person-lines-fill')
+        ->setExtra('safe_label', true);
+
+        $menu->addChild('menu.documents', ['route' => 'app_document_index'])
+            ->setLabel((string) t('menu.documents'))
+            ->setExtra('icon', 'bi bi-file-earmark-text')
+            ->setExtra('safe_label', true);
         
     #   $menu->addChild('menu.client', ['route' => 'app_client_index'])
     #       ->setLabel((string) t('menu.client'))

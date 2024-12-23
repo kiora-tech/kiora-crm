@@ -8,7 +8,7 @@ use App\Form\CustomerType;
 use App\Form\DropzoneForm;
 use App\Repository\CustomerRepository;
 use App\Service\ImportService;
-use App\Services\PaginationService;
+use App\Service\PaginationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

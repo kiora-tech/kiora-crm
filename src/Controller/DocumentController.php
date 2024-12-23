@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Customer;
 use App\Entity\Document;
+use App\Form\DocumentType;
 use App\Form\DropzoneForm;
+use App\Repository\DocumentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,13 +15,14 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mime\MimeTypesInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/document')]
 class DocumentController extends AbstractController
 {
-    #[Route('/{id}', name: 'app_document', methods: ['POST'])]
+    #[Route('/{id}/new', name: 'app_document', methods: ['POST'])]
     public function uploadDocument(
         Request                $request,
         SluggerInterface       $slugger,
@@ -64,36 +67,85 @@ class DocumentController extends AbstractController
 
         return $this->render('document/upload_response.html.twig', compact('form', 'customer'));
     }
+
     #[Route('/{id}', name: 'app_document_download', methods: ['GET'])]
     public function downloadDocument(
-        Document $document
+        Document $document,
+        MimeTypesInterface $mimeTypes
     ): Response
     {
         $response = new Response();
-        $response->headers->set('Content-Type', 'application/pdf');
-        $response->headers->set('Content-Disposition', 'attachment; filename="' . $document->getName() . '"');
+
+        //gettype
+        $typeMime = $mimeTypes->guessMimeType($document->getPath());
+        $baseName = basename($document->getPath());
+        $response->headers->set('Content-Type', $typeMime);
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . $baseName . '"');
         $response->setContent(file_get_contents($document->getPath()));
 
         return $response;
     }
 
-    #[Route('/{id}/remove', name: 'app_document_delete', methods: ['GET'])]
-    public function deleteDocument(
-        Document $document,
-        EntityManagerInterface $entityManager
-    ): Response
+    #[Route(name: 'app_document_index', methods: ['GET'])]
+    public function index(DocumentRepository $documentRepository): Response
     {
-        //remove the file from the filesystem
-        $path = $document->getPath();
-        if (file_exists($path)) {
-            unlink($path);
+        return $this->render('docu/index.html.twig', [
+            'documents' => $documentRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/new', name: 'app_docu_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $document = new Document();
+        $form = $this->createForm(DropzoneForm::class, $document);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($document);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_docu_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        $customer = $document->getCustomer();
+        return $this->render('docu/new.html.twig', [
+            'document' => $document,
+            'form' => $form,
+        ]);
+    }
 
-        $entityManager->remove($document);
-        $entityManager->flush();
+    #[Route('/{id}/edit', name: 'app_docu_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Document $document, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(DropzoneForm::class, $document);
+        $form->handleRequest($request);
 
-        return $this->redirectToRoute('app_document', ['id' => $customer->getId()]);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_docu_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('docu/edit.html.twig', [
+            'document' => $document,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_document_delete', methods: ['POST'])]
+    public function delete(Request $request, Document $document, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->getPayload()->getString('_token'))) {
+
+            $path = $document->getPath();
+            if (file_exists($path)) {
+                unlink($path);
+            }
+
+            $entityManager->remove($document);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_document_index', [], Response::HTTP_SEE_OTHER);
     }
 }

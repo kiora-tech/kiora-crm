@@ -29,6 +29,8 @@ menu:
   client_document: "Document client"
   document_signature: "Signature de document"
   create_account: "Création de compte"
+  documents: Documents
+  contacts: Contacts
 choice:
   "yes": Oui
   "no": Non
