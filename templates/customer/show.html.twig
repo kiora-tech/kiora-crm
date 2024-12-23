@@ -96,6 +96,8 @@
 						<div class="card recent-sales">
 							<div class="card-body">
 								<h5 class="card-title">{{ "customer.contacts"|trans }}</h5>
+								<turbo-frame id="contact">
+                                    <a href="{{ path('app_contact_new', {'customer': customer.id}) }}" class="btn btn-primary">{{ "button.add_contact"|trans }}</a>
 								<div class="table-responsive">
 									<table class="table table-hover mb-0">
 										<thead class="table-light">
@@ -112,10 +114,10 @@
 													<td>{{ contact.name }}</td>
 													<td>{{ contact.position }}</td>
 													<td>
-														<a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+														<a href="mailto:{{ contact.email }}" data-turbo="false">{{ contact.email }}</a>
 													</td>
 													<td>
-														<a href="tel:{{ contact.phone }}">{{ contact.phone }}</a>
+														<a href="tel:{{ contact.phone }}" data-turbo="false">{{ contact.phone }}</a>
 													</td>
 												</tr>
 											{% else %}
@@ -126,6 +128,7 @@
 										</tbody>
 									</table>
 								</div>
+								</turbo-frame>
 							</div>
 						</div>
 					</div>
@@ -162,6 +165,7 @@
 					<div class="row card">
 						<div class="card-body">
 							<h5 class="card-title">{{ "comment"|trans }}</h5>
+							<turbo-frame id="comment">
 							<div class="d-flex align-items-center">
 								<div class="ps-3">
 									{% for comment in customer.comments %}
@@ -173,6 +177,8 @@
 									{% endfor %}
 								</div>
 							</div>
+								<a href="{{ path('app_comment_new', {'customer': customer.id}) }}" class="btn btn-primary">{{ "button.add_comment"|trans }}</a>
+							</turbo-frame>
 						</div>
 					</div>
 				</div>

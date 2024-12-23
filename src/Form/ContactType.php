@@ -8,9 +8,14 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Routing\RouterInterface;
 
 class ContactType extends AbstractType
 {
+    public function __construct(private readonly RouterInterface $router)
+    {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -19,12 +24,13 @@ class ContactType extends AbstractType
             ->add('email')
             ->add('phone')
             ->add('mobilePhone')
-            ->add('address');  // Ajoute le formulaire individuel pour chaque contact
-        if ($options['with_customer'] === true) {
+            ->add('address');
+        if (!$options['customer'] instanceof Customer) {
             $builder->add('customer', EntityType::class, [
                 'class' => Customer::class
             ]);
         }
+        $builder->setAction($this->router->generate('app_contact_new', ['customer' => $options['customer']?->getId()]));
 
     }
 
@@ -32,9 +38,9 @@ class ContactType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Contact::class,
-            'with_customer' => true
+            'customer' => null
         ]);
 
-        $resolver->setAllowedValues('with_customer', [true, false]);
+        $resolver->setAllowedValues('customer', fn($value) => $value instanceof Customer || $value === null);
     }
 }

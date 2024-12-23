@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\MimeTypesInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\UX\Turbo\TurboBundle;
 
 #[Route('/document')]
 class DocumentController extends AbstractController
@@ -141,10 +142,15 @@ class DocumentController extends AbstractController
             if (file_exists($path)) {
                 unlink($path);
             }
-
+            $customer = $document->getCustomer();
             $entityManager->remove($document);
             $entityManager->flush();
+
+            if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+                return $this->redirectToRoute('app_customer_show', ['id' => $customer->getId()], Response::HTTP_SEE_OTHER);
+            }
         }
+
 
         return $this->redirectToRoute('app_document_index', [], Response::HTTP_SEE_OTHER);
     }
