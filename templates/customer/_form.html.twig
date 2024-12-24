@@ -91,29 +91,6 @@
                 </div>
             </div>
 
-            <div class="col-md-6 mb-4">
-                <div>
-                    <h3>{{ 'customer.contacts'|trans }}</h3>
-                    <div data-controller="form-collection" data-form-collection-index-value="{{ form.contacts|length }}"
-                         data-form-collection-template-value="{{ form_widget(form.contacts.vars.prototype)|e('html_attr') }}">
-                        <div data-form-collection-target="container">
-                            {% for contactForm in form.contacts %}
-                                <div class="form-item mb-3 p-3 rounded">
-                                    {{ form_row(contactForm, {'attr': {'class': 'mb-3'}}) }}
-                                    <button type="button" class="btn btn-danger mt-2"
-                                            data-action="form-collection#removeItem">{{ 'button.delete'|trans }}</button>
-                                </div>
-                            {% else %}
-                                {{ form(form.contacts) }}{% endfor %}
-                        </div>
-                        <button type="button" class="btn btn-light mt-3" data-action="form-collection#addItem">
-                            {{ 'customer.add_contact'|trans }}
-                        </button>
-                    </div>
-
-                </div>
-            </div>
-
             <!-- Gestion des Energies et Prospects en deux colonnes -->
             <div class="row">
                 <div class="col-md-6 mb-4">
@@ -135,26 +112,6 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 mb-4">
-                    <h3>{{ 'customer.comments'|trans }}</h3>
-                    <div data-controller="form-collection" data-form-collection-index-value="{{ form.comments|length }}"
-                         data-form-collection-template-value="{{ form_widget(form.comments.vars.prototype)|e('html_attr') }}">
-                        <div data-form-collection-target="container">
-                            {% for form in form.comments %}
-                                <div class="form-item mb-3 border p-3 rounded">
-                                    {{ form_row(form, {'attr': {'class': 'mb-3'}}) }}
-                                    <button type="button" class="btn btn-danger mt-2"
-                                            data-action="form-collection#removeItem">{{ 'button.delete'|trans }}</button>
-                                </div>
-                            {% else %}
-                                {{ form_widget(form.comments) }}
-                            {% endfor %}
-                        </div>
-                        <button type="button" class="btn btn-light mt-3" data-action="form-collection#addItem">
-                            {{ 'customer.add_comment'|trans }}
-                        </button>
-                    </div>
-                </div>
             </div>
 
 

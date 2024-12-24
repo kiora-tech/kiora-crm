@@ -75,27 +75,14 @@ class CustomerController extends AbstractController
         return $this->render('customer/upload.html.twig');
     }
 
-    #[Route('/{id}', name: 'app_customer_show', methods: ['GET', 'POST'])]
-    public function show(Request $request, Customer $customer, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}', name: 'app_customer_show', methods: ['GET'])]
+    public function show(Customer $customer): Response
     {
-        $form = $this->createForm(CustomerType::class, $customer);
-        $form->handleRequest($request);
-
         $document = new Document();
         $formDocument = $this->createForm(DropzoneForm::class, $document);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Customer updated successfully.');
-
-            // Stay on the same page to reflect updated data
-            return $this->redirectToRoute('app_customer_show', ['id' => $customer->getId()]);
-        }
-
         return $this->render('customer/show.html.twig', [
             'customer' => $customer,
-            'form' => $form->createView(),
             'formDocument' => $formDocument->createView(),
         ]);
     }

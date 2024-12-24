@@ -26,13 +26,6 @@ class CustomerType extends AbstractType
                 'class' => ProspectStatus::class,
                 'choice_label' => fn(ProspectStatus $status) => $status->value,
             ])
-            ->add('comments', CollectionType::class, [
-                'entry_type' => CommentType::class,
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-            ])
             ->add('action')
             ->add('worth')
             ->add('commision')
@@ -46,15 +39,6 @@ class CustomerType extends AbstractType
                 'allow_add' => true,  // Permet l'ajout de nouvelles entités
                 'allow_delete' => true,  // Permet de supprimer des entités
                 'by_reference' => false,  // Important pour que Doctrine travaille bien avec l'association
-            ])
-
-            // Ajout de la collection des Contacts
-            ->add('contacts', CollectionType::class, [
-                'entry_type' => ContactType::class,  // Sous-formulaire Contact
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
             ])
 
             // Ajout de la collection des Energies
