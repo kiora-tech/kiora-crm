@@ -66,55 +66,7 @@
                 {{ form_errors(form.companyGroup) }}
             </div>
         </div>
-
-        <!-- Gestion des Business Entities et Contacts en deux colonnes -->
-        <div class="row">
-            <div class="col-md-6 mb-4">
-                <h3>{{ 'customer.business_entities'|trans }}</h3>
-                <div data-controller="form-collection"
-                     data-form-collection-index-value="{{ form.businessEntities|length }}"
-                     data-form-collection-template-value="{{ form_widget(form.businessEntities.vars.prototype)|e('html_attr') }}">
-                    <div data-form-collection-target="container">
-                        {% for businessEntityForm in form.businessEntities %}
-                            <div class="form-item mb-3 p-3 rounded">
-                                {{ form_row(businessEntityForm, {'attr': {'class': 'mb-3'}}) }}
-                                <button type="button" class="btn btn-danger mt-2"
-                                        data-action="form-collection#removeItem">{{ 'button.delete'|trans }}</button>
-                            </div>
-                        {% else %}
-                            {{ form(form.businessEntities) }}
-                        {% endfor %}
-                    </div>
-                    <button type="button" class="btn btn-light mt-3" data-action="form-collection#addItem">
-                        {{ 'customer.add_business_entity'|trans }}
-                    </button>
-                </div>
-            </div>
-
-            <!-- Gestion des Energies et Prospects en deux colonnes -->
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <h3>{{ 'customer.energies'|trans }}</h3>
-                    <div data-controller="form-collection" data-form-collection-index-value="{{ form.energies|length }}"
-                         data-form-collection-template-value="{{ form_widget(form.energies.vars.prototype)|e('html_attr') }}">
-                        <div data-form-collection-target="container">
-                            {% for energyForm in form.energies %}
-                                <div class="form-item mb-3 p-3 rounded">
-                                    {{ form_row(energyForm, {'attr': {'class': 'mb-3'}}) }}
-                                    <button type="button" class="btn btn-danger mt-2"
-                                            data-action="form-collection#removeItem">{{ 'button.delete'|trans }}</button>
-                                </div>
-                            {% else %}
-                                {{ form(form.energies) }}{% endfor %}
-                        </div>
-                        <button type="button" class="btn btn-light mt-3" data-action="form-collection#addItem">
-                            {{ 'customer.add_energy'|trans }}</button>
-                    </div>
-                </div>
-
-            </div>
-
-
+       <div>
             <div style="display:flex;gap:5px;">
                 {{ form_row(form._token) }}
                 <button class="btn btn-primary mt-4">{{ "button.save"|trans }}</button>

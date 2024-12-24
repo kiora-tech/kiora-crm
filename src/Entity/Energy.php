@@ -37,7 +37,6 @@ class Energy
     private ?string $basePrice = null;
 
     #[ORM\Column(type: Types::STRING, nullable: true, enumType: Segment::class, options: ['default' => 'C1'])]
-    #[Assert\Choice(callback: [Segment::class, 'values'])]
     private ?Segment $segment = null;
 
     #[ORM\Column(length: 255, nullable: true)]

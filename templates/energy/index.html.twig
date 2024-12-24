@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Energy index{% endblock %}
+
+{% block body %}
+    <h1>Energy index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Code</th>
+                <th>Provider</th>
+                <th>ContractEnd</th>
+                <th>Power</th>
+                <th>BasePrice</th>
+                <th>Segment</th>
+                <th>PeakHour</th>
+                <th>OffPeakHour</th>
+                <th>HoroSeason</th>
+                <th>PeakHourWinter</th>
+                <th>PeakHourSummer</th>
+                <th>OffPeakHourWinter</th>
+                <th>OffPeakHourSummer</th>
+                <th>Total</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for energy in energies %}
+            <tr>
+                <td>{{ energy.id }}</td>
+                <td>{{ energy.type }}</td>
+                <td>{{ energy.code }}</td>
+                <td>{{ energy.provider }}</td>
+                <td>{{ energy.contractEnd ? energy.contractEnd|date('Y-m-d') : '' }}</td>
+                <td>{{ energy.power }}</td>
+                <td>{{ energy.basePrice }}</td>
+                <td>{{ energy.segment }}</td>
+                <td>{{ energy.peakHour }}</td>
+                <td>{{ energy.offPeakHour }}</td>
+                <td>{{ energy.horoSeason }}</td>
+                <td>{{ energy.peakHourWinter }}</td>
+                <td>{{ energy.peakHourSummer }}</td>
+                <td>{{ energy.offPeakHourWinter }}</td>
+                <td>{{ energy.offPeakHourSummer }}</td>
+                <td>{{ energy.total }}</td>
+                <td>
+                    <a href="{{ path('app_energy_show', {'id': energy.id}) }}">show</a>
+                    <a href="{{ path('app_energy_edit', {'id': energy.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="17">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_energy_new') }}">Create new</a>
+{% endblock %}
