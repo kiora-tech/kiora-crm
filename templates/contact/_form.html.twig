@@ -1,4 +1,5 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_widget(form) }}
+<button class="btn btn-primary">{{ "button.save"|trans }}</button>
+<a href="#" data-turbo-action="remove" data-turbo-frame="contact" class="btn btn-secondary">{{ "button.close"|trans }}</a>
 {{ form_end(form) }}

@@ -1,43 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Contact index{% endblock %}
+{% block title %}Contact index
+{% endblock %}
 
 {% block body %}
-    <h1>Contact index</h1>
+	<h1>Contact index</h1>
+	<section class="section">
+		<div class="card p-4">
+			<div class="card-body">
+				<table class="table" data-controller="table-header">
+					<thead class="bg-gray-50">
+						<tr class="table-primary">
+							<th scope="col" class="px-6 py-4 text-center" data-index="0" data-action="click->table-header#sort">Email</th>
+							<th scope="col" class="px-6 py-4 text-center" data-index="1" data-action="click->table-header#sort">Name</th>
+							<th scope="col" class="px-6 py-4 text-center" data-index="2" data-action="click->table-header#sort">Position</th>
+							<th scope="col" class="px-6 py-4 text-center" data-index="3" data-action="click->table-header#sort">Phone</th>
+							<th scope="col" class="px-6 py-4 text-center" data-index="4" data-action="click->table-header#sort">Mobile Phone</th>
+							<th scope="col" class="px-6 py-4 text-center" data-index="5" data-action="click->table-header#sort">Address</th>
+							<th scope="col" class="px-6 py-4 text-center" data-index="6">Actions</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						{% for contact in entities %}
+							<tr id="contact-row-{{ contact.id }}">
+								<td class="px-6 py-4 text-center">
+									<a href="mailto:{{ contact.email }}" class="text-blue-500 hover:underline">{{ contact.email }}</a>
+								</td>
+								<td class="px-6 py-4 text-center">{{ contact.name }}</td>
+								<td class="px-6 py-4 text-center">{{ contact.position }}</td>
+								<td class="px-6 py-4 text-center">{{ contact.phone }}</td>
+								<td class="px-6 py-4 text-center">
+									<a href="tel:{{ contact.mobilePhone }}" class="text-blue-500 hover:underline">{{ contact.mobilePhone }}</a>
+								</td>
+								<td class="px-6 py-4 text-center">{{ contact.address }}</td>
+								<td class="px-6 py-4 text-center">
+									<a href="{{ path('app_contact_show', {'id': contact.id}) }}" class="text-blue-500 hover:underline">Show</a>
+									<a href="{{ path('app_contact_edit', {'id': contact.id}) }}" class="text-blue-500 hover:underline">Edit</a>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="7" class="px-6 py-4 text-center">No records found</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Email</th>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Phone</th>
-                <th>MobilePhone</th>
-                <th>Address</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for contact in entities %}
-            <tr id="contact-row-{{ contact.id }}">
-                <td><a href="mailto:{{ contact.email }}"> {{ contact.email }}</a></td>
-                <td>{{ contact.name }}</td>
-                <td>{{ contact.position }}</td>
-                <td>{{ contact.phone }}</td>
-                <td><a href="tel:{{ contact.mobilePhone }}">{{ contact.mobilePhone  }}</a></td>
-                <td>{{ contact.address }}</td>
-                <td>
-                    <a href="{{ path('app_contact_show', {'id': contact.id}) }}">show</a>
-                    <a href="{{ path('app_contact_edit', {'id': contact.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_contact_new') }}">Create new</a>
+	<a href="{{ path('app_contact_new') }}">Create new</a>
 {% endblock %}
