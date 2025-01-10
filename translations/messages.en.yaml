@@ -131,6 +131,9 @@ button:
     impersonate: Impersonate
     manage: Manage
     login: Login
+    add_siret: Add a Siret
+    add_energy: Add an energy
+    add_contact: Add a contact
     company:
         update: 'Update company'
         users: 'Company users'
@@ -1056,6 +1059,7 @@ customer:
   siret_list: Siret List
   edit: Modify
   new: New
+  add_siret: Add a Siret
   siret: Siret Number
   update_details: Update
   add_comment: Add a comment
@@ -1128,4 +1132,7 @@ C4:	C4
 C5:	C5
 Total:	Total
 customer.comments:	Commentaire
-Note: Note        
+Note: Note
+documentDoc: document
+File: File
+Drag and drop a file or click to browse: Drag and drop a file or click to browse

@@ -134,7 +134,11 @@ button:
     close: Fermer
     impersonate: "Usurper l'identité"
     manage: 'Gérer'
+    add_siret: Ajouter un Siret
     login: Connexion
+    add_energy: Ajouter une énergie
+    add_contact: Ajouter un contact
+    add_comment: Ajouter un commentaire
     company:
         update: "Modifier l'entreprise"
         users: "Utilisateurs de l'entreprise"
@@ -893,7 +897,7 @@ customer:
   siret_list: Liste des SIRET
   edit: Modifier
   new: Nouveau
-  siret: Numéro de Siret	
+  siret: Numéro de Siret
   update_details: Mise à jour
   add_comment: Ajouter un commentaire
 contact:
@@ -950,3 +954,6 @@ C5:	C5
 Total:	Total
 customer.comments:	Comment
 Note:	Note
+documentDoc:	document
+File:	Fichier
+Drag and drop a file or click to browse: Glisser-déposer un fichier
