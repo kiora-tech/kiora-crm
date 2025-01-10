@@ -17,7 +17,8 @@ security:
             entry_point: form_login
             form_login:
                 login_path: /login   
-                check_path: /login_check  
+                check_path: /login_check
+                enable_csrf: true
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\AppAuthentificatorAuthenticator
