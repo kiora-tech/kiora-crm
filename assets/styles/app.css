@@ -58,3 +58,164 @@ body, html {
         padding: 10px !important;
     }
 }
+.buttonDisplay{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-bottom: 42px !important;
+}
+
+
+
+[id^="customer_businessEntities_"],
+[id^="customer_prospects_"],
+[id^="customer_energies_"],
+[id^="customer_contacts_"] {
+    padding: 10px;
+    background-color: #f9f9f9; 
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+
+#customer_businessEntities label,
+#customer_prospects label,
+#customer_energies label,
+#customer_contacts label,
+[id^="customer_businessEntities_"] label,
+[id^="customer_prospects_"] label,
+[id^="customer_energies_"] label,
+[id^="customer_contacts_"] label {
+    font-weight: bold;
+    color: #4a4a4a;
+    font-size: 15px;
+    display: block;
+    margin-bottom: 6px;
+}
+
+
+#customer_prospects select,
+#customer_prospects textarea,
+#customer_businessEntities input[type="text"],
+#customer_prospects input[type="text"],
+#customer_energies input[type="text"],
+#customer_contacts input[type="text"],
+[id^="customer_businessEntities_"] input[type="text"],
+[id^="customer_prospects_"] select,
+[id^="customer_prospects_"] textarea,
+[id^="customer_energies_"] input[type="text"],
+[id^="customer_energies_"] input[type="number"],
+[id^="customer_energies_"] input[type="date"],
+[id^="customer_energies_"] select,
+[id^="customer_contacts_"] input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #ffffff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+#customer_prospects select:focus,
+#customer_prospects textarea:focus,
+#customer_businessEntities input[type="text"]:focus,
+#customer_prospects input[type="text"]:focus,
+#customer_energies input[type="text"]:focus,
+#customer_contacts input[type="text"]:focus,
+[id^="customer_businessEntities_"] input[type="text"]:focus,
+[id^="customer_prospects_"] select:focus,
+[id^="customer_prospects_"] textarea:focus,
+[id^="customer_energies_"] input[type="text"]:focus,
+[id^="customer_contacts_"] input[type="text"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    background-color: #fff;
+}
+
+
+#customer_prospects .mb-6,
+[id^="customer_prospects_"] .mb-6,
+#customer_businessEntities .mb-6,
+#customer_energies .mb-6,
+#customer_contacts .mb-6 {
+    margin-bottom: 16px;
+}
+
+
+.form-item .btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-item .btn-danger:hover {
+    background-color: #c82333;
+}
+
+
+#customer_prospects textarea,
+[id^="customer_prospects_"] textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+
+.scrollable-container {
+    overflow-y: auto;         
+    max-height: 100px;        
+}
+.hidden {
+    display: none;
+  }
+  
+  .flex {
+    display: block;
+  }
+
+  .dataUpdate {
+    background-color: #f9f9f9;
+    padding: 20px; 
+    border-radius: 8px;
+  }
+  
+  .dataUpdate .card-title {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: #333; 
+  }
+  
+  .dataUpdate .form-label {
+    font-weight: 600;
+    color: #555; 
+  }
+  
+  .dataUpdate .form-control {
+    border: 1px solid #ddd;
+    border-radius: 4px; 
+    padding: 8px 10px; 
+    font-size: 1rem; 
+  }
+  
+  .dataUpdate .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 4px;
+  }
+  
+  .dataUpdate .btn-primary:hover {
+    background-color: #0056b3; 
+    border-color: #0056b3;
+  }
+  
+  .dataUpdate .mb-3 {
+    margin-bottom: 1rem; 
+  }

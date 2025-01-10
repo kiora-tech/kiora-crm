@@ -27,3 +27,5 @@
 .idea
 
 compose.override.yaml
+
+/public/uploads/documents/

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+    <h1>Contact</h1>
+<table class="table bg-white divide-y divide-gray-200">
+    <thead class="bg-gray-50">
+        <tr class="table-primary">
+            <th scope="col" class="px-6 py-4 text-center">Email</th>
+            <th scope="col" class="px-6 py-4 text-center">Name</th>
+            <th scope="col" class="px-6 py-4 text-center">Position</th>
+            <th scope="col" class="px-6 py-4 text-center">Phone</th>
+            <th scope="col" class="px-6 py-4 text-center">Mobile Phone</th>
+            <th scope="col" class="px-6 py-4 text-center">Address</th>
+        </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+        <tr>
+            <td class="px-6 py-4 text-center">{{ entity.email }}</td>
+            <td class="px-6 py-4 text-center">{{ entity.name }}</td>
+            <td class="px-6 py-4 text-center">{{ entity.position }}</td>
+            <td class="px-6 py-4 text-center">{{ entity.phone }}</td>
+            <td class="px-6 py-4 text-center">{{ entity.mobilePhone }}</td>
+            <td class="px-6 py-4 text-center">{{ entity.address }}</td>
+        </tr>
+    </tbody>
+</table>
+
+    <a class="btn btn-secondary" href="{{ path('app_contact_index') }}">{{ "button.close"|trans }}</a>
+
+    <a class="btn btn-primary" href="{{ path('app_contact_edit', {'id': entity.id}) }}">{{ "button.edit"|trans }}</a>
+
+    {{ include('contact/_delete_form.html.twig') }}
+{% endblock %}

@@ -86,9 +86,6 @@ return [
     'apexcharts' => [
         'version' => '3.49.2',
     ],
-    '@popperjs/core' => [
-        'version' => '2.11.8',
-    ],
     'bootstrap-icons/font/bootstrap-icons.min.css' => [
         'version' => '1.11.3',
         'type' => 'css',
@@ -295,10 +292,6 @@ return [
     'remixicon/fonts/remixicon.min.css' => [
         'version' => '4.3.0',
         'type' => 'css',
-    ],
-    'simple-datatables' => [
-        'version' => '9.0.3',
-        'path' => 'simple-datatables@9.0.3/dist/umd/simple-datatables.js',
     ],
     'simple-datatables' => [
         'version' => '9.0.3',
