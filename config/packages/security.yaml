@@ -16,8 +16,8 @@ security:
         main:
             entry_point: form_login
             form_login:
-                login_path: /login   
-                check_path: /login_check
+                login_path: app_login
+                check_path: app_login
                 enable_csrf: true
             lazy: true
             provider: app_user_provider
