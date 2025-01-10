@@ -25,11 +25,6 @@
 				<header class="header fixed-top d-flex align-items-center" id="menu-overlay">
 					<div class="d-flex align-items-center justify-content-between">
 						<a href="/" class="logo d-flex align-items-center">
-						{#	{% if company_logo_url() %}
-								<img src="{{ company_logo_url() }}" alt="Company Logo"/>
-							{% else %}#}
-								<img src="{{ asset('assets/NiceAdmin/img/logo-95c3f894b59abf75c34cb26d7eedacc8.png') }}" alt="Default Logo"/>
-							{#{% endif %}#}
 							<span class="d-none d-lg-block">GDB consulting</span>
 						</a>
 						{% block inner_header %}{% endblock %}
