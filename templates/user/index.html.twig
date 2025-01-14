@@ -19,6 +19,14 @@
                     <tr class="table-primary">
                         <th scope="col"
                             class="px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {{ "name"|trans }}
+                        </th>
+                        <th scope="col"
+                            class="px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {{ "last_name"|trans }}
+                        </th>
+                        <th scope="col"
+                            class="px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             {{ "email"|trans }}
                         </th>
                         <th scope="col"
@@ -34,6 +42,12 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                     {% for user in users %}
                         <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">{{ user.name }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">{{ user.lastName }}</div>
+                            </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">{{ user.email }}</div>
                             </td>
