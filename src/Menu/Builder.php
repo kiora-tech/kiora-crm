@@ -66,6 +66,10 @@ final readonly class Builder
             ->setExtra('icon', 'bi bi-file-earmark-text')
             ->setExtra('safe_label', true);
         
+            $menu->addChild('menu.user', ['route' => 'app_user_index'])
+            ->setLabel((string) t('menu.user'))
+            ->setExtra('icon', 'bi bi-door-open')
+            ->setExtra('safe_label', true);
     #   $menu->addChild('menu.client', ['route' => 'app_client_index'])
     #       ->setLabel((string) t('menu.client'))
     #       ->setExtra('icon', 'bi bi-journal-text')
