@@ -28,14 +28,16 @@
 								</td>
 								<td class="px-6 py-4 text-center">{{ contact.name }}</td>
 								<td class="px-6 py-4 text-center">{{ contact.position }}</td>
-								<td class="px-6 py-4 text-center">{{ contact.phone }}</td>
+								<td class="px-6 py-4 text-center">
+									<a href="tel:{{ contact.phone }}" class="text-blue-500 hover:underline">{{ contact.phone }}</a>
+								</td>
 								<td class="px-6 py-4 text-center">
 									<a href="tel:{{ contact.mobilePhone }}" class="text-blue-500 hover:underline">{{ contact.mobilePhone }}</a>
 								</td>
 								<td class="px-6 py-4 text-center">{{ contact.address }}</td>
-								<td class="px-6 py-4 text-center">
-									<a href="{{ path('app_contact_show', {'id': contact.id}) }}" class="text-blue-500 hover:underline">Show</a>
-									<a href="{{ path('app_contact_edit', {'id': contact.id}) }}" class="text-blue-500 hover:underline">Edit</a>
+								<td class="buttonDisplay px-6 py-4 text-right">
+									<a href="{{ path('app_contact_show', {'id': contact.id}) }}" class="btn btn-primary">{{ "button.show"|trans }}</a>
+									<a href="{{ path('app_contact_edit', {'id': contact.id}) }}" class="btn btn-primary">{{ "button.edit"|trans }}</a>
 								</td>
 							</tr>
 						{% else %}

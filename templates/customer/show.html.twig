@@ -88,7 +88,7 @@
 											</tbody>
 										</table>
 									</div>
-									<a href="{{ path('app_energy_new', {'customer': customer.id}) }}" class="btn btn-primary">{{ "button.add_energy"|trans }}</a>
+									<a id="open-overlay-button" href="{{ path('app_energy_new', {'customer': customer.id}) }}" class="btn btn-primary">{{ "button.add_energy"|trans }}</a>
 								</turbo-frame>
 							</div>
 						</div>
@@ -130,7 +130,7 @@
 											</tbody>
 										</table>
 									</div>
-									<a href="{{ path('app_contact_new', {'customer': customer.id}) }}" class="btn btn-primary">{{ "button.add_contact"|trans }}</a>
+									<a id="open-overlay-button" href="{{ path('app_contact_new', {'customer': customer.id}) }}" class="btn btn-primary">{{ "button.add_contact"|trans }}</a>
 								</turbo-frame>
 							</div>
 						</div>
@@ -161,7 +161,7 @@
 								<!-- Message affiché s'il n'y a pas de SIRET -->
 								<p>{{ "customer.no_siret"|trans }}</p>
 							{% endif %}
-							<a href="{{ path('app_business_entity_new', {'customer': customer.id}) }}" class="btn btn-primary">{{ "button.add_siret"|trans }}</a>
+							<a id="open-overlay-button" href="{{ path('app_business_entity_new', {'customer': customer.id}) }}" class="btn btn-primary">{{ "button.add_siret"|trans }}</a>
 						</turbo-frame>
 					</div>
 
@@ -182,7 +182,7 @@
 										{% endfor %}
 									</div>
 								</div>
-								<a href="{{ path('app_comment_new', {'customer': customer.id}) }}" class="btn btn-primary">{{ "button.add_comment"|trans }}</a>
+								<a id="open-overlay-button" href="{{ path('app_comment_new', {'customer': customer.id}) }}" class="btn btn-primary">{{ "button.add_comment"|trans }}</a>
 							</turbo-frame>
 						</div>
 					</div>

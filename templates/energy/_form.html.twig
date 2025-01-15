@@ -1,5 +1,9 @@
-{{ form_start(form) }}
-{{ form_widget(form) }}
-<button class="btn btn-primary">{{ "button.save"|trans }}</button>
-<a href="#" data-turbo-action="remove" data-turbo-frame="energy" class="btn btn-secondary">{{ "button.close"|trans }}</a>
-{{ form_end(form) }}
+<div class="overlay" id="energies-overlay">
+	<div class="overlay-content">
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<button class="btn btn-primary">{{ "button.save"|trans }}</button>
+		<a href="#" id="close-overlay" data-turbo-action="remove" data-turbo-frame="energies" class="btn btn-secondary">{{ "button.close"|trans }}</a>
+		{{ form_end(form) }}
+	</div>
+</div>
