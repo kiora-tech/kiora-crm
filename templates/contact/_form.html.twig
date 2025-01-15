@@ -1,9 +1,5 @@
-<div class="overlay" id="contact-overlay">
-	<div class="overlay-content">
-		{{ form_start(form) }}
-		{{ form_widget(form) }}
-		<button class="btn btn-primary">{{ "button.save"|trans }}</button>
-		<a href="#" data-turbo-action="remove" data-turbo-frame="contact" class="btn btn-secondary">{{ "button.close"|trans }}</a>
-		{{ form_end(form) }}
-	</div>
-</div>
+{{ form_start(form) }}
+{{ form_widget(form) }}
+<button class="btn btn-primary">{{ "button.save"|trans }}</button>
+<a href="#" data-turbo-action="remove" data-turbo-frame="contact" class="btn btn-secondary">{{ "button.close"|trans }}</a>
+{{ form_end(form) }}
