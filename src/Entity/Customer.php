@@ -48,7 +48,7 @@ class Customer
 
     #[ORM\Column(type: 'string', nullable: true, enumType: ProspectStatus::class)]
     #[Assert\NotBlank]
-    private ProspectStatus $status;
+    private ?ProspectStatus $status = null;
 
     /**
      * @var Collection<int, Comment>
