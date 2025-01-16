@@ -16,6 +16,7 @@
         "knplabs/knp-menu-bundle": "^3.4",
         "knplabs/knp-paginator-bundle": "^6.6",
         "phpdocumentor/reflection-docblock": "^5.3",
+        "phpoffice/phpspreadsheet": "^3.8",
         "symfony/asset": "7.2.*",
         "symfony/asset-mapper": "7.2.*",
         "symfony/console": "7.2.*",

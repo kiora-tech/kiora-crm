@@ -2,11 +2,13 @@
 
 namespace App\Service;
 
+use App\Entity\Comment;
 use App\Entity\Customer;
 use App\Entity\Energy;
 use App\Entity\Prospect;
 use App\Entity\Contact;
 use App\Entity\BusinessEntity;
+use App\Entity\ProspectOrigin;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Psr\Log\LoggerInterface;
@@ -61,18 +63,16 @@ readonly class ImportService
 
             if (!empty($row[15]) || !empty($row[14])) {
                 // Creating or updating Prospect entity
-                $existingProspect = $this->entityManager->getRepository(Prospect::class)
+                $comment = $this->entityManager->getRepository(Comment::class)
                     ->findOneBy(['customer' => $customer]);
 
-                if (!$existingProspect) {
-                    $prospect = new Prospect();
-                    $prospect->setCustomer($customer);
-                    $prospect->setComments($row[15] === '' ? null : $row[15]); // COMMENTAIRES
-                    $prospect->setStatus($row[14] === '' ? null : $row[14]); // PROCHAINE ACTION
-                    $this->entityManager->persist($prospect);
+                if (!$comment) {
+                    $comment = new Comment();
+                    $comment->setCustomer($customer);
+                    $comment->setNote($row[15] === '' ? null : $row[15]); // COMMENTAIRES
+                    $this->entityManager->persist($comment);
                 } else {
-                    $existingProspect->setComments($row[15] === '' ? null : $row[15]);
-                    $existingProspect->setStatus($row[14] === '' ? null : $row[14]);
+                    $comment->setNote($row[15] === '' ? null : $row[15]);
                 }
             }
 
@@ -123,6 +123,7 @@ readonly class ImportService
             $customer = new Customer();
             $customer->setName($name);
             $customer->setLeadOrigin($leadOrigin);
+            $customer->setOrigin(ProspectOrigin::LISTING);
             $this->entityManager->persist($customer);
             $this->entityManager->flush();
         }
