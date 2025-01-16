@@ -5,8 +5,11 @@
 {% block body %}
     <h1>Create new Energy</h1>
 <turbo-frame id="energies">
+    <div class="overlay" id="energies-overlay">
+	<div class="overlay-content">
     {{ include('energy/_form.html.twig') }}
-</turbo-frame>
+	</div>
+</div>
 
-    <a href="{{ path('app_energy_index') }}">back to list</a>
+    </turbo-frame>
 {% endblock %}
