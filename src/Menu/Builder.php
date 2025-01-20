@@ -47,15 +47,26 @@ final readonly class Builder
             ->setExtra('icon', 'bi bi-grid')
             ->setExtra('safe_label', true);
 
-        $menu->addChild('menu.companies', ['route' => 'app_company_index'])
-            ->setLabel((string)t('menu.companies'))
-            ->setExtra('icon', 'bi bi-journal-text')
+        $menu->addChild('menu.customers', ['route' => 'app_customer_index'])
+            ->setLabel((string) t('menu.customers'))
+            ->setExtra('icon', 'bi bi-person')
             ->setExtra('safe_label', true);
 
-        $menu->addChild('menu.user', ['route' => 'app_user_index'])
-            ->setLabel((string)t('menu.user'))
-            ->setExtra('icon', 'bi bi-journal-text')
+        $menu->addChild('menu.contacts', ['route' => 'app_contact_index'])
+        ->setLabel((string) t('menu.contacts'))
+        ->setExtra('icon', 'bi bi-person-lines-fill')
+        ->setExtra('safe_label', true);
+
+        $menu->addChild('menu.documents', ['route' => 'app_document_index'])
+            ->setLabel((string) t('menu.documents'))
+            ->setExtra('icon', 'bi bi-file-earmark-text')
             ->setExtra('safe_label', true);
+        
+        $menu->addChild('menu.user', ['route' => 'app_user_index'])
+            ->setLabel((string) t('menu.user'))
+            ->setExtra('icon', 'bi bi-door-open')
+            ->setExtra('safe_label', true);
+
 
 
         return $menu;

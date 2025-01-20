@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ "customer.edit"|trans }}
+{% endblock %}
+
+{% block body %}
+	<div class="pagetitle d-flex justify-content-between">
+		<h1>{{ "customer.edit"|trans }}</h1>
+		<a href="{{ path('app_customer_new') }}" class="btn btn-primary">
+			{{ "create"|trans }}
+		</a>
+	</div>
+
+	<section class="section">
+		<div class="card p-4">
+			<div class="card-body">
+				<form action="{{ path('app_customer_upload') }}" method="post" enctype="multipart/form-data" class="mb-4">
+					<div class="input-group">
+						<input type="file" name="file" class="form-control" required>
+						<button type="submit" class="btn btn-success">{{ "upload_file"|trans }}</button>
+					</div>
+				</form>
+
+				<table class="table" data-controller="table-header">
+					<thead class="bg-gray-50">
+						<tr class="table-primary">
+							<th scope="col" class="px-6 py-4 text-center" data-index="0" data-action="click->table-header#sort">{{ "name"|trans }}</th>
+							<th scope="col" class="px-6 py-4 text-center" data-index="1" data-action="click->table-header#sort">{{ "customer.siret"|trans }}</th>
+							<th scope="col" class="px-6 py-4 text-center" data-index="2" data-action="click->table-header#sort">Prix</th>
+							<th scope="col" class="px-6 py-4 text-center" data-index="3" data-action="click->table-header#sort">{{ "contract"|trans }}</th>
+							<th scope="col" class="px-6 py-4 text-center" data-index="4" data-action="click->table-header#sort">{{ "client.contact.label"|trans }}</th>
+							<th scope="col" class="px-6 py-4 text-center" data-index="5">{{ "button.actions"|trans }}</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						{% for customer in customers %}
+							<tr data-table-header-target="row">
+								<td class="px-6 py-4 text-center">{{ customer.name }}</td>
+								<td class="px-6 py-4 text-center">
+									{% if customer.businessEntities is not empty %}
+										<div class="scrollable-container">
+											{% for entity in customer.businessEntities %}
+												<a href="https://www.pappers.fr/recherche?q={{ entity.siret }}" target="_blank">{{ entity.siret }}</a><br>
+											{% endfor %}
+										</div>
+									{% else %}
+										{{ "customer.no_siret"|trans }}
+									{% endif %}
+								</td>
+								<td class="px-6 py-4 text-center">{{ customer.worth|default("N/A") }}</td>
+								<td class="px-6 py-4 text-center">{{ customer.action|default("N/A") }}</td>
+								<td class="px-6 py-4 text-center">{{ customer.companyGroup|default("N/A") }}</td>
+								<td class="buttonDisplay px-6 py-4 text-right">
+									<a href="{{ path('app_customer_show', {'id': customer.id}) }}" class="btn btn-primary">{{ "button.show"|trans }}</a>
+									<a href="{{ path('app_customer_edit', {'id': customer.id}) }}" class="btn btn-primary">{{ "button.edit"|trans }}</a>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="6" class="px-6 py-4 text-center">{{ "no_record"|trans }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+				<div class="navigation mt-4 d-flex justify-content-center">
+					{{ knp_pagination_render(customers) }}
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

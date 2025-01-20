@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Document index
+{% endblock %}
+
+{% block body %}
+	<div class="pagetitle d-flex justify-content-between">
+		<h1>{{ "menu.documents"|trans }}</h1>
+	</div>
+	<section class="section">
+		<div class="card p-4">
+			<div class="card-body">
+				<table class="table" data-controller="table-header">
+					<thead class="bg-gray-50">
+						<tr class="table-primary">
+							<th scope="col" class="px-6 py-4 text-center" data-index="0" data-action="click->table-header#sort">Name</th>
+							<th scope="col" class="px-6 py-4 text-center" data-index="1">Actions</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						{% for document in documents %}
+							<tr>
+								<td class="px-6 py-4 text-center">{{ document.name }}</td>
+								<td class="px-6 py-4 text-center">
+									<a href="{{ path('app_document_download', {'id': document.id}) }}" data-turbo="false" class="text-blue-500 hover:underline">Show</a>
+									<a href="{{ path('app_docu_edit', {'id': document.id}) }}" class="text-blue-500 hover:underline">Edit</a>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="2" class="px-6 py-4 text-center">No records found</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+
+	<a href="{{ path('app_docu_new') }}">Create new</a>
+{% endblock %}

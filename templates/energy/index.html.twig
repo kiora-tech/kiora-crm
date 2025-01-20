@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Energy index{% endblock %}
+
+{% block body %}
+    <h1>Energy index</h1>
+
+    <table class="table bg-white divide-y divide-gray-200" data-controller="table-header">
+    <thead class="bg-gray-50">
+        <tr class="table-primary">
+            <th scope="col" class="px-4 py-2 text-center" data-index="0" data-action="click->table-header#sort">Id</th>
+            <th scope="col" class="px-4 py-2 text-center" data-index="1" data-action="click->table-header#sort">Type</th>
+            <th scope="col" class="px-4 py-2 text-center" data-index="2" data-action="click->table-header#sort">Code</th>
+            <th scope="col" class="px-4 py-2 text-center" data-index="3" data-action="click->table-header#sort">Provider</th>
+            <th scope="col" class="px-4 py-2 text-center" data-index="4" data-action="click->table-header#sort">Contract End</th>
+            <th scope="col" class="px-4 py-2 text-center" data-index="5" data-action="click->table-header#sort">Power</th>
+            <th scope="col" class="px-4 py-2 text-center" data-index="6" data-action="click->table-header#sort">Base Price</th>
+            <th scope="col" class="px-4 py-2 text-center" data-index="7" data-action="click->table-header#sort">Segment</th>
+            <th scope="col" class="px-4 py-2 text-center" data-index="8" data-action="click->table-header#sort">Peak Hour</th>
+            <th scope="col" class="px-4 py-2 text-center" data-index="9" data-action="click->table-header#sort">Off-Peak Hour</th>
+            <th scope="col" class="px-4 py-2 text-center" data-index="10" data-action="click->table-header#sort">Horo Season</th>
+            <th scope="col" class="px-4 py-2 text-center" data-index="11" data-action="click->table-header#sort">Peak Hour Winter</th>
+            <th scope="col" class="px-4 py-2 text-center" data-index="12" data-action="click->table-header#sort">Peak Hour Summer</th>
+            <th scope="col" class="px-4 py-2 text-center" data-index="13" data-action="click->table-header#sort">Off-Peak Hour Winter</th>
+            <th scope="col" class="px-4 py-2 text-center" data-index="14" data-action="click->table-header#sort">Off-Peak Hour Summer</th>
+            <th scope="col" class="px-4 py-2 text-center" data-index="15" data-action="click->table-header#sort">Total</th>
+            <th scope="col" class="px-4 py-2 text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+        {% for energy in entities %}
+            <tr id="energy-row-{{ energy.id }}">
+                <td class="px-4 py-2 text-center">{{ energy.id }}</td>
+                <td class="px-4 py-2 text-center">{{ energy.type }}</td>
+                <td class="px-4 py-2 text-center">{{ energy.code }}</td>
+                <td class="px-4 py-2 text-center">{{ energy.provider }}</td>
+                <td class="px-4 py-2 text-center">{{ energy.contractEnd ? energy.contractEnd|date('Y-m-d') : '' }}</td>
+                <td class="px-4 py-2 text-center">{{ energy.power }}</td>
+                <td class="px-4 py-2 text-center">{{ energy.basePrice }}</td>
+                <td class="px-4 py-2 text-center">{{ energy.segment }}</td>
+                <td class="px-4 py-2 text-center">{{ energy.peakHour }}</td>
+                <td class="px-4 py-2 text-center">{{ energy.offPeakHour }}</td>
+                <td class="px-4 py-2 text-center">{{ energy.horoSeason }}</td>
+                <td class="px-4 py-2 text-center">{{ energy.peakHourWinter }}</td>
+                <td class="px-4 py-2 text-center">{{ energy.peakHourSummer }}</td>
+                <td class="px-4 py-2 text-center">{{ energy.offPeakHourWinter }}</td>
+                <td class="px-4 py-2 text-center">{{ energy.offPeakHourSummer }}</td>
+                <td class="px-4 py-2 text-center">{{ energy.total }}</td>
+                <td class="px-4 py-2 text-center">
+                    <a href="{{ path('app_energy_show', {'id': energy.id}) }}" class="text-blue-500 hover:underline">Show</a>
+                    <a href="{{ path('app_energy_edit', {'id': energy.id}) }}" class="text-blue-500 hover:underline">Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="17" class="px-4 py-2 text-center">No records found</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+    <a href="{{ path('app_energy_new') }}">Create new</a>
+{% endblock %}

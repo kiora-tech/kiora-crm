@@ -131,6 +131,9 @@ button:
     impersonate: Impersonate
     manage: Manage
     login: Login
+    add_siret: Add a Siret
+    add_energy: Add an energy
+    add_contact: Add a contact
     company:
         update: 'Update company'
         users: 'Company users'
@@ -151,7 +154,7 @@ emails:
     hello: Hello
     sincerely: Sincerely
     thank: 'Thank you'
-    team: "The Finoptia Team"
+    team: "The GDB consulting Team"
     all_rights: 'All rights reserved'
     yousign:
         notify_signer: { title: 'You have a document to sign', text_document: 'Document title: %documentName%', text_link: 'here is the link to sign the document: %link%' }
@@ -259,6 +262,7 @@ template.index: 'Templates list'
 template.show: 'Show template'
 template.modal.header: 'Choose a template'
 template.modal.close: Close
+template.btn.edit: Quick Edit
 template.create_success: 'Template created successfully'
 template.delete_success: 'Template deleted successfully'
 document_signature:
@@ -313,6 +317,7 @@ spouse: Spouse
 child: Child
 objectives: Objectives
 comment: Comment
+NoComments:	No comment
 nonFinancialAssets: 'Non-financial assets'
 financialAsset: 'Financial asset'
 liabilities: Liabilities
@@ -1038,6 +1043,26 @@ dashboard:
         label: "History Signature"
     actuality:
         label: "Actuality"
+siret: siret
+customer:
+  add_prospect: Add a prospect
+  add_energy: Add an energy
+  add_contact: Add a contact
+  add_business_entity: Add a commercial entity
+  prospects: Prospects
+  energies: Energy
+  business_entities: Business entity
+  no_siret: No SIRET found
+  contacts: Contacts
+  contract_energies: Energy contract
+  lead_origin: Lead origin
+  siret_list: Siret List
+  edit: Modify
+  new: New
+  add_siret: Add a Siret
+  siret: Siret Number
+  update_details: Update
+  add_comment: Add a comment
 2fa:
     title: "Two-Factor Authentication"
     enter_google_code: "Enter the code from Google Authenticator"
@@ -1068,4 +1093,46 @@ flash_message:
         success: "Your profile has been successfully updated."
         deleted_profile_picture: "Your profile picture has been successfully deleted."
 
-        
+Action:	Action
+Action a mener:	Action to be taken
+Worth: Value  
+Valeur du contrat: Contract value
+Commision: Commision
+Commission du commercial: Salesperson commission
+Origin:	Origin
+Partenaire:	Partner  
+Salon professionnel: Trade show
+Listing: Listing
+Site web: Website  
+Référencement: SEO  
+Autre: Other  
+Gagné: Won  
+Perdu: Lost  
+En cours: In progress
+Acquisition: Acquisition
+Renouvellement:	Renewal  
+Margin:	Margin
+Company group: Company group
+Mobile phone: Mobile phone
+Address: Address
+Power:	Power
+Base price:	Base price
+Peak hour: Peak hour
+Off peak hour: Off peak hour
+Peak hour summer: Peak hour summer
+Off peak hour winter: Off peak hour winter
+Off peak hour summer: Off peak hour summer
+Peak hour winter: Peak hour winter
+Horo season: Horo season
+Segment: Segment
+C1:	C1
+C2:	C2
+C3:	C3
+C4:	C4
+C5:	C5
+Total:	Total
+customer.comments:	Commentaire
+Note: Note
+documentDoc: document
+File: File
+Drag and drop a file or click to browse: Drag and drop a file or click to browse
