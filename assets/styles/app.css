@@ -251,3 +251,7 @@ body, html {
     margin-top: 10px;
     gap: 10px;
   }
+
+  .frameHeigh{
+    min-height: 246px;
+  }
