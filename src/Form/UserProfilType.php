@@ -32,7 +32,7 @@ class UserProfilType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('email', EmailType::class)
+            ->add('email', EmailType::class            )
             ->add('name', TextType::class, [
                 'disabled' => true,
             ])

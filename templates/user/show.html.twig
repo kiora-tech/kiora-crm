@@ -15,14 +15,14 @@
                     <table class="table">
                         <tbody>
                         <tr>
-                            <th>{{ "email"|trans }}</th>
+                            <th>{{ "user.email"|trans }}</th>
                             <td>{{ user.email }}</td>
                         </tr>
                         <tr>
-                            <th>{{ "roles"|trans }}</th>
+                            <th>{{ "user.roles"|trans }}</th>
                             <td>
                                 {% for role in user.roles %}
-                                    <div class="text-sm text-gray-500">{{ role|trans }}</div>
+                                    <div class="text-sm text-gray-500">{{ ('user.'~role)|trans }}</div>
                                 {% endfor %}
                             </td>
                         </tr>

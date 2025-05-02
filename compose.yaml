@@ -10,14 +10,13 @@ services:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
       timeout: 2s
       retries: 30
-    networks:
-      - gdb_internal_network
     restart:
       always
     volumes:
       - database_data:/var/lib/mysql
   php:
-    image: registry.kiora.tech/kiora/crm-gdb_php:0.4.1
+    image: registry.kiora.tech/kiora/user-app_php:0.0.2
+    user: "www-data"
     depends_on:
       - database
     environment:
@@ -25,27 +24,15 @@ services:
       - DATABASE_URL=${DATABASE_URL:-mysql://symfony:symfony@database:3306/symfony_docker?serverVersion=8.0.40&charset=utf8mb4}
       - MAILER_DSN=${MAILER_DSN:-smtp://mailer:1025}
       - TRUSTED_PROXIES=${TRUSTED_PROXIES}
-    networks:
-      - gdb_internal_network
-    entrypoint: [ "sh", "/var/www/website/entrypoint.sh" ]
     restart:
       always
   nginx:
-    image: registry.kiora.tech/kiora/crm-gdb_nginx:0.4.1
+    image: registry.kiora.tech/kiora/user-app_nginx:0.0.2
     depends_on:
       - php
       - database
-    networks:
-      - kiora_network
-      - gdb_internal_network
     restart:
       always
 volumes:
   database_data: { }
   uploads: { }
-
-networks:
-  kiora_network:
-    external: true
-  gdb_internal_network:
-    driver: bridge

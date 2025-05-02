@@ -1,0 +1,20 @@
+{# templates/components/DeleteButton.html.twig #}
+<form method="post"
+      action="{{ path(deleteRoute, deleteRouteParams) }}"
+      class="d-inline"
+      data-controller="delete-confirmation"
+      data-action="submit->delete-confirmation#confirm"
+      data-delete-confirmation-message="{{ confirmationMessage|trans }}">
+
+    <input type="hidden" name="_token" value="{{ csrf_token(this.deleteToken) }}">
+
+    {{ component('Button', {
+        type: 'submit',
+        theme: 'danger',
+        label: showLabel ? 'button.delete' : '',
+        icon: 'trash',
+        size: size,
+        outline: outline,
+        attributes: showLabel ? {} : {'title': 'button.delete'|trans}
+    }) }}
+</form>

@@ -12,7 +12,7 @@
                         {% else %}
                             <img src="{{ asset('img/default_user.png') }}" alt="" class="rounded-circle">
                         {% endif %}
-                    {#    <h2>{{ app.user.fullName }}</h2>  #}
+                        {#    <h2>{{ app.user.fullName }}</h2>  #}
                         <h3>{{ app.user.company.name }}</h3>
                     </div>
                 </div>
@@ -36,11 +36,6 @@
                                     {{ 'update_profile.change_password'|trans }}
                                 </button>
                             </li>
-                            <li class="nav-item">
-                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-2fa">
-                                    {{ 'update_profile.2fa.label'|trans }}
-                                </button>
-                            </li>
                         </ul>
                         <div class="tab-content pt-2">
                             <div class="tab-pane fade show active profile-overview" id="profile-overview">
@@ -60,27 +55,27 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-                                 {{ form_start(form) }}
+                                {{ form_start(form) }}
                                 <div class="row mb-3">
-                                    {{ form_label(form.lastName, 'update_profile.last_name'|trans, {'label_attr': {'class': 'col-md-4 col-lg-3 col-form-label'}}) }}
+                                    {{ form_label(form.lastName, 'update_profile.last_name', {'label_attr': {'class': 'col-md-4 col-lg-3 col-form-label'}}) }}
                                     <div class="col-md-8 col-lg-9">
-                                        {{ form_widget(form.lastName, {'attr': {'class': 'form-control', 'readonly': true, 'data-bs-toggle': 'tooltip', 'data-bs-placement': 'top', 'title': 'update_profile.tooltip_name'|trans}}) }}
+                                        {{ form_widget(form.lastName, {'attr': {'class': 'form-control', 'readonly': true, 'data-bs-toggle': 'tooltip', 'data-bs-placement': 'top', 'title': 'update_profile.tooltip_name'}}) }}
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    {{ form_label(form.name, 'update_profile.first_name'|trans, {'label_attr': {'class': 'col-md-4 col-lg-3 col-form-label'}}) }}
+                                    {{ form_label(form.name, 'update_profile.first_name', {'label_attr': {'class': 'col-md-4 col-lg-3 col-form-label'}}) }}
                                     <div class="col-md-8 col-lg-9">
-                                        {{ form_widget(form.name, {'attr': {'class': 'form-control', 'readonly': true, 'data-bs-toggle': 'tooltip', 'data-bs-placement': 'top', 'title': 'update_profile.tooltip_first_name'|trans}}) }}
+                                        {{ form_widget(form.name, {'attr': {'class': 'form-control', 'readonly': true, 'data-bs-toggle': 'tooltip', 'data-bs-placement': 'top', 'title': 'update_profile.tooltip_first_name'}}) }}
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    {{ form_label(form.email, 'update_profile.email'|trans, {'label_attr': {'class': 'col-md-4 col-lg-3 col-form-label'}}) }}
+                                    {{ form_label(form.email, 'update_profile.email', {'label_attr': {'class': 'col-md-4 col-lg-3 col-form-label'}}) }}
                                     <div class="col-md-8 col-lg-9">
                                         {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    {{ form_label(form.profilePictureFile, 'update_profile.profile_picture.label'|trans, {'label_attr': {'class': 'col-md-4 col-lg-3 col-form-label'}}) }}
+                                    {{ form_label(form.profilePictureFile, 'update_profile.profile_picture.label', {'label_attr': {'class': 'col-md-4 col-lg-3 col-form-label'}}) }}
                                     <div class="col-md-8 col-lg-9" data-controller="profile-picture">
                                         <div class="d-flex">
                                             {{ form_widget(form.profilePictureFile, {'attr': {'class': 'form-control', 'data-profile-picture-target': 'input', 'data-action': 'change->profile-picture#preview'}}) }}
@@ -108,67 +103,6 @@
                                     </form>
                                 </div>
                                 {% endif %}
-                            </div>
-                            <div class="tab-pane fade pt-3" id="profile-change-password">
-                                {#  {{ form_start(passwordForm) }}
-                                <div class="row mb-3">
-                                    {{ form_label(passwordForm.currentPassword, 'update_profile.current_password'|trans, {'label_attr': {'class': 'col-md-4 col-lg-3 col-form-label'}}) }}
-                                    <div class="col-md-8 col-lg-9">
-                                        {{ form_widget(passwordForm.currentPassword, {'attr': {'class': 'form-control'}}) }}
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    {{ form_label(passwordForm.newPassword.first, 'update_profile.new_password'|trans, {'label_attr': {'class': 'col-md-4 col-lg-3 col-form-label'}}) }}
-                                    <div class="col-md-8 col-lg-9">
-                                        {{ form_widget(passwordForm.newPassword.first, {'attr': {'class': 'form-control'}}) }}
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    {{ form_label(passwordForm.newPassword.second, 'update_profile.confirm_new_password'|trans, {'label_attr': {'class': 'col-md-4 col-lg-3 col-form-label'}}) }}
-                                    <div class="col-md-8 col-lg-9">
-                                        {{ form_widget(passwordForm.newPassword.second, {'attr': {'class': 'form-control'}}) }}
-                                    </div>
-                                </div>
-                                <div class="text-center">
-                                    <button type="submit"
-                                            class="btn btn-primary">{{ 'update_profile.submit_password_change'|trans }}</button>
-                                </div>
-                                {{ form_end(passwordForm) }}#}
-                            </div>
-                            {# <div class="tab-pane fade pt-3" id="profile-2fa">
-                                <div class="row mb-3">
-                                    <div class="col-md-12">
-                                        <p class="text-info">
-                                            {{ 'update_profile.2fa.warning'|trans }}
-                                        </p>
-                                    </div>
-                                    <div class="col-md-8 col-lg-9">
-                                         {% if app.user.isGoogleAuthenticatorEnabled %}
-                                            <a href="{{ path('2fa_disable') }}" class="btn btn-outline-danger">
-                                                <i class="bi bi-dash"></i>
-                                                {{ 'update_profile.2fa.disable_google'|trans }}
-                                            </a>
-                                        {% else %}
-                                            <a href="{{ path('2fa_setup') }}" class="btn btn-outline-success">
-                                                <i class="bi bi-plus"></i>
-                                                {{ 'update_profile.2fa.enable_google'|trans }}
-                                            </a>
-                                        {% endif %}
-                                    </div>
-                                </div>
-
-                                 {{ form_start(twoFactorForm) }}
-                                <div class="row mb-3">
-                                    {{ form_label(twoFactorForm.isEmailAuthEnabled, 'update_profile.email_auth'|trans, {'label_attr': {'class': 'col-md-4 col-lg-3 col-form-label'}}) }}
-                                    <div class="col-md-8 col-lg-9">
-                                        {{ form_widget(twoFactorForm.isEmailAuthEnabled, {'attr': {'class': 'form-control'}}) }}
-                                    </div>
-                                </div>
-                                <div class="text-center">
-                                    <button type="submit"
-                                            class="btn btn-primary">{{ 'update_profile.submit_changes'|trans }}</button>
-                                </div>
-                                {{ form_end(twoFactorForm) }}#}
                             </div>
                         </div>
                     </div>

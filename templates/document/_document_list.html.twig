@@ -1,8 +1,0 @@
-<ul>
-    {% for document in documents %}
-        <li>
-            <a href="{{ path('app_document_download', {'id': document.id}) }}" data-turbo="false" >{{ document.name }}</a>
-            {{ include('docu/_delete_form.html.twig') }}
-        </li>
-    {% endfor %}
-</ul>
