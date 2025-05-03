@@ -1,0 +1,65 @@
+{# templates/home/_tasks.html.twig #}
+<div class="card recent-sales overflow-auto">
+    <div class="card-body">
+        <h5 class="card-title">{{ 'dashboard.my_tasks'|trans }}</h5>
+        <table class="table table-borderless datatable">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">{{ 'dashboard.task'|trans }}</th>
+                    <th scope="col">{{ 'dashboard.project'|trans }}</th>
+                    <th scope="col">{{ 'dashboard.status'|trans }}</th>
+                    <th scope="col">{{ 'dashboard.due_date'|trans }}</th>
+                    <th scope="col">{{ 'button.actions'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if user_tasks|length > 0 %}
+                    {% for task in user_tasks %}
+                        <tr>
+                            <th scope="row">{{ task.id }}</th>
+                            <td>{{ task.title }}</td>
+                            <td>{{ task.project.title }}</td>
+                            <td>
+                                {% if task.status.value == 'TODO' %}
+                                    <span class="badge bg-primary">{{ 'dashboard.todo'|trans }}</span>
+                                {% elseif task.status.value == 'IN_PROGRESS' %}
+                                    <span class="badge bg-info">{{ 'dashboard.in_progress'|trans }}</span>
+                                {% elseif task.status.value == 'DONE' %}
+                                    <span class="badge bg-success">{{ 'dashboard.done'|trans }}</span>
+                                {% elseif task.status.value == 'BLOCKED' %}
+                                    <span class="badge bg-danger">{{ 'dashboard.blocked'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ task.dueDate ? task.dueDate|date('d/m/Y') : '-' }}</td>
+                            <td>
+                                <div class="d-flex gap-2 justify-content-end">
+                                    <twig:Button
+                                        link="#"
+                                        theme="primary"
+                                        size="sm"
+                                        :outline="true"
+                                        icon="eye"
+                                        :attributes="{'title': 'button.show'|trans}"
+                                    />
+                                    <twig:Button
+                                        link="#"
+                                        theme="primary"
+                                        size="sm"
+                                        :outline="true"
+                                        icon="pencil-square"
+                                        :attributes="{'title': 'button.edit'|trans}"
+                                    />
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center">{{ 'dashboard.no_tasks'|trans }}</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>

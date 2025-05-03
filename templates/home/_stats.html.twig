@@ -1,0 +1,85 @@
+{# templates/home/_stats.html.twig #}
+<div class="row">
+    <!-- Statistiques des tâches -->
+    <div class="col-xxl-4 col-md-6">
+        <div class="card info-card sales-card">
+            <div class="card-body">
+                <h5 class="card-title">{{ 'dashboard.tasks'|trans }}</h5>
+                <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i class="bi bi-check-square"></i>
+                    </div>
+                    <div class="ps-3">
+                        <h6>{{ tasks_total }}</h6>
+                        <span class="text-success small pt-1 fw-bold">{{ tasks_in_progress }}</span> <span class="text-muted small pt-2 ps-1">{{ 'dashboard.in_progress'|trans }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistiques des projets -->
+    <div class="col-xxl-4 col-md-6">
+        <div class="card info-card revenue-card">
+            <div class="card-body">
+                <h5 class="card-title">{{ 'dashboard.projects'|trans }}</h5>
+                <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i class="bi bi-folder"></i>
+                    </div>
+                    <div class="ps-3">
+                        <h6>{{ projects_total }}</h6>
+                        <span class="text-success small pt-1 fw-bold">{{ projects_in_progress }}</span> <span class="text-muted small pt-2 ps-1">{{ 'dashboard.in_progress'|trans }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistiques des clients -->
+    <div class="col-xxl-4 col-md-6">
+        <div class="card info-card customers-card">
+            <div class="card-body">
+                <h5 class="card-title">{{ 'dashboard.clients'|trans }}</h5>
+                <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <div class="ps-3">
+                        <h6>{{ clients_total }}</h6>
+                        <span class="text-success small pt-1 fw-bold">{{ physical_persons_count }}</span> <span class="text-muted small pt-2 ps-1">{{ 'dashboard.persons'|trans }}</span> |
+                        <span class="text-info small pt-1 fw-bold">{{ legal_persons_count }}</span> <span class="text-muted small pt-2 ps-1">{{ 'dashboard.companies'|trans }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tâches par statut -->
+<div class="card">
+    <div class="card-body pb-0">
+        <h5 class="card-title">{{ 'dashboard.tasks_by_status'|trans }}</h5>
+
+        <div id="trafficChart" style="min-height: 260px;">
+            <div class="d-flex flex-column align-items-center">
+                <div class="mb-3 text-center w-100">
+                    <span class="badge bg-primary p-2 mb-1 d-block w-100">{{ 'dashboard.todo'|trans }}: {{ tasks_todo }}</span>
+                    <span class="badge bg-info p-2 mb-1 d-block w-100">{{ 'dashboard.in_progress'|trans }}: {{ tasks_in_progress }}</span>
+                    <span class="badge bg-success p-2 mb-1 d-block w-100">{{ 'dashboard.done'|trans }}: {{ tasks_done }}</span>
+                </div>
+                <div class="progress w-100">
+                    {% if tasks_total > 0 %}
+                        {% set todo_percent = (tasks_todo / tasks_total * 100)|round %}
+                        {% set in_progress_percent = (tasks_in_progress / tasks_total * 100)|round %}
+                        {% set done_percent = (tasks_done / tasks_total * 100)|round %}
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: {{ todo_percent }}%" aria-valuenow="{{ todo_percent }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-info" role="progressbar" style="width: {{ in_progress_percent }}%" aria-valuenow="{{ in_progress_percent }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ done_percent }}%" aria-valuenow="{{ done_percent }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

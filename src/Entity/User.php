@@ -1,52 +1,92 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[UniqueEntity(fields: ['email'], message: 'Cette adresse email est déjà utilisée')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: "integer")]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180)]
+    #[ORM\Column(type: "string", length: 180, unique: true)]
+    #[Assert\NotBlank]
+    #[Assert\Email]
     private ?string $email = null;
 
-    /**
-     * @var list<string> The user roles
-     */
-    #[ORM\Column]
+    #[ORM\Column(type: "json")]
     private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
-    #[ORM\Column]
+    #[ORM\Column(type: "string")]
     private ?string $password = null;
 
+    #[ORM\Column(type: "string", length: 255)]
+    #[Assert\NotBlank]
+    private ?string $firstName = null;
 
-    #[ORM\ManyToOne(inversedBy: 'users')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Company $company = null;
+    #[ORM\Column(type: "string", length: 255)]
+    #[Assert\NotBlank]
+    private ?string $lastName = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $name = null;
+    #[ORM\Column(type: "string", length: 20, nullable: true)]
+    private ?string $phone = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    private ?string $position = null;
+
+    #[ORM\Column(type: "datetime_immutable")]
+    private \DateTimeImmutable $createdAt;
+
+    #[ORM\Column(type: "datetime_immutable", nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\Column(type: "boolean")]
+    private bool $isActive = true;
+
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
     private ?string $profilePicture = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $lastName = null;
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    private ?string $timezone = 'Europe/Paris';
+
+    #[ORM\Column(type: "json", nullable: true)]
+    private ?array $preferences = null;
+
+    #[ORM\Column(type: "datetime", nullable: true)]
+    private ?\DateTimeInterface $lastLogin = null;
+
+    #[ORM\ManyToOne(targetEntity: LegalPerson::class, inversedBy: "users")]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?LegalPerson $company = null;
+
+    #[ORM\OneToMany(mappedBy: "manager", targetEntity: Project::class)]
+    private Collection $managedProjects;
+
+    #[ORM\OneToMany(mappedBy: "assignee", targetEntity: Task::class)]
+    private Collection $assignedTasks;
+
+    #[ORM\OneToMany(mappedBy: "user", targetEntity: Interaction::class)]
+    private Collection $interactions;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+        $this->managedProjects = new ArrayCollection();
+        $this->assignedTasks = new ArrayCollection();
+        $this->interactions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -61,14 +101,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
     /**
      * A visual identifier that represents this user.
-     *
-     * @see UserInterface
      */
     public function getUserIdentifier(): string
     {
@@ -76,9 +113,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
      * @see UserInterface
-     *
-     * @return list<string>
      */
     public function getRoles(): array
     {
@@ -89,13 +132,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
-    /**
-     * @param list<string> $roles
-     */
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
-
         return $this;
     }
 
@@ -110,7 +149,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
         return $this;
     }
 
@@ -123,39 +161,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getCompany(): ?Company
+    public function getFirstName(): ?string
     {
-        return $this->company;
+        return $this->firstName;
     }
 
-    public function setCompany(?Company $company): static
+    public function setFirstName(string $firstName): static
     {
-        $this->company = $company;
-
-        return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): static
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getProfilePicture(): ?string
-    {
-        return $this->profilePicture;
-    }
-
-    public function setProfilePicture(?string $profilePicture): static
-    {
-        $this->profilePicture = $profilePicture;
-
+        $this->firstName = $firstName;
         return $this;
     }
 
@@ -167,7 +180,266 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastName(string $lastName): static
     {
         $this->lastName = $lastName;
+        return $this;
+    }
+
+    public function getFullName(): string
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): static
+    {
+        $this->phone = $phone;
+        return $this;
+    }
+
+    public function getPosition(): ?string
+    {
+        return $this->position;
+    }
+
+    public function setPosition(?string $position): static
+    {
+        $this->position = $position;
+        return $this;
+    }
+
+    public function getCreatedAt(): \DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(): static
+    {
+        $this->updatedAt = new \DateTimeImmutable();
+        return $this;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): static
+    {
+        $this->isActive = $isActive;
+        return $this;
+    }
+
+    public function getProfilePicture(): ?string
+    {
+        return $this->profilePicture;
+    }
+
+    public function setProfilePicture(?string $profilePicture): static
+    {
+        $this->profilePicture = $profilePicture;
+        return $this;
+    }
+
+    public function getTimezone(): ?string
+    {
+        return $this->timezone;
+    }
+
+    public function setTimezone(?string $timezone): static
+    {
+        $this->timezone = $timezone;
+        return $this;
+    }
+
+    public function getPreferences(): ?array
+    {
+        return $this->preferences;
+    }
+
+    public function setPreferences(?array $preferences): static
+    {
+        $this->preferences = $preferences;
+        return $this;
+    }
+
+    public function getLastLogin(): ?\DateTimeInterface
+    {
+        return $this->lastLogin;
+    }
+
+    public function setLastLogin(?\DateTimeInterface $lastLogin): static
+    {
+        $this->lastLogin = $lastLogin;
+        return $this;
+    }
+
+    public function getCompany(): ?LegalPerson
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?LegalPerson $company): static
+    {
+        $this->company = $company;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Project>
+     */
+    public function getManagedProjects(): Collection
+    {
+        return $this->managedProjects;
+    }
+
+    public function addManagedProject(Project $project): static
+    {
+        if (!$this->managedProjects->contains($project)) {
+            $this->managedProjects->add($project);
+            $project->setManager($this);
+        }
 
         return $this;
+    }
+
+    public function removeManagedProject(Project $project): static
+    {
+        if ($this->managedProjects->removeElement($project)) {
+            // set the owning side to null (unless already changed)
+            if ($project->getManager() === $this) {
+                $project->setManager(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Task>
+     */
+    public function getAssignedTasks(): Collection
+    {
+        return $this->assignedTasks;
+    }
+
+    public function addAssignedTask(Task $task): static
+    {
+        if (!$this->assignedTasks->contains($task)) {
+            $this->assignedTasks->add($task);
+            $task->setAssignee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssignedTask(Task $task): static
+    {
+        if ($this->assignedTasks->removeElement($task)) {
+            // set the owning side to null (unless already changed)
+            if ($task->getAssignee() === $this) {
+                $task->setAssignee(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Interaction>
+     */
+    public function getInteractions(): Collection
+    {
+        return $this->interactions;
+    }
+
+    public function addInteraction(Interaction $interaction): static
+    {
+        if (!$this->interactions->contains($interaction)) {
+            $this->interactions->add($interaction);
+            $interaction->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInteraction(Interaction $interaction): static
+    {
+        if ($this->interactions->removeElement($interaction)) {
+            // set the owning side to null (unless already changed)
+            if ($interaction->getUser() === $this) {
+                $interaction->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Vérifie si l'utilisateur est un administrateur
+     */
+    public function isAdmin(): bool
+    {
+        return in_array('ROLE_ADMIN', $this->getRoles());
+    }
+
+    /**
+     * Ajoute un rôle à l'utilisateur
+     */
+    public function addRole(string $role): static
+    {
+        $roles = $this->roles;
+        $roles[] = $role;
+        $this->roles = array_unique($roles);
+        return $this;
+    }
+
+    /**
+     * Retire un rôle à l'utilisateur
+     */
+    public function removeRole(string $role): static
+    {
+        $roles = $this->roles;
+        $index = array_search($role, $roles);
+        if ($index !== false) {
+            unset($roles[$index]);
+            $this->roles = array_values($roles);
+        }
+        return $this;
+    }
+
+    /**
+     * Récupère une préférence utilisateur
+     */
+    public function getPreference(string $key, mixed $default = null): mixed
+    {
+        if (!$this->preferences || !array_key_exists($key, $this->preferences)) {
+            return $default;
+        }
+
+        return $this->preferences[$key];
+    }
+
+    /**
+     * Définit une préférence utilisateur
+     */
+    public function setPreference(string $key, mixed $value): static
+    {
+        $preferences = $this->preferences ?? [];
+        $preferences[$key] = $value;
+        $this->preferences = $preferences;
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->firstName . ' ' . $this->lastName;
     }
 }

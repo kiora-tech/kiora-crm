@@ -1,7 +1,7 @@
 include make/*.mk
 .DEFAULT_GOAL:=help
 
-DOCKER_IMAGE_PREFIX=registry.kiora.tech/kiora/user-app_
+DOCKER_IMAGE_PREFIX=registry.kiora.tech/kiora/kiora-crm_
 
 update: init vendor update_symfony build test-unit
 
@@ -32,5 +32,5 @@ endif
 	${DOCKER_CMD} buildx build --platform linux/arm/v7,linux/arm64,linux/amd64 --target prod -f docker/nginx/Dockerfile -t $(DOCKER_IMAGE_PREFIX)nginx:$(TAG) --push .
 
 	#ajouter du tag dans le fichier compose.yaml pour php et nginx
-	sed -i 's/\(registry\.kiora\.tech\/kiora\/user-app_php:\)[0-9.]\+/\1$(TAG)/' compose.yaml
-	sed -i 's/\(registry\.kiora\.tech\/kiora\/user-app_nginx:\)[0-9.]\+/\1$(TAG)/' compose.yaml
+	sed -i 's/\(registry\.kiora\.tech\/kiora\/kiora-crm_php:\)[0-9.]\+/\1$(TAG)/' compose.yaml
+	sed -i 's/\(registry\.kiora\.tech\/kiora\/kiora-crm_nginx:\)[0-9.]\+/\1$(TAG)/' compose.yaml

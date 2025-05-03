@@ -1,0 +1,178 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ interaction.subject }}{% endblock %}
+
+{% block body %}
+    <div class="pagetitle">
+        <h1>{{ interaction.subject }}</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('homepage') }}">{{ 'menu.home'|trans }}</a></li>
+                
+                {% if interaction.contact %}
+                    <li class="breadcrumb-item">{{ 'menu.clients'|trans }}</li>
+                    {% if interaction.contact is instanceof('App\\Entity\\PhysicalPerson') %}
+                        <li class="breadcrumb-item"><a href="{{ path('physical_person_index') }}">{{ 'menu.physical_persons'|trans }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ path('physical_person_show', {'id': interaction.contact.id}) }}">{{ interaction.contact.firstName }} {{ interaction.contact.lastName }}</a></li>
+                    {% else %}
+                        <li class="breadcrumb-item"><a href="{{ path('legal_person_index') }}">{{ 'menu.legal_persons'|trans }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ path('legal_person_show', {'id': interaction.contact.id}) }}">{{ interaction.contact.name }}</a></li>
+                    {% endif %}
+                {% elseif interaction.project %}
+                    <li class="breadcrumb-item"><a href="{{ path('project_index') }}">{{ 'menu.projects'|trans }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('project_show', {'id': interaction.project.id}) }}">{{ interaction.project.title }}</a></li>
+                {% elseif interaction.task %}
+                    <li class="breadcrumb-item"><a href="{{ path('task_index') }}">{{ 'menu.tasks'|trans }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('task_show', {'id': interaction.task.id}) }}">{{ interaction.task.title }}</a></li>
+                {% endif %}
+                
+                <li class="breadcrumb-item active">{{ interaction.subject }}</li>
+            </ol>
+        </nav>
+    </div>
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ 'interaction.details'|trans }}</h5>
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h2 class="mb-0">{{ interaction.subject }}</h2>
+                            <span class="badge {% if interaction.type.value == 'CALL' %}bg-success{% 
+                            elseif interaction.type.value == 'EMAIL' %}bg-info{% 
+                            elseif interaction.type.value == 'MEETING' %}bg-warning{% 
+                            elseif interaction.type.value == 'SMS' %}bg-primary{% 
+                            else %}bg-secondary{% endif %}">
+                                {{ ('interaction.' ~ interaction.type.value)|trans }}
+                            </span>
+                        </div>
+                        
+                        <div class="text-muted mb-3">
+                            {{ interaction.dateTime|date('d/m/Y H:i') }}
+                            {% if interaction.endDateTime %}
+                                - {{ interaction.endDateTime|date('H:i') }}
+                                ({{ interaction.getFormattedDuration() }})
+                            {% endif %}
+                            
+                            {% if interaction.location %}
+                                | {{ interaction.location }}
+                            {% endif %}
+                            
+                            | {{ interaction.user.firstName }} {{ interaction.user.lastName }}
+                            
+                            {% if interaction.isOutgoing %}
+                                <span class="ms-2 badge bg-info">{{ 'interaction.outgoing'|trans }}</span>
+                            {% else %}
+                                <span class="ms-2 badge bg-secondary">{{ 'interaction.incoming'|trans }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-4">
+                            {{ interaction.content|nl2br }}
+                        </div>
+                        
+                        {% if interaction.outcome %}
+                            <div class="alert alert-info">
+                                <strong>{{ 'interaction.outcome'|trans }}:</strong> {{ interaction.outcome }}
+                            </div>
+                        {% endif %}
+                        
+                        <div class="d-flex gap-2 mt-4">
+                            <twig:Button
+                                link="{{ path('interaction_edit', {'id': interaction.id}) }}"
+                                theme="primary"
+                                icon="pencil-square"
+                                :label="'button.edit'|trans"
+                            />
+                            
+                            <form method="post" action="{{ path('interaction_delete', {'id': interaction.id}) }}" onsubmit="return confirm('{{ 'button.confirmation.delete'|trans }}');" class="d-inline">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ interaction.id) }}">
+                                <twig:Button
+                                    type="submit"
+                                    theme="danger"
+                                    icon="trash"
+                                    :label="'button.delete'|trans"
+                                />
+                            </form>
+                            
+                            {% if interaction.contact %}
+                                {% if interaction.contact is instanceof('App\\Entity\\PhysicalPerson') %}
+                                    <twig:Button
+                                        link="{{ path('physical_person_show', {'id': interaction.contact.id}) }}"
+                                        theme="secondary"
+                                        icon="arrow-left"
+                                        :label="'button.back_to_contact'|trans"
+                                    />
+                                {% else %}
+                                    <twig:Button
+                                        link="{{ path('legal_person_show', {'id': interaction.contact.id}) }}"
+                                        theme="secondary"
+                                        icon="arrow-left"
+                                        :label="'button.back_to_company'|trans"
+                                    />
+                                {% endif %}
+                            {% elseif interaction.project %}
+                                <twig:Button
+                                    link="{{ path('project_show', {'id': interaction.project.id}) }}"
+                                    theme="secondary"
+                                    icon="arrow-left"
+                                    :label="'button.back_to_project'|trans"
+                                />
+                            {% elseif interaction.task %}
+                                <twig:Button
+                                    link="{{ path('task_show', {'id': interaction.task.id}) }}"
+                                    theme="secondary"
+                                    icon="arrow-left"
+                                    :label="'button.back_to_task'|trans"
+                                />
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ 'interaction.related_to'|trans }}</h5>
+                        
+                        {% if interaction.contact %}
+                            <div class="mb-3">
+                                <strong>{{ 'interaction.contact'|trans }}:</strong>
+                                {% if interaction.contact is instanceof('App\\Entity\\PhysicalPerson') %}
+                                    <a href="{{ path('physical_person_show', {'id': interaction.contact.id}) }}">
+                                        {{ interaction.contact.firstName }} {{ interaction.contact.lastName }}
+                                    </a>
+                                {% else %}
+                                    <a href="{{ path('legal_person_show', {'id': interaction.contact.id}) }}">
+                                        {{ interaction.contact.name }}
+                                    </a>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        
+                        {% if interaction.project %}
+                            <div class="mb-3">
+                                <strong>{{ 'interaction.project'|trans }}:</strong>
+                                <a href="{{ path('project_show', {'id': interaction.project.id}) }}">
+                                    {{ interaction.project.title }}
+                                </a>
+                            </div>
+                        {% endif %}
+                        
+                        {% if interaction.task %}
+                            <div class="mb-3">
+                                <strong>{{ 'interaction.task'|trans }}:</strong>
+                                <a href="{{ path('task_show', {'id': interaction.task.id}) }}">
+                                    {{ interaction.task.title }}
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

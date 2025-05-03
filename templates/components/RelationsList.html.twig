@@ -1,0 +1,102 @@
+{% if title %}
+    <div class="d-flex justify-content-between mb-3">
+        <h5>{{ title }}</h5>
+        {% if addUrl %}
+            <twig:Button
+                link="{{ addUrl }}"
+                theme="primary"
+                size="sm"
+                icon="plus-circle"
+                :label="addLabel"
+            />
+        {% endif %}
+    </div>
+{% endif %}
+
+{% if relations|length > 0 %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>{{ 'relation.type'|trans }}</th>
+                    <th>{{ 'relation.with'|trans }}</th>
+                    <th>{{ 'relation.direction'|trans }}</th>
+                    <th>{{ 'relation.notes'|trans }}</th>
+                    <th>{{ 'relation.actions'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for relation in relations %}
+                    <tr>
+                        <td>
+                            {% if relation.type.value == 'CLIENT' %}
+                                <span class="badge bg-success">{{ 'relation_type.client'|trans }}</span>
+                            {% elseif relation.type.value == 'PROSPECT' %}
+                                <span class="badge bg-info">{{ 'relation_type.prospect'|trans }}</span>
+                            {% elseif relation.type.value == 'CONTACT' %}
+                                <span class="badge bg-primary">{{ 'relation_type.contact'|trans }}</span>
+                            {% elseif relation.type.value == 'SUPPLIER' %}
+                                <span class="badge bg-warning">{{ 'relation_type.supplier'|trans }}</span>
+                            {% elseif relation.type.value == 'PARTNER' %}
+                                <span class="badge bg-dark">{{ 'relation_type.partner'|trans }}</span>
+                            {% elseif relation.type.value == 'SUBSIDIARY' %}
+                                <span class="badge bg-secondary">{{ 'relation_type.subsidiary'|trans }}</span>
+                            {% elseif relation.type.value == 'PARENT_COMPANY' %}
+                                <span class="badge bg-secondary">{{ 'relation_type.parent_company'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-secondary">{{ 'relation_type.other'|trans }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% set otherPerson = relation.sourcePerson.id == entity.id ? relation.targetPerson : relation.sourcePerson %}
+                            {% if otherPerson %}
+                                {% if otherPerson is instanceof('App\\Entity\\LegalPerson') %}
+                                    <a href="{{ path('legal_person_show', {'id': otherPerson.id}) }}">{{ otherPerson.name }}</a>
+                                {% else %}
+                                    <a href="{{ path('physical_person_show', {'id': otherPerson.id}) }}">{{ otherPerson.firstName }} {{ otherPerson.lastName }}</a>
+                                {% endif %}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if relation.sourcePerson.id == entity.id %}
+                                <i class="bi bi-arrow-right"></i> {{ 'relation.outgoing'|trans }}
+                            {% else %}
+                                <i class="bi bi-arrow-left"></i> {{ 'relation.incoming'|trans }}
+                            {% endif %}
+                        </td>
+                        <td>{{ relation.notes ?: '-' }}</td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                {% if relation_edit_url is defined %}
+                                    <twig:Button
+                                        link="{{ relation_edit_url }}"
+                                        theme="primary"
+                                        size="sm"
+                                        :outline="true"
+                                        icon="pencil-square"
+                                        :attributes="{'title': 'button.edit'|trans, 'class': 'btn-sm'}"
+                                    />
+                                {% else %}
+                                    <twig:Button
+                                        link="#"
+                                        theme="primary"
+                                        size="sm"
+                                        :outline="true"
+                                        icon="pencil-square"
+                                        :attributes="{'title': 'button.edit'|trans, 'class': 'btn-sm'}"
+                                    />
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        {{ emptyMessage }}
+    </div>
+{% endif %}

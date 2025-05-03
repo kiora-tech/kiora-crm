@@ -29,3 +29,12 @@ services:
         arguments: [ "@knp_menu.factory" ]
         tags:
             - { name: knp_menu.menu_builder, method: createMainMenu, alias: main }
+
+    DoctrineCockroachDB\Platforms\CockroachDBPlatform:
+        autowire: true
+
+    DoctrineCockroachDB\Driver\CockroachDBDriver:
+        autowire: true
+
+    DoctrineCockroach\Schema\CockroachSchemaManager:
+        autowire: true

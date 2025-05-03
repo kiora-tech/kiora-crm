@@ -1,0 +1,42 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ title }}</h5>
+        
+        {% set personType = this.getPersonType() %}
+        
+        <div class="row">
+            <div class="col-lg-4 col-md-4 label">{{ (personType ~ '_person.email')|trans }}</div>
+            <div class="col-lg-8 col-md-8">{{ person.email ?: '-' }}</div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-4 label">{{ (personType ~ '_person.phone')|trans }}</div>
+            <div class="col-lg-8 col-md-8">{{ person.phone ?: '-' }}</div>
+        </div>
+
+        {% if personType == 'physical' %}
+            <div class="row">
+                <div class="col-lg-4 col-md-4 label">{{ 'physical_person.mobile'|trans }}</div>
+                <div class="col-lg-8 col-md-8">{{ person.mobile ?: '-' }}</div>
+            </div>
+        {% endif %}
+        
+        {% if personType == 'legal' %}
+            <div class="row">
+                <div class="col-lg-4 col-md-4 label">{{ 'legal_person.website'|trans }}</div>
+                <div class="col-lg-8 col-md-8">
+                    {% if person.website %}
+                        <a href="{{ person.website }}" target="_blank">{{ person.website }}</a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-lg-4 col-md-4 label">{{ (personType ~ '_person.address')|trans }}</div>
+            <div class="col-lg-8 col-md-8">{{ person.address ? person.address|nl2br : '-' }}</div>
+        </div>
+    </div>
+</div>

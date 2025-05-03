@@ -1,0 +1,233 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ person.firstName }} {{ person.lastName }}{% endblock %}
+
+{% block body %}
+    <div class="pagetitle">
+        <h1>{{ person.firstName }} {{ person.lastName }}</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('homepage') }}">{{ 'menu.home'|trans }}</a></li>
+                <li class="breadcrumb-item">{{ 'menu.clients'|trans }}</li>
+                <li class="breadcrumb-item"><a href="{{ path('physical_person_index') }}">{{ 'menu.physical_persons'|trans }}</a></li>
+                <li class="breadcrumb-item active">{{ person.firstName }} {{ person.lastName }}</li>
+            </ol>
+        </nav>
+    </div>
+
+    <section class="section profile">
+        <div class="row">
+            <div class="col-xl-4">
+                <!-- Header with profile photo, name, position and relation badges -->
+                <twig:PersonHeader 
+                    :person="person" 
+                    :relations="relations"
+                    setRelationUrl="{{ path('physical_person_show', {'id': person.id}) ~ '/type' }}"
+                />
+
+                <!-- Contact details -->
+                <twig:ContactDetails 
+                    :person="person"
+                    title="{{ 'physical_person.contact_details'|trans }}"
+                />
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ 'physical_person.professional_info'|trans }}</h5>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 label">{{ 'physical_person.title'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ person.title ?: '-' }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 label">{{ 'physical_person.position'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ person.position ?: '-' }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 label">{{ 'physical_person.department'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ person.department ?: '-' }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 label">{{ 'physical_person.employer'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">
+                                {% if person.getEmployer() %}
+                                    <a href="{{ path('legal_person_show', {'id': person.getEmployer().id}) }}">
+                                        {{ person.getEmployer().name }}
+                                    </a>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 label">{{ 'physical_person.is_primary_contact'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">
+                                {% if person.isPrimaryContact %}
+                                    <span class="badge bg-success">{{ 'yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">{{ 'no'|trans }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 label">{{ 'physical_person.is_manager'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">
+                                {% if person.isManager %}
+                                    <span class="badge bg-success">{{ 'yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">{{ 'no'|trans }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ 'physical_person.personal_info'|trans }}</h5>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 label">{{ 'physical_person.birth_date'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ person.birthDate ? person.birthDate|date('d/m/Y') : '-' }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 label">{{ 'created_at'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ person.createdAt|date('d/m/Y H:i') }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 label">{{ 'updated_at'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ person.updatedAt ? person.updatedAt|date('d/m/Y H:i') : '-' }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ 'physical_person.actions'|trans }}</h5>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <twig:Button
+                                link="{{ path('physical_person_edit', {'id': person.id}) }}"
+                                theme="primary"
+                                icon="pencil-square"
+                                :label="'button.edit'|trans"
+                            />
+                            
+                            <form method="post" action="{{ path('physical_person_delete', {'id': person.id}) }}" onsubmit="return confirm('{{ 'button.confirmation.delete'|trans }}');" class="d-inline">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ person.id) }}">
+                                <twig:Button
+                                    type="submit"
+                                    theme="danger"
+                                    icon="trash"
+                                    :label="'button.delete'|trans"
+                                />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-8">
+                <div class="card">
+                    <div class="card-body pt-3">
+                        <ul class="nav nav-tabs nav-tabs-bordered">
+                            <li class="nav-item">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#projects-tab">{{ 'physical_person.projects'|trans }}</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#interactions-tab">{{ 'physical_person.interactions'|trans }}</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#relations-tab">{{ 'physical_person.relations'|trans }}</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content pt-2">
+                            <div class="tab-pane fade show active" id="projects-tab">
+                                {% if projects|length > 0 %}
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{ 'project.reference'|trans }}</th>
+                                                    <th>{{ 'project.title'|trans }}</th>
+                                                    <th>{{ 'project.status.label'|trans }}</th>
+                                                    <th>{{ 'project.start_date'|trans }}</th>
+                                                    <th>{{ 'project.actions'|trans }}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for project in projects %}
+                                                    <tr>
+                                                        <td>{{ project.reference ?: '-' }}</td>
+                                                        <td>{{ project.title }}</td>
+                                                        <td>
+                                                            {% if project.status.value == 'PENDING' %}
+                                                                <span class="badge bg-secondary">{{ 'project.status.pending'|trans }}</span>
+                                                            {% elseif project.status.value == 'IN_PROGRESS' %}
+                                                                <span class="badge bg-info">{{ 'project.status.in_progress'|trans }}</span>
+                                                            {% elseif project.status.value == 'COMPLETED' %}
+                                                                <span class="badge bg-success">{{ 'project.status.completed'|trans }}</span>
+                                                            {% elseif project.status.value == 'CANCELLED' %}
+                                                                <span class="badge bg-danger">{{ 'project.status.cancelled'|trans }}</span>
+                                                            {% elseif project.status.value == 'ON_HOLD' %}
+                                                                <span class="badge bg-warning">{{ 'project.status.on_hold'|trans }}</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>{{ project.startDate ? project.startDate|date('d/m/Y') : '-' }}</td>
+                                                        <td>
+                                                            <div class="d-flex gap-2">
+                                                                <twig:Button
+                                                                    link="{{ path('project_show', {'id': project.id}) }}"
+                                                                    theme="primary"
+                                                                    size="sm"
+                                                                    :outline="true"
+                                                                    icon="eye"
+                                                                    :attributes="{'title': 'button.show'|trans}"
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-info">
+                                        {{ 'physical_person.no_projects'|trans }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="tab-pane fade" id="interactions-tab">
+                                <twig:InteractionsList
+                                    :interactions="interactions"
+                                    :entity="person"
+                                    entityType="person"
+                                    emptyMessage="{{ 'physical_person.no_interactions'|trans }}"
+                                    addUrl="{{ path('interaction_new_physical_person', {'id': person.id}) }}"
+                                    addLabel="{{ 'interaction.add'|trans }}"
+                                />
+                            </div>
+                            
+                            <div class="tab-pane fade" id="relations-tab">
+                                <twig:RelationsList
+                                    :relations="relations"
+                                    :entity="person"
+                                    emptyMessage="{{ 'physical_person.no_relations'|trans }}"
+                                    addUrl="{{ path('relation_new_physical_person', {'id': person.id}) }}"
+                                    addLabel="{{ 'relation.add'|trans }}"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,73 @@
+<div class="card">
+    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+        {% set personType = this.getPersonType() %}
+        {% if personType == 'physical' %}
+            {% if person.profilePicture %}
+                <img src="{{ asset(person.profilePicture) }}" alt="Profile" class="rounded-circle">
+            {% else %}
+                <div class="profile-img-placeholder rounded-circle d-flex align-items-center justify-content-center bg-primary text-white" style="width: 120px; height: 120px; font-size: 48px;">
+                    {{ person.firstName|first|upper }}{{ person.lastName|first|upper }}
+                </div>
+            {% endif %}
+            <h2>{{ person.firstName }} {{ person.lastName }}</h2>
+            <h3>{{ person.position }}</h3>
+        {% else %}
+            {% if person.logo %}
+                <img src="{{ asset(person.logo) }}" alt="Logo" class="rounded-circle">
+            {% else %}
+                <div class="profile-img-placeholder rounded-circle d-flex align-items-center justify-content-center bg-primary text-white" style="width: 120px; height: 120px; font-size: 48px;">
+                    {{ person.name|first|upper }}
+                </div>
+            {% endif %}
+            <h2>{{ person.name }}</h2>
+            <h3>{{ person.industry }}</h3>
+        {% endif %}
+        
+        <!-- Badges de type de relation -->
+        <div class="d-flex mt-2 gap-1">
+            {% if this.isClient() %}
+                <span class="badge bg-success">{{ 'relation_type.client'|trans }}</span>
+            {% endif %}
+            
+            {% if this.isProspect() %}
+                <span class="badge bg-info">{{ 'relation_type.prospect'|trans }}</span>
+            {% endif %}
+            
+            {% if this.isContact() %}
+                <span class="badge bg-primary">{{ 'relation_type.contact'|trans }}</span>
+            {% endif %}
+            
+            {% if this.isSupplier() %}
+                <span class="badge bg-warning">{{ 'relation_type.supplier'|trans }}</span>
+            {% endif %}
+            
+            {% if this.isPartner() %}
+                <span class="badge bg-dark">{{ 'relation_type.partner'|trans }}</span>
+            {% endif %}
+            
+            {% if not this.isClient() and not this.isProspect() and not this.isContact() and not this.isSupplier() and not this.isPartner() %}
+                <span class="badge bg-secondary">{{ 'relation_type.none'|trans }}</span>
+            {% endif %}
+        </div>
+        
+        <!-- Actions rapides pour changer le type -->
+        {% if setRelationUrl %}
+            <div class="d-flex mt-3 gap-2">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ (personType ~ '_person.set_relation')|trans }}
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="{{ setRelationUrl }}/client">{{ 'relation_type.client'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ setRelationUrl }}/prospect">{{ 'relation_type.prospect'|trans }}</a></li>
+                        {% if personType == 'physical' %}
+                            <li><a class="dropdown-item" href="{{ setRelationUrl }}/contact">{{ 'relation_type.contact'|trans }}</a></li>
+                        {% endif %}
+                        <li><a class="dropdown-item" href="{{ setRelationUrl }}/supplier">{{ 'relation_type.supplier'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ setRelationUrl }}/partner">{{ 'relation_type.partner'|trans }}</a></li>
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>

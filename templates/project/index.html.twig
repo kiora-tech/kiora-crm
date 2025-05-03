@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'project.list'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="pagetitle">
+        <h1>{{ 'project.list'|trans }}</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('homepage') }}">{{ 'menu.home'|trans }}</a></li>
+                <li class="breadcrumb-item active">{{ 'menu.projects'|trans }}</li>
+            </ol>
+        </nav>
+    </div>
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="mb-3 d-flex justify-content-between align-items-center">
+                    <div>
+                        <twig:Button
+                            link="{{ path('project_new') }}"
+                            theme="primary"
+                            icon="plus-circle"
+                            :label="'project.create_new'|trans"
+                        />
+                    </div>
+                    
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-filter"></i> {{ 'project.filter'|trans }}
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+                            <li><a class="dropdown-item" href="{{ path('project_index') }}">{{ 'project.filter.all'|trans }}</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">{{ 'project.filter.by_status'|trans }}</h6></li>
+                            <li><a class="dropdown-item {% if current_filter is defined and current_filter == 'status_pending' %}active{% endif %}" href="{{ path('project_filter_status', {'status': 'pending'}) }}">{{ 'project.status.pending'|trans }}</a></li>
+                            <li><a class="dropdown-item {% if current_filter is defined and current_filter == 'status_in_progress' %}active{% endif %}" href="{{ path('project_filter_status', {'status': 'in_progress'}) }}">{{ 'project.status.in_progress'|trans }}</a></li>
+                            <li><a class="dropdown-item {% if current_filter is defined and current_filter == 'status_completed' %}active{% endif %}" href="{{ path('project_filter_status', {'status': 'completed'}) }}">{{ 'project.status.completed'|trans }}</a></li>
+                            <li><a class="dropdown-item {% if current_filter is defined and current_filter == 'status_cancelled' %}active{% endif %}" href="{{ path('project_filter_status', {'status': 'cancelled'}) }}">{{ 'project.status.cancelled'|trans }}</a></li>
+                            <li><a class="dropdown-item {% if current_filter is defined and current_filter == 'status_on_hold' %}active{% endif %}" href="{{ path('project_filter_status', {'status': 'on_hold'}) }}">{{ 'project.status.on_hold'|trans }}</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <twig:Table
+                    :paginator="pagination"
+                    :columns="[
+                        { field: 'reference', label: 'project.reference'|trans, sortable: true },
+                        { field: 'title', label: 'project.title'|trans, sortable: true },
+                        { field: 'client', label: 'project.client'|trans, sortable: false },
+                        { field: 'status', label: 'project.status.label'|trans, sortable: false },
+                        { field: 'startDate', label: 'project.start_date'|trans, sortable: true },
+                        { field: 'budget', label: 'project.budget'|trans, sortable: true }
+                    ]"
+                    :options="{
+                        routes: {
+                            show: 'project_show',
+                            edit: 'project_edit',
+                            delete: 'project_delete'
+                        },
+                        tableClass: 'table table-striped table-hover',
+                        theadClass: 'table-primary'
+                    }"
+                >
+                    {% block column_reference %}
+                        {{ entity.reference ?: '-' }}
+                    {% endblock %}
+                    
+                    {% block column_client %}
+                        <a href="{{ path(entity.client is instanceof('App\\Entity\\LegalPerson') ? 'legal_person_show' : 'physical_person_show', {'id': entity.client.id}) }}">
+                            {{ entity.client.name }}
+                        </a>
+                    {% endblock %}
+                    
+                    {% block column_status %}
+                        {% if entity.status.value == 'PENDING' %}
+                            <span class="badge bg-secondary">{{ 'project.status.pending'|trans }}</span>
+                        {% elseif entity.status.value == 'IN_PROGRESS' %}
+                            <span class="badge bg-info">{{ 'project.status.in_progress'|trans }}</span>
+                        {% elseif entity.status.value == 'COMPLETED' %}
+                            <span class="badge bg-success">{{ 'project.status.completed'|trans }}</span>
+                        {% elseif entity.status.value == 'CANCELLED' %}
+                            <span class="badge bg-danger">{{ 'project.status.cancelled'|trans }}</span>
+                        {% elseif entity.status.value == 'ON_HOLD' %}
+                            <span class="badge bg-warning">{{ 'project.status.on_hold'|trans }}</span>
+                        {% endif %}
+                    {% endblock %}
+                    
+                    {% block column_startDate %}
+                        {{ entity.startDate ? entity.startDate|date('d/m/Y') : '-' }}
+                    {% endblock %}
+                    
+                    {% block column_budget %}
+                        {{ entity.budget ? entity.budget|format_currency('EUR') : '-' }}
+                    {% endblock %}
+                </twig:Table>
+            </div>
+        </div>
+    </section>
+{% endblock %}

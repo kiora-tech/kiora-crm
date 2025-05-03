@@ -3,14 +3,37 @@ FROM php:8.4-fpm AS base
 ARG USER_ID=33
 ARG GROUP_ID=33
 
+# Utilisation de la version officielle de l'extension installer
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
-RUN chmod uga+x /usr/local/bin/install-php-extensions && sync
+RUN chmod +x /usr/local/bin/install-php-extensions && sync
 
-RUN apt update \
-    && apt install -y zlib1g-dev g++ git libicu-dev zip libzip-dev zip
+# Installation des dépendances système et extensions PHP
+RUN apt-get update -qq && \
+    apt-get install -y \
+    git \
+    unzip \
+    libzip-dev \
+    libicu-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libxml2-dev \
+    libxslt-dev && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN install-php-extensions intl opcache pdo_mysql zip apcu gd xml dom sysvsem xsl
+# Extensions PHP nécessaires pour Symfony et PostgreSQL
+RUN install-php-extensions \
+    intl \
+    opcache \
+    pdo_pgsql \
+    pgsql \
+    zip \
+    apcu \
+    gd \
+    dom \
+    xsl \
+    sysvsem
 
 COPY ./docker/php/common-php.ini /usr/local/etc/php/conf.d/common-php.ini
 
@@ -23,29 +46,44 @@ WORKDIR /var/www/website
 
 FROM base AS build
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- \
+    --install-dir=/usr/local/bin \
+    --filename=composer \
+    --2
 
+# Étape de développement
 FROM build AS dev
+
+# Installation des outils de développement
+RUN install-php-extensions xdebug pcov
 
 COPY ./docker/php/dev-php.ini /usr/local/etc/php/conf.d/dev-php.ini
 
-RUN /usr/local/bin/composer completion bash | tee /etc/bash_completion.d/composer
+USER www-data
 
-RUN echo '\nif [ -f /etc/bash_completion ] && ! shopt -oq posix; then\n    . /etc/bash_completion\nfi\n' >> ~/.bashrc
-RUN echo 'eval "$(/var/www/website/bin/console completion bash )"\n' >> ~/.bashrc
-
-RUN install-php-extensions xdebug
-
+# Étape de production
 FROM base AS prod
 
-COPY . /var/www/website
+USER root
 
+COPY --chown=www-data:www-data . .
+
+# Installation des dépendances de production
+RUN composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction --no-ansi
+
+# Configuration PHP spécifique production
 COPY ./docker/php/prod-php.ini /usr/local/etc/php/conf.d/prod-php.ini
 
-#supervisor version
+USER www-data
+
+# Étape optionnelle pour Supervisor
 FROM prod AS supervisor
 
-RUN apt-get update && apt-get install -y supervisor
+USER root
+
+RUN apt-get update -qq && \
+    apt-get install -y supervisor && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY ./docker/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 

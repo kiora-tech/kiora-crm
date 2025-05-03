@@ -42,22 +42,65 @@ final readonly class Builder
     public function createMainMenu(): ItemInterface
     {
         $menu = $this->factory->createItem('root');
+        
+        // Dashboard
         $menu->addChild('menu.home', ['route' => 'homepage'])
             ->setLabel((string)t('menu.home'))
             ->setExtra('icon', 'bi bi-grid')
             ->setExtra('safe_label', true);
-
-        $menu->addChild('menu.company', ['route' => 'app_company_index'])
-            ->setLabel((string)t('menu.company'))
+        
+        // Clients
+        $clients = $menu->addChild('menu.clients', ['uri' => '#'])
+            ->setLabel((string)t('menu.clients'))
+            ->setExtra('icon', 'bi bi-people')
+            ->setExtra('safe_label', true);
+            
+        $clients->addChild('menu.physical_persons', ['route' => 'physical_person_index'])
+            ->setLabel((string)t('menu.physical_persons'))
+            ->setExtra('icon', 'bi bi-person')
+            ->setExtra('safe_label', true);
+            
+        $clients->addChild('menu.legal_persons', ['route' => 'legal_person_index'])
+            ->setLabel((string)t('menu.legal_persons'))
             ->setExtra('icon', 'bi bi-building')
             ->setExtra('safe_label', true);
         
-        $menu->addChild('menu.user', ['route' => 'app_user_index'])
-            ->setLabel((string) t('menu.user'))
-            ->setExtra('icon', 'bi bi-door-open')
+        // Projects
+        $menu->addChild('menu.projects', ['route' => 'project_index'])
+            ->setLabel((string)t('menu.projects'))
+            ->setExtra('icon', 'bi bi-kanban')
             ->setExtra('safe_label', true);
-
-
+            
+        // Tasks
+        $menu->addChild('menu.tasks', ['route' => 'task_index'])
+            ->setLabel((string)t('menu.tasks'))
+            ->setExtra('icon', 'bi bi-check2-square')
+            ->setExtra('safe_label', true);
+            
+        // Interactions
+        // TODO: Uncomment this when InteractionController is implemented
+        // $menu->addChild('menu.interactions', ['route' => 'interaction_index'])
+        //     ->setLabel((string)t('menu.interactions'))
+        //     ->setExtra('icon', 'bi bi-chat-dots')
+        //     ->setExtra('safe_label', true);
+        
+        // Administration
+        if ($this->security->isGranted('ROLE_ADMIN')) {
+            $admin = $menu->addChild('menu.admin', ['uri' => '#'])
+                ->setLabel((string)t('menu.admin'))
+                ->setExtra('icon', 'bi bi-gear')
+                ->setExtra('safe_label', true);
+                
+            $admin->addChild('menu.company', ['route' => 'app_company_index'])
+                ->setLabel((string)t('menu.company'))
+                ->setExtra('icon', 'bi bi-building-gear')
+                ->setExtra('safe_label', true);
+                
+            $admin->addChild('menu.user', ['route' => 'app_user_index'])
+                ->setLabel((string)t('menu.user'))
+                ->setExtra('icon', 'bi bi-people-fill')
+                ->setExtra('safe_label', true);
+        }
 
         return $menu;
     }

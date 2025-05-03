@@ -1,0 +1,309 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block body %}
+    <div class="pagetitle">
+        <h1>{{ project.title }}</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('homepage') }}">{{ 'menu.home'|trans }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ path('project_index') }}">{{ 'menu.projects'|trans }}</a></li>
+                <li class="breadcrumb-item active">{{ project.title }}</li>
+            </ol>
+        </nav>
+    </div>
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {{ 'project.info'|trans }}
+                            {% if project.isPending() %}
+                                <span class="badge bg-secondary">{{ 'project.status.pending'|trans }}</span>
+                            {% elseif project.isInProgress() %}
+                                <span class="badge bg-info">{{ 'project.status.in_progress'|trans }}</span>
+                            {% elseif project.isCompleted() %}
+                                <span class="badge bg-success">{{ 'project.status.completed'|trans }}</span>
+                            {% elseif project.isCancelled() %}
+                                <span class="badge bg-danger">{{ 'project.status.cancelled'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-warning">{{ 'project.status.on_hold'|trans }}</span>
+                            {% endif %}
+                        </h5>
+
+                        <div class="row mb-2">
+                            <div class="col-lg-4 col-md-4 label">{{ 'project.reference'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ project.reference ?: '-' }}</div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-lg-4 col-md-4 label">{{ 'project.client'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">
+                                {% if project.client %}
+                                    <a href="{{ path(project.client is instanceof('App\\Entity\\LegalPerson') ? 'legal_person_show' : 'physical_person_show', {'id': project.client.id}) }}">
+                                        {{ project.client.name }}
+                                    </a>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-lg-4 col-md-4 label">{{ 'project.manager'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">
+                                {{ project.manager.firstName }} {{ project.manager.lastName }}
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-lg-4 col-md-4 label">{{ 'project.start_date'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ project.startDate ? project.startDate|date('d/m/Y') : '-' }}</div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-lg-4 col-md-4 label">{{ 'project.end_date'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ project.endDate ? project.endDate|date('d/m/Y') : '-' }}</div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-lg-4 col-md-4 label">{{ 'project.budget'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ project.budget ? project.budget|format_currency('EUR') : '-' }}</div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-lg-4 col-md-4 label">{{ 'created_at'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ project.createdAt|date('d/m/Y H:i') }}</div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-lg-4 col-md-4 label">{{ 'updated_at'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ project.updatedAt ? project.updatedAt|date('d/m/Y H:i') : '-' }}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ 'project.description'|trans }}</h5>
+                        {% if project.description %}
+                            <p>{{ project.description|nl2br }}</p>
+                        {% else %}
+                            <p class="text-muted font-italic">{{ 'project.no_description'|trans }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                {% if project.tags %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ 'project.tags'|trans }}</h5>
+                        <div class="d-flex flex-wrap gap-1">
+                            {% for tag in project.tags %}
+                                <span class="badge bg-primary">{{ ('project.tag.' ~ tag)|trans }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ 'project.actions'|trans }}</h5>
+                        <div class="d-flex flex-wrap gap-2">
+                            <div class="dropdown mb-2">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ 'project.change_status'|trans }}
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="{{ path('project_change_status', {'id': project.id, 'status': 'pending'}) }}">{{ 'project.status.pending'|trans }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('project_change_status', {'id': project.id, 'status': 'in_progress'}) }}">{{ 'project.status.in_progress'|trans }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('project_change_status', {'id': project.id, 'status': 'completed'}) }}">{{ 'project.status.completed'|trans }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('project_change_status', {'id': project.id, 'status': 'on_hold'}) }}">{{ 'project.status.on_hold'|trans }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('project_change_status', {'id': project.id, 'status': 'cancelled'}) }}">{{ 'project.status.cancelled'|trans }}</a></li>
+                                </ul>
+                            </div>
+                            
+                            <twig:Button
+                                link="{{ path('task_new', {'project': project.id}) }}"
+                                theme="success"
+                                icon="plus-circle"
+                                :label="'project.add_task'|trans"
+                            />
+                            
+                            <twig:Button
+                                link="{{ path('project_edit', {'id': project.id}) }}"
+                                theme="primary"
+                                icon="pencil-square"
+                                :label="'button.edit'|trans"
+                            />
+                            
+                            {{ include('project/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body pt-3">
+                        <ul class="nav nav-tabs nav-tabs-bordered">
+                            <li class="nav-item">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tasks-tab">{{ 'project.tasks'|trans }}</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#interactions-tab">{{ 'project.interactions'|trans }}</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content pt-2">
+                            <div class="tab-pane fade show active" id="tasks-tab">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h5>{{ 'project.tasks_list'|trans }}</h5>
+                                    <twig:Button
+                                        link="{{ path('task_new', {'project': project.id}) }}"
+                                        theme="primary"
+                                        size="sm"
+                                        icon="plus-circle"
+                                        :label="'project.add_task'|trans"
+                                    />
+                                </div>
+                                
+                                {% if tasks|length > 0 %}
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{ 'task.title'|trans }}</th>
+                                                    <th>{{ 'task.status.label'|trans }}</th>
+                                                    <th>{{ 'task.priority.label'|trans }}</th>
+                                                    <th>{{ 'task.assignee'|trans }}</th>
+                                                    <th>{{ 'task.due_date'|trans }}</th>
+                                                    <th>{{ 'task.actions'|trans }}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for task in tasks %}
+                                                    <tr>
+                                                        <td>{{ task.title }}</td>
+                                                        <td>
+                                                            {% if task.status.value == 'TODO' %}
+                                                                <span class="badge bg-secondary">{{ 'task.status.todo'|trans }}</span>
+                                                            {% elseif task.status.value == 'IN_PROGRESS' %}
+                                                                <span class="badge bg-info">{{ 'task.status.in_progress'|trans }}</span>
+                                                            {% elseif task.status.value == 'DONE' %}
+                                                                <span class="badge bg-success">{{ 'task.status.done'|trans }}</span>
+                                                            {% elseif task.status.value == 'CANCELLED' %}
+                                                                <span class="badge bg-danger">{{ 'task.status.cancelled'|trans }}</span>
+                                                            {% else %}
+                                                                <span class="badge bg-warning">{{ 'task.status.blocked'|trans }}</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>
+                                                            {% if task.priority.value == 'LOW' %}
+                                                                <span class="badge bg-success">{{ 'task.priority.low'|trans }}</span>
+                                                            {% elseif task.priority.value == 'MEDIUM' %}
+                                                                <span class="badge bg-info">{{ 'task.priority.medium'|trans }}</span>
+                                                            {% elseif task.priority.value == 'HIGH' %}
+                                                                <span class="badge bg-warning">{{ 'task.priority.high'|trans }}</span>
+                                                            {% else %}
+                                                                <span class="badge bg-danger">{{ 'task.priority.urgent'|trans }}</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>{{ task.assignee ? task.assignee.firstName ~ ' ' ~ task.assignee.lastName : '-' }}</td>
+                                                        <td>
+                                                            {% if task.dueDate %}
+                                                                {{ task.dueDate|date('d/m/Y') }}
+                                                                {% if task.isLate %}
+                                                                    <span class="badge bg-danger">{{ 'task.late'|trans }}</span>
+                                                                {% endif %}
+                                                            {% else %}
+                                                                -
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex gap-2">
+                                                                <twig:Button
+                                                                    link="{{ path('task_show', {'id': task.id}) }}"
+                                                                    theme="primary"
+                                                                    size="sm"
+                                                                    :outline="true"
+                                                                    icon="eye"
+                                                                    :attributes="{'title': 'button.show'|trans}"
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-info">
+                                        {{ 'project.no_tasks'|trans }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="tab-pane fade" id="interactions-tab">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h5>{{ 'project.interactions_list'|trans }}</h5>
+                                    <twig:Button
+                                        link="#"
+                                        theme="primary"
+                                        size="sm"
+                                        icon="plus-circle"
+                                        :label="'project.add_interaction'|trans"
+                                    />
+                                </div>
+                                
+                                {% if interactions|length > 0 %}
+                                    <div class="activity">
+                                        {% for interaction in interactions %}
+                                            <div class="activity-item d-flex">
+                                                <div class="activite-label">{{ interaction.dateTime|date('d/m H:i') }}</div>
+                                                <i class="bi bi-circle-fill activity-badge 
+                                                    {% if interaction.type.value == 'CALL' %}text-success{% 
+                                                    elseif interaction.type.value == 'EMAIL' %}text-info{% 
+                                                    elseif interaction.type.value == 'MEETING' %}text-warning{% 
+                                                    elseif interaction.type.value == 'SMS' %}text-primary{% 
+                                                    else %}text-secondary{% endif %} align-self-start"></i>
+                                                <div class="activity-content">
+                                                    <div class="d-flex justify-content-between w-100">
+                                                        <strong>{{ interaction.subject }}</strong>
+                                                        <div>
+                                                            <twig:Button
+                                                                link="#"
+                                                                theme="primary"
+                                                                size="sm"
+                                                                :outline="true"
+                                                                icon="eye"
+                                                                :attributes="{'title': 'button.show'|trans, 'class': 'btn-sm'}"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="small text-muted mt-1">
+                                                        {{ ('interaction.' ~ interaction.type.value)|trans }} - {{ interaction.user.fullName }}
+                                                    </div>
+                                                    <div class="mt-2">
+                                                        {{ interaction.content|nl2br }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-info">
+                                        {{ 'project.no_interactions'|trans }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

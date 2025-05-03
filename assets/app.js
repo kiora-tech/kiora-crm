@@ -1,9 +1,7 @@
-import './styles/ColorPicker.css';
 import 'bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NiceAdmin/scss/style.scss';
-import 'intl-tel-input/build/css/intlTelInput.css';
 import './styles/app.css';
 
 const loadEssentialJsFiles = () => {

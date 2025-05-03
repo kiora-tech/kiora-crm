@@ -5,15 +5,78 @@
 {% block body %}
 
     <div class="pagetitle">
-        <h1>{{ 'dashboard.hello'|trans }} {{ app.user.name }}</h1>
+        <h1>{{ 'dashboard.hello'|trans }} {{ app.user.firstname }}</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">{{ 'dashboard.title'|trans }}</li>
+            </ol>
+        </nav>
     </div>
 
     <section class="section dashboard">
         <div class="row">
+            <!-- Left side columns -->
             <div class="col-lg-8">
                 <div class="row">
+                    {% include 'home/_stats.html.twig' with {
+                        'tasks_total': tasks_total,
+                        'tasks_in_progress': tasks_in_progress,
+                        'projects_total': projects_total,
+                        'projects_in_progress': projects_in_progress,
+                        'clients_total': clients_total,
+                        'physical_persons_count': physical_persons_count,
+                        'legal_persons_count': legal_persons_count,
+                        'tasks_todo': tasks_todo,
+                        'tasks_in_progress': tasks_in_progress,
+                        'tasks_done': tasks_done,
+                        'tasks_late': tasks_late,
+                        'tasks_urgent': tasks_urgent,
+                        'tasks_upcoming': tasks_upcoming
+                    } only %}
 
+                    <!-- Tâches à faire -->
+                    <div class="col-12">
+                        {% include 'home/_tasks.html.twig' with {
+                            'user_tasks': user_tasks
+                        } only %}
+                    </div>
+
+                    <!-- Projets récents -->
+                    <div class="col-12">
+                        {% include 'home/_projects.html.twig' with {
+                            'recent_projects': recent_projects
+                        } only %}
+                    </div>
                 </div>
+            </div>
+            <div class="col-lg-4">
+                <!-- Alertes de tâches -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ 'dashboard.task_alerts'|trans }}</h5>
+
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-octagon me-1"></i>
+                            {{ 'dashboard.late_tasks'|trans }}: <strong>{{ tasks_late }}</strong>
+                        </div>
+
+                        <div class="alert alert-warning">
+                            <i class="bi bi-exclamation-triangle me-1"></i>
+                            {{ 'dashboard.urgent_tasks'|trans }}: <strong>{{ tasks_urgent }}</strong>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle me-1"></i>
+                            {{ 'dashboard.upcoming_tasks'|trans }}: <strong>{{ tasks_upcoming }}</strong>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Dernières interactions -->
+                {% include 'home/_interactions.html.twig' with {
+                    'recent_interactions': recent_interactions
+                } only %}
             </div>
         </div>
     </section>

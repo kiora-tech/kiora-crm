@@ -1,0 +1,67 @@
+{# templates/home/_projects.html.twig #}
+<div class="card recent-sales overflow-auto">
+    <div class="card-body">
+        <h5 class="card-title">{{ 'dashboard.recent_projects'|trans }}</h5>
+        <table class="table table-borderless datatable">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">{{ 'dashboard.project'|trans }}</th>
+                    <th scope="col">{{ 'dashboard.client'|trans }}</th>
+                    <th scope="col">{{ 'dashboard.status'|trans }}</th>
+                    <th scope="col">{{ 'dashboard.budget'|trans }}</th>
+                    <th scope="col">{{ 'button.actions'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if recent_projects|length > 0 %}
+                    {% for project in recent_projects %}
+                        <tr>
+                            <th scope="row">{{ project.id }}</th>
+                            <td>{{ project.title }}</td>
+                            <td>{{ project.client.name }}</td>
+                            <td>
+                                {% if project.status.value == 'PENDING' %}
+                                    <span class="badge bg-secondary">{{ 'dashboard.pending'|trans }}</span>
+                                {% elseif project.status.value == 'IN_PROGRESS' %}
+                                    <span class="badge bg-info">{{ 'dashboard.in_progress'|trans }}</span>
+                                {% elseif project.status.value == 'COMPLETED' %}
+                                    <span class="badge bg-success">{{ 'dashboard.completed'|trans }}</span>
+                                {% elseif project.status.value == 'CANCELLED' %}
+                                    <span class="badge bg-danger">{{ 'dashboard.cancelled'|trans }}</span>
+                                {% elseif project.status.value == 'ON_HOLD' %}
+                                    <span class="badge bg-warning">{{ 'dashboard.on_hold'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ project.budget ? project.budget|number_format(0, ',', ' ') ~ ' €' : '-' }}</td>
+                            <td>
+                                <div class="d-flex gap-2 justify-content-end">
+                                    <twig:Button
+                                        link="#"
+                                        theme="primary"
+                                        size="sm"
+                                        :outline="true"
+                                        icon="eye"
+                                        :attributes="{'title': 'button.show'|trans}"
+                                    />
+                                    <twig:Button
+                                        link="#"
+                                        theme="primary"
+                                        size="sm"
+                                        :outline="true"
+                                        icon="pencil-square"
+                                        :attributes="{'title': 'button.edit'|trans}"
+                                    />
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center">{{ 'dashboard.no_projects'|trans }}</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>

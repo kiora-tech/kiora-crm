@@ -1,0 +1,48 @@
+{{ form_start(form) }}
+    <div class="row g-3">
+        <div class="col-md-6">
+            {{ form_row(form.title) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.reference) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.client) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.manager) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.startDate) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.endDate) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.status) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.budget) }}
+        </div>
+        <div class="col-12">
+            {{ form_row(form.description) }}
+        </div>
+        <div class="col-12">
+            <fieldset class="border p-3">
+                <legend class="w-auto px-2 float-none fs-6">{{ form_label(form.tags) }}</legend>
+                <div class="d-flex flex-wrap gap-3">
+                    {% for tag in form.tags %}
+                        <div class="form-check">
+                            {{ form_widget(tag) }}
+                            {{ form_label(tag) }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    
+    <twig:FormActions
+        backRoute="project_index"
+    />
+{{ form_end(form) }}

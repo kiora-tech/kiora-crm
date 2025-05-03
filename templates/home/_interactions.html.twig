@@ -1,0 +1,48 @@
+{# templates/home/_interactions.html.twig #}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ 'dashboard.recent_interactions'|trans }}</h5>
+
+        <div class="activity">
+            {% if recent_interactions|length > 0 %}
+                {% for interaction in recent_interactions %}
+                    <div class="activity-item d-flex">
+                        <div class="activite-label">{{ interaction.dateTime|date('d/m H:i') }}</div>
+                        <i class="bi bi-circle-fill activity-badge 
+                            {% if interaction.type.value == 'CALL' %}text-success{% 
+                            elseif interaction.type.value == 'EMAIL' %}text-info{% 
+                            elseif interaction.type.value == 'MEETING' %}text-warning{% 
+                            elseif interaction.type.value == 'SMS' %}text-primary{% 
+                            else %}text-secondary{% endif %} align-self-start"></i>
+                        <div class="activity-content">
+                            <div class="d-flex justify-content-between w-100">
+                                <strong>{{ interaction.subject }}</strong>
+                                <div class="action-buttons">
+                                    <twig:Button
+                                        link="#"
+                                        theme="primary"
+                                        size="sm"
+                                        :outline="true"
+                                        icon="eye"
+                                        :attributes="{'title': 'button.show'|trans, 'class': 'btn-sm'}"
+                                    />
+                                </div>
+                            </div>
+                            {% if interaction.contact %}
+                                <div>{{ 'dashboard.with'|trans }} <em>{{ interaction.contact.name }}</em></div>
+                            {% endif %}
+                            <div class="small text-muted mt-1">
+                                {{ interaction.type.value|trans }}
+                                {% if interaction.project %}
+                                    - {{ interaction.project.title }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="text-center">{{ 'dashboard.no_interactions'|trans }}</div>
+            {% endif %}
+        </div>
+    </div>
+</div>

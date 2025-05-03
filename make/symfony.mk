@@ -26,4 +26,7 @@ vendor: composer.lock
 composer.lock:
 	${PHP} composer update
 
+.env.local:
+	touch .env.local
+
 .PHONY: install_symfony load-external-db

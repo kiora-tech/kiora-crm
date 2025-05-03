@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Company;
+use App\Entity\LegalPerson;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -17,7 +18,7 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', null, [
+            ->add('firstname', null, [
                 'label' => 'user.name.label',
                 'attr' => ['placeholder' => 'user.name.placeholder'],
             ])
@@ -46,7 +47,7 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('company', EntityType::class, [
-                'class' => Company::class,
+                'class' => LegalPerson::class,
                 'choice_label' => 'name',
                 'label' => 'user.company.label',
             ])

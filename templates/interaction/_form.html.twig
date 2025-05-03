@@ -1,0 +1,54 @@
+{{ form_start(form) }}
+    <div class="row g-3">
+        <div class="col-md-6">
+            {{ form_row(form.type) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.dateTime) }}
+        </div>
+        <div class="col-md-12">
+            {{ form_row(form.subject) }}
+        </div>
+        <div class="col-md-12">
+            {{ form_row(form.content) }}
+        </div>
+        
+        {% if form.contact is defined %}
+            <div class="col-md-6">
+                {{ form_row(form.contact) }}
+            </div>
+        {% endif %}
+        
+        {% if form.project is defined %}
+            <div class="col-md-6">
+                {{ form_row(form.project) }}
+            </div>
+        {% endif %}
+        
+        {% if form.task is defined %}
+            <div class="col-md-6">
+                {{ form_row(form.task) }}
+            </div>
+        {% endif %}
+        
+        <div class="col-md-6">
+            {{ form_row(form.isOutgoing) }}
+        </div>
+        
+        <div class="col-md-6">
+            {{ form_row(form.location) }}
+        </div>
+        
+        <div class="col-md-6">
+            {{ form_row(form.endDateTime) }}
+        </div>
+        
+        <div class="col-md-12">
+            {{ form_row(form.outcome) }}
+        </div>
+    </div>
+    
+    <twig:FormActions
+        backRoute="{{ back_route|default('homepage') }}"
+    />
+{{ form_end(form) }}

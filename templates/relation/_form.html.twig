@@ -1,0 +1,25 @@
+{{ form_start(form) }}
+    <div class="row g-3">
+        <div class="col-md-12">
+            {{ form_row(form.type) }}
+        </div>
+        
+        {% if form.sourcePerson is defined %}
+            <div class="col-md-6">
+                {{ form_row(form.sourcePerson) }}
+            </div>
+        {% endif %}
+        
+        <div class="col-md-6">
+            {{ form_row(form.targetPerson) }}
+        </div>
+        
+        <div class="col-md-12">
+            {{ form_row(form.notes) }}
+        </div>
+    </div>
+    
+    <twig:FormActions
+        backRoute="{{ back_route|default('homepage') }}"
+    />
+{{ form_end(form) }}

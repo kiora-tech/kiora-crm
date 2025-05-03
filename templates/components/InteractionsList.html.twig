@@ -1,0 +1,78 @@
+{% if title %}
+    <div class="d-flex justify-content-between mb-3">
+        <h5>{{ title }}</h5>
+        {% if addUrl %}
+            <twig:Button
+                link="{{ addUrl }}"
+                theme="primary"
+                size="sm"
+                icon="plus-circle"
+                :label="addLabel"
+            />
+        {% endif %}
+    </div>
+{% endif %}
+
+{% if interactions|length > 0 %}
+    <div class="activity">
+        {% for interaction in interactions %}
+            <div class="activity-item d-flex">
+                <div class="activite-label">{{ interaction.dateTime|date('d/m H:i') }}</div>
+                <i class="bi bi-circle-fill activity-badge 
+                    {% if interaction.type.value == 'CALL' %}text-success{% 
+                    elseif interaction.type.value == 'EMAIL' %}text-info{% 
+                    elseif interaction.type.value == 'MEETING' %}text-warning{% 
+                    elseif interaction.type.value == 'SMS' %}text-primary{% 
+                    else %}text-secondary{% endif %} align-self-start"></i>
+                <div class="activity-content">
+                    <div class="d-flex justify-content-between w-100">
+                        <strong>{{ interaction.subject }}</strong>
+                        <div>
+                            {% if interaction_show_url is defined %}
+                                <twig:Button
+                                    link="{{ interaction_show_url }}"
+                                    theme="primary"
+                                    size="sm"
+                                    :outline="true"
+                                    icon="eye"
+                                    :attributes="{'title': 'button.show'|trans, 'class': 'btn-sm'}"
+                                />
+                            {% else %}
+                                <twig:Button
+                                    link="#"
+                                    theme="primary"
+                                    size="sm"
+                                    :outline="true"
+                                    icon="eye"
+                                    :attributes="{'title': 'button.show'|trans, 'class': 'btn-sm'}"
+                                />
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="small text-muted mt-1">
+                        {{ ('interaction.' ~ interaction.type.value)|trans }} 
+                        - {{ interaction.user.fullName }}
+                        {% if interaction.contact and interaction.contact.id != entity.id %}
+                            - {{ 'with'|trans }} 
+                            {% if interaction.contact is instanceof('App\\Entity\\LegalPerson') %}
+                                <a href="{{ path('legal_person_show', {'id': interaction.contact.id}) }}">{{ interaction.contact.name }}</a>
+                            {% else %}
+                                <a href="{{ path('physical_person_show', {'id': interaction.contact.id}) }}">{{ interaction.contact.firstName }} {{ interaction.contact.lastName }}</a>
+                            {% endif %}
+                        {% endif %}
+                        {% if interaction.project %}
+                            - {{ 'project'|trans }}: <a href="{{ path('project_show', {'id': interaction.project.id}) }}">{{ interaction.project.title }}</a>
+                        {% endif %}
+                    </div>
+                    <div class="mt-2">
+                        {{ interaction.content|nl2br }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        {{ emptyMessage }}
+    </div>
+{% endif %}

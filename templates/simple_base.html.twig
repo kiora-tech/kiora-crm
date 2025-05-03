@@ -49,11 +49,11 @@
 									{% else %}
 										<img src="{{ asset('img/default_user.png') }}" alt="" class="rounded-circle">
 									{% endif %}
-									<span class="d-none d-md-block dropdown-toggle ps-2">{{ app.user.name ~ ' ' ~ app.user.lastName }}</span>
+									<span class="d-none d-md-block dropdown-toggle ps-2">{{ app.user }}</span>
 								</a>
 								<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
 									<li class="dropdown-header">
-										<h6>{{ app.user.name ~ ' ' ~ app.user.lastName }}</h6>
+										<h6>{{ app.user }}</h6>
 										<span>{{ app.user.company.name }}</span>
 									</li>
 									<li>

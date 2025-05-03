@@ -1,0 +1,45 @@
+{{ form_start(form) }}
+    <div class="row g-3">
+        <div class="col-md-6">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.legalName) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.tradeName) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.industry) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.email) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.phone) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.website) }}
+        </div>
+        <div class="col-12">
+            {{ form_row(form.address) }}
+        </div>
+
+        <div class="col-md-6">
+            {{ form_row(form.vatNumber) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.siret) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.siren) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.countryCode) }}
+        </div>
+    </div>
+    
+    <twig:FormActions
+        backRoute="legal_person_index"
+    />
+{{ form_end(form) }}

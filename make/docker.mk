@@ -1,11 +1,11 @@
-DOCKER_CMD = docker
+DOCKER_CMD = HOST_USER_ID=$$(id -u) HOST_GROUP_ID=$$(id -g) docker
 PHP = docker compose exec -it php
+DOCKER_COMPOSE_CMD = ${DOCKER_CMD} compose --env-file .env.local
 JS_DEP = docker compose run --rm node yarn
 
-DOCKERFILES_FOLDER ?= .docker
-DOCKERFILES ?= $(wildcard $(DOCKERFILES_FOLDER)/Dockerfile.*)
-DOCKER_SENTINELS=$(addprefix make/, $(addsuffix .sentinel, $(subst Dockerfile.,.,$(notdir $(DOCKERFILES)))))
-
+DOCKERFILES_FOLDER ?= docker
+DOCKERFILES ?= $(wildcard $(DOCKERFILES_FOLDER)/*/Dockerfile)
+DOCKER_SENTINELS=$(addprefix make/., $(addsuffix .sentinel, $(notdir $(patsubst docker/%/Dockerfile,%,$(DOCKERFILES)))))
 ##@ Docker
 init: ${DOCKER_SENTINELS} compose.override.yaml ## init docker
 	${DOCKER_CMD} compose up -d
@@ -13,7 +13,7 @@ init: ${DOCKER_SENTINELS} compose.override.yaml ## init docker
 compose.override.yaml: compose.override.yaml.dist
 	cp compose.override.yaml.dist compose.override.yaml
 
-$(DOCKER_SENTINELS): make/.%.sentinel : $(DOCKERFILES_FOLDER)/Dockerfile.%
+$(DOCKER_SENTINELS): make/.%.sentinel : $(DOCKERFILES_FOLDER)/%/Dockerfile
 	${DOCKER_CMD} compose build
 	touch $@
 
@@ -26,6 +26,11 @@ node: up ## run node container
 	${DOCKER_CMD} compose run --rm node bash
 
 .PHONY: init up php
+
+build: .env.local ## build docker
+	@rm -f $(DOCKER_SENTINELS)
+	${DOCKER_COMPOSE_CMD} build
+	@touch $(DOCKER_SENTINELS)
 
 docker_publish: ## Publish a Docker image (usage: make docker_publish IMAGE=nom_image TAG=version)
 ifndef IMAGE

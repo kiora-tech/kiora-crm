@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'task.list'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="pagetitle">
+        <h1>{{ 'task.list'|trans }}</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('homepage') }}">{{ 'menu.home'|trans }}</a></li>
+                <li class="breadcrumb-item active">{{ 'task.list'|trans }}</li>
+            </ol>
+        </nav>
+    </div>
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="mb-3">
+                    <twig:Button
+                        link="{{ path('task_new') }}"
+                        theme="primary"
+                        icon="plus-circle"
+                        :label="'task.create_new'|trans"
+                    />
+                </div>
+
+                <twig:Table
+                    :paginator="pagination"
+                    :columns="[
+                        { field: 'id', label: 'ID', sortable: true },
+                        { field: 'title', label: 'task.title'|trans, sortable: true },
+                        { field: 'status', label: 'task.status.label'|trans, sortable: true },
+                        { field: 'priority', label: 'task.priority.label'|trans, sortable: true },
+                        { field: 'project.title', label: 'task.project'|trans, sortable: true },
+                        { field: 'assignee.fullName', label: 'task.assignee'|trans, sortable: true },
+                        { field: 'dueDate', label: 'task.due_date'|trans, sortable: true }
+                    ]"
+                    :options="{
+                        routes: {
+                            show: 'task_show',
+                            edit: 'task_edit',
+                            delete: 'task_delete'
+                        },
+                        tableClass: 'table table-striped table-hover',
+                        theadClass: 'table-primary'
+                    }"
+                >
+                    {% block column_status %}
+                        {% set badgeClass = 'bg-secondary' %}
+                        {% if entity.status.value == 'TODO' %}
+                            {% set badgeClass = 'bg-primary' %}
+                        {% elseif entity.status.value == 'IN_PROGRESS' %}
+                            {% set badgeClass = 'bg-info' %}
+                        {% elseif entity.status.value == 'DONE' %}
+                            {% set badgeClass = 'bg-success' %}
+                        {% elseif entity.status.value == 'CANCELLED' %}
+                            {% set badgeClass = 'bg-danger' %}
+                        {% elseif entity.status.value == 'BLOCKED' %}
+                            {% set badgeClass = 'bg-warning' %}
+                        {% endif %}
+                        <span class="badge {{ badgeClass }}">{{ ('task.status.' ~ entity.status.value|lower)|trans }}</span>
+                    {% endblock %}
+
+                    {% block column_priority %}
+                        {% if entity.priority %}
+                            {% set badgeClass = 'bg-primary' %}
+                            {% if entity.priority.value == 'HIGH' %}
+                                {% set badgeClass = 'bg-danger' %}
+                            {% elseif entity.priority.value == 'MEDIUM' %}
+                                {% set badgeClass = 'bg-warning' %}
+                            {% elseif entity.priority.value == 'LOW' %}
+                                {% set badgeClass = 'bg-info' %}
+                            {% elseif entity.priority.value == 'URGENT' %}
+                                {% set badgeClass = 'bg-dark' %}
+                            {% endif %}
+                            <span class="badge {{ badgeClass }}">{{ ('task.priority.' ~ entity.priority.value|lower)|trans }}</span>
+                        {% endif %}
+                    {% endblock %}
+
+                    {% block column_dueDate %}
+                        {{ entity.dueDate ? entity.dueDate|date('d/m/Y') : '-' }}
+                        {% if entity.isLate %}
+                            <span class="badge bg-danger ms-1">{{ 'task.late'|trans }}</span>
+                        {% endif %}
+                    {% endblock %}
+                </twig:Table>
+            </div>
+        </div>
+    </section>
+{% endblock %}

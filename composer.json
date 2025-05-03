@@ -55,6 +55,7 @@
         "symfonycasts/reset-password-bundle": "^1.23",
         "symfonycasts/sass-bundle": "^0.8.2",
         "twig/extra-bundle": "^3.18",
+        "twig/intl-extra": "^3.21",
         "twig/twig": "^2.12|^3.0"
     },
     "config": {
@@ -114,7 +115,7 @@
         "symfony/browser-kit": "7.2.*",
         "symfony/css-selector": "7.2.*",
         "symfony/debug-bundle": "7.2.*",
-        "symfony/maker-bundle": "^1.0",
+        "symfony/maker-bundle": "^1.63",
         "symfony/phpunit-bridge": "^7.2",
         "symfony/stopwatch": "7.2.*",
         "symfony/web-profiler-bundle": "7.2.*"

@@ -1,0 +1,436 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ person.name }}{% endblock %}
+
+{% block body %}
+    <div class="pagetitle">
+        <h1>{{ person.name }}</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('homepage') }}">{{ 'menu.home'|trans }}</a></li>
+                <li class="breadcrumb-item">{{ 'menu.clients'|trans }}</li>
+                <li class="breadcrumb-item"><a href="{{ path('legal_person_index') }}">{{ 'menu.legal_persons'|trans }}</a></li>
+                <li class="breadcrumb-item active">{{ person.name }}</li>
+            </ol>
+        </nav>
+    </div>
+
+    <section class="section profile">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="card">
+                    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                        {% if person.logo %}
+                            <img src="{{ asset(person.logo) }}" alt="Logo" class="rounded-circle">
+                        {% else %}
+                            <div class="profile-img-placeholder rounded-circle d-flex align-items-center justify-content-center bg-primary text-white" style="width: 120px; height: 120px; font-size: 48px;">
+                                {{ person.name|first|upper }}
+                            </div>
+                        {% endif %}
+                        <h2>{{ person.name }}</h2>
+                        <h3>{{ person.industry }}</h3>
+                        
+                        <!-- Badges de type de relation -->
+                        <div class="d-flex mt-2 gap-1">
+                            {% set isClient = false %}
+                            {% set isProspect = false %}
+                            {% set isSupplier = false %}
+                            {% set isPartner = false %}
+                            
+                            {% for relation in relations %}
+                                {% if relation.type.value == 'CLIENT' and relation.targetPerson.id == person.id %}
+                                    {% set isClient = true %}
+                                {% elseif relation.type.value == 'PROSPECT' and relation.targetPerson.id == person.id %}
+                                    {% set isProspect = true %}
+                                {% elseif relation.type.value == 'SUPPLIER' and relation.targetPerson.id == person.id %}
+                                    {% set isSupplier = true %}
+                                {% elseif relation.type.value == 'PARTNER' and relation.targetPerson.id == person.id %}
+                                    {% set isPartner = true %}
+                                {% endif %}
+                            {% endfor %}
+                            
+                            {% if isClient %}
+                                <span class="badge bg-success">{{ 'relation_type.client'|trans }}</span>
+                            {% endif %}
+                            
+                            {% if isProspect %}
+                                <span class="badge bg-info">{{ 'relation_type.prospect'|trans }}</span>
+                            {% endif %}
+                            
+                            {% if isSupplier %}
+                                <span class="badge bg-warning">{{ 'relation_type.supplier'|trans }}</span>
+                            {% endif %}
+                            
+                            {% if isPartner %}
+                                <span class="badge bg-dark">{{ 'relation_type.partner'|trans }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Actions rapides pour changer le type -->
+                        <div class="d-flex mt-3 gap-2">
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ 'legal_person.set_relation'|trans }}
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="{{ path('legal_person_set_type', {'id': person.id, 'type': 'client'}) }}">{{ 'relation_type.client'|trans }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('legal_person_set_type', {'id': person.id, 'type': 'prospect'}) }}">{{ 'relation_type.prospect'|trans }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('legal_person_set_type', {'id': person.id, 'type': 'supplier'}) }}">{{ 'relation_type.supplier'|trans }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('legal_person_set_type', {'id': person.id, 'type': 'partner'}) }}">{{ 'relation_type.partner'|trans }}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ 'legal_person.contact_details'|trans }}</h5>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 label">{{ 'legal_person.email'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ person.email ?: '-' }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 label">{{ 'legal_person.phone'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ person.phone ?: '-' }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 label">{{ 'legal_person.website'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">
+                                {% if person.website %}
+                                    <a href="{{ person.website }}" target="_blank">{{ person.website }}</a>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 label">{{ 'legal_person.address'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ person.address ? person.address|nl2br : '-' }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ 'legal_person.company_info'|trans }}</h5>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 label">{{ 'legal_person.industry'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ person.industry ?: '-' }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 label">{{ 'legal_person.tax_number'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ person.vatNumber ?: '-' }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 label">{{ 'legal_person.siret'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ person.siret ?: '-' }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 label">{{ 'created_at'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ person.createdAt|date('d/m/Y H:i') }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 label">{{ 'updated_at'|trans }}</div>
+                            <div class="col-lg-8 col-md-8">{{ person.updatedAt ? person.updatedAt|date('d/m/Y H:i') : '-' }}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ 'legal_person.description'|trans }}</h5>
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ 'legal_person.actions'|trans }}</h5>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <twig:Button
+                                link="{{ path('legal_person_edit', {'id': person.id}) }}"
+                                theme="primary"
+                                icon="pencil-square"
+                                :label="'button.edit'|trans"
+                            />
+                            
+                            {{ include('legal_person/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-8">
+                <div class="card">
+                    <div class="card-body pt-3">
+                        <ul class="nav nav-tabs nav-tabs-bordered">
+                            <li class="nav-item">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#contacts-tab">{{ 'legal_person.contacts'|trans }}</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#projects-tab">{{ 'legal_person.projects'|trans }}</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#interactions-tab">{{ 'legal_person.interactions'|trans }}</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#relations-tab">{{ 'legal_person.relations'|trans }}</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content pt-2">
+                            <div class="tab-pane fade show active" id="contacts-tab">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h5>{{ 'legal_person.contacts_list'|trans }}</h5>
+                                    <twig:Button
+                                        link="{{ path('physical_person_new', {'company': person.id}) }}"
+                                        theme="primary"
+                                        size="sm"
+                                        icon="plus-circle"
+                                        :label="'legal_person.add_contact'|trans"
+                                    />
+                                </div>
+                                
+                                {% if contacts|length > 0 %}
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{ 'physical_person.name'|trans }}</th>
+                                                    <th>{{ 'physical_person.position'|trans }}</th>
+                                                    <th>{{ 'physical_person.email'|trans }}</th>
+                                                    <th>{{ 'physical_person.phone'|trans }}</th>
+                                                    <th>{{ 'physical_person.roles'|trans }}</th>
+                                                    <th>{{ 'physical_person.actions'|trans }}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for contact in contacts %}
+                                                    <tr>
+                                                        <td>{{ contact.firstName }} {{ contact.lastName }}</td>
+                                                        <td>{{ contact.position ?: '-' }}</td>
+                                                        <td>{{ contact.email ?: '-' }}</td>
+                                                        <td>{{ contact.mobile ?: contact.phone ?: '-' }}</td>
+                                                        <td>
+                                                            <div class="d-flex flex-wrap gap-1">
+                                                                {% if contact.isPrimaryContact %}
+                                                                    <span class="badge bg-primary">{{ 'physical_person.primary'|trans }}</span>
+                                                                {% endif %}
+                                                                {% if contact.isManager %}
+                                                                    <span class="badge bg-info">{{ 'physical_person.manager'|trans }}</span>
+                                                                {% endif %}
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex gap-2">
+                                                                <twig:Button
+                                                                    link="{{ path('physical_person_show', {'id': contact.id}) }}"
+                                                                    theme="primary"
+                                                                    size="sm"
+                                                                    :outline="true"
+                                                                    icon="eye"
+                                                                    :attributes="{'title': 'button.show'|trans}"
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-info">
+                                        {{ 'legal_person.no_contacts'|trans }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="tab-pane fade" id="projects-tab">
+                                {% if projects|length > 0 %}
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{ 'project.reference'|trans }}</th>
+                                                    <th>{{ 'project.title'|trans }}</th>
+                                                    <th>{{ 'project.status.label'|trans }}</th>
+                                                    <th>{{ 'project.start_date'|trans }}</th>
+                                                    <th>{{ 'project.actions'|trans }}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for project in projects %}
+                                                    <tr>
+                                                        <td>{{ project.reference ?: '-' }}</td>
+                                                        <td>{{ project.title }}</td>
+                                                        <td>
+                                                            {% if project.status.value == 'PENDING' %}
+                                                                <span class="badge bg-secondary">{{ 'project.status.pending'|trans }}</span>
+                                                            {% elseif project.status.value == 'IN_PROGRESS' %}
+                                                                <span class="badge bg-info">{{ 'project.status.in_progress'|trans }}</span>
+                                                            {% elseif project.status.value == 'COMPLETED' %}
+                                                                <span class="badge bg-success">{{ 'project.status.completed'|trans }}</span>
+                                                            {% elseif project.status.value == 'CANCELLED' %}
+                                                                <span class="badge bg-danger">{{ 'project.status.cancelled'|trans }}</span>
+                                                            {% elseif project.status.value == 'ON_HOLD' %}
+                                                                <span class="badge bg-warning">{{ 'project.status.on_hold'|trans }}</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>{{ project.startDate ? project.startDate|date('d/m/Y') : '-' }}</td>
+                                                        <td>
+                                                            <div class="d-flex gap-2">
+                                                                <twig:Button
+                                                                    link="{{ path('project_show', {'id': project.id}) }}"
+                                                                    theme="primary"
+                                                                    size="sm"
+                                                                    :outline="true"
+                                                                    icon="eye"
+                                                                    :attributes="{'title': 'button.show'|trans}"
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-info">
+                                        {{ 'legal_person.no_projects'|trans }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="tab-pane fade" id="interactions-tab">
+                                {% if interactions|length > 0 %}
+                                    <div class="activity">
+                                        {% for interaction in interactions %}
+                                            <div class="activity-item d-flex">
+                                                <div class="activite-label">{{ interaction.dateTime|date('d/m H:i') }}</div>
+                                                <i class="bi bi-circle-fill activity-badge 
+                                                    {% if interaction.type.value == 'CALL' %}text-success{% 
+                                                    elseif interaction.type.value == 'EMAIL' %}text-info{% 
+                                                    elseif interaction.type.value == 'MEETING' %}text-warning{% 
+                                                    elseif interaction.type.value == 'SMS' %}text-primary{% 
+                                                    else %}text-secondary{% endif %} align-self-start"></i>
+                                                <div class="activity-content">
+                                                    <div class="d-flex justify-content-between w-100">
+                                                        <strong>{{ interaction.subject }}</strong>
+                                                        <div>
+                                                            <twig:Button
+                                                                link="#"
+                                                                theme="primary"
+                                                                size="sm"
+                                                                :outline="true"
+                                                                icon="eye"
+                                                                :attributes="{'title': 'button.show'|trans, 'class': 'btn-sm'}"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="small text-muted mt-1">
+                                                        {{ ('interaction.' ~ interaction.type.value)|trans }} - {{ interaction.user.fullName }}
+                                                    </div>
+                                                    <div class="mt-2">
+                                                        {{ interaction.content|nl2br }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-info">
+                                        {{ 'legal_person.no_interactions'|trans }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="tab-pane fade" id="relations-tab">
+                                {% if relations|length > 0 %}
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{ 'relation.type'|trans }}</th>
+                                                    <th>{{ 'relation.with'|trans }}</th>
+                                                    <th>{{ 'relation.direction'|trans }}</th>
+                                                    <th>{{ 'relation.notes'|trans }}</th>
+                                                    <th>{{ 'relation.actions'|trans }}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for relation in relations %}
+                                                    <tr>
+                                                        <td>
+                                                            {% if relation.type.value == 'CLIENT' %}
+                                                                <span class="badge bg-success">{{ 'relation_type.client'|trans }}</span>
+                                                            {% elseif relation.type.value == 'PROSPECT' %}
+                                                                <span class="badge bg-info">{{ 'relation_type.prospect'|trans }}</span>
+                                                            {% elseif relation.type.value == 'SUPPLIER' %}
+                                                                <span class="badge bg-warning">{{ 'relation_type.supplier'|trans }}</span>
+                                                            {% elseif relation.type.value == 'PARTNER' %}
+                                                                <span class="badge bg-dark">{{ 'relation_type.partner'|trans }}</span>
+                                                            {% elseif relation.type.value == 'SUBSIDIARY' %}
+                                                                <span class="badge bg-secondary">{{ 'relation_type.subsidiary'|trans }}</span>
+                                                            {% else %}
+                                                                <span class="badge bg-secondary">{{ 'relation_type.other'|trans }}</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>
+                                                            {% set otherPerson = relation.sourcePerson.id == person.id ? relation.targetPerson : relation.sourcePerson %}
+                                                            {% if otherPerson %}
+                                                                {% if otherPerson is instanceof('App\\Entity\\LegalPerson') %}
+                                                                    <a href="{{ path('legal_person_show', {'id': otherPerson.id}) }}">{{ otherPerson.name }}</a>
+                                                                {% else %}
+                                                                    <a href="{{ path('physical_person_show', {'id': otherPerson.id}) }}">{{ otherPerson.name }}</a>
+                                                                {% endif %}
+                                                            {% else %}
+                                                                -
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>
+                                                            {% if relation.sourcePerson.id == person.id %}
+                                                                <i class="bi bi-arrow-right"></i> {{ 'relation.outgoing'|trans }}
+                                                            {% else %}
+                                                                <i class="bi bi-arrow-left"></i> {{ 'relation.incoming'|trans }}
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>{{ relation.notes ?: '-' }}</td>
+                                                        <td>
+                                                            <div class="d-flex gap-2">
+                                                                <twig:Button
+                                                                    link="#"
+                                                                    theme="primary"
+                                                                    size="sm"
+                                                                    :outline="true"
+                                                                    icon="pencil-square"
+                                                                    :attributes="{'title': 'button.edit'|trans, 'class': 'btn-sm'}"
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-info">
+                                        {{ 'legal_person.no_relations'|trans }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
