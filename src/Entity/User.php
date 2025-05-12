@@ -9,54 +9,20 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[UniqueEntity(fields: ['email'], message: 'Cette adresse email est déjà utilisée')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User extends PhysicalPerson implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: "integer")]
-    private ?int $id = null;
-
-    #[ORM\Column(type: "string", length: 180, unique: true)]
-    #[Assert\NotBlank]
-    #[Assert\Email]
-    private ?string $email = null;
-
     #[ORM\Column(type: "json")]
     private array $roles = [];
 
     #[ORM\Column(type: "string")]
     private ?string $password = null;
 
-    #[ORM\Column(type: "string", length: 255)]
-    #[Assert\NotBlank]
-    private ?string $firstName = null;
-
-    #[ORM\Column(type: "string", length: 255)]
-    #[Assert\NotBlank]
-    private ?string $lastName = null;
-
-    #[ORM\Column(type: "string", length: 20, nullable: true)]
-    private ?string $phone = null;
-
-    #[ORM\Column(type: "string", length: 255, nullable: true)]
-    private ?string $position = null;
-
-    #[ORM\Column(type: "datetime_immutable")]
-    private \DateTimeImmutable $createdAt;
-
-    #[ORM\Column(type: "datetime_immutable", nullable: true)]
-    private ?\DateTimeImmutable $updatedAt = null;
-
     #[ORM\Column(type: "boolean")]
     private bool $isActive = true;
-
-    #[ORM\Column(type: "string", length: 255, nullable: true)]
-    private ?string $profilePicture = null;
 
     #[ORM\Column(type: "string", length: 255, nullable: true)]
     private ?string $timezone = 'Europe/Paris';
@@ -67,57 +33,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: "datetime", nullable: true)]
     private ?\DateTimeInterface $lastLogin = null;
 
-    #[ORM\ManyToOne(targetEntity: LegalPerson::class, inversedBy: "users")]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?LegalPerson $company = null;
-
     #[ORM\OneToMany(mappedBy: "manager", targetEntity: Project::class)]
     private Collection $managedProjects;
 
     #[ORM\OneToMany(mappedBy: "assignee", targetEntity: Task::class)]
     private Collection $assignedTasks;
 
-    #[ORM\OneToMany(mappedBy: "user", targetEntity: Interaction::class)]
-    private Collection $interactions;
 
     public function __construct()
     {
-        $this->createdAt = new \DateTimeImmutable();
+        parent::__construct();
         $this->managedProjects = new ArrayCollection();
         $this->assignedTasks = new ArrayCollection();
-        $this->interactions = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): static
-    {
-        $this->email = $email;
-        return $this;
-    }
-
-    /**
-     * A visual identifier that represents this user.
-     */
-    public function getUserIdentifier(): string
-    {
-        return (string) $this->email;
-    }
-
-    /**
-     * @deprecated since Symfony 5.3, use getUserIdentifier instead
-     */
-    public function getUsername(): string
-    {
-        return (string) $this->email;
     }
 
     /**
@@ -161,69 +88,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getFirstName(): ?string
+    /**
+     * A visual identifier that represents this user.
+     */
+    public function getUserIdentifier(): string
     {
-        return $this->firstName;
-    }
-
-    public function setFirstName(string $firstName): static
-    {
-        $this->firstName = $firstName;
-        return $this;
-    }
-
-    public function getLastName(): ?string
-    {
-        return $this->lastName;
-    }
-
-    public function setLastName(string $lastName): static
-    {
-        $this->lastName = $lastName;
-        return $this;
-    }
-
-    public function getFullName(): string
-    {
-        return $this->firstName . ' ' . $this->lastName;
-    }
-
-    public function getPhone(): ?string
-    {
-        return $this->phone;
-    }
-
-    public function setPhone(?string $phone): static
-    {
-        $this->phone = $phone;
-        return $this;
-    }
-
-    public function getPosition(): ?string
-    {
-        return $this->position;
-    }
-
-    public function setPosition(?string $position): static
-    {
-        $this->position = $position;
-        return $this;
-    }
-
-    public function getCreatedAt(): \DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(): static
-    {
-        $this->updatedAt = new \DateTimeImmutable();
-        return $this;
+        return (string) $this->getEmail();
     }
 
     public function isActive(): bool
@@ -234,17 +104,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsActive(bool $isActive): static
     {
         $this->isActive = $isActive;
-        return $this;
-    }
-
-    public function getProfilePicture(): ?string
-    {
-        return $this->profilePicture;
-    }
-
-    public function setProfilePicture(?string $profilePicture): static
-    {
-        $this->profilePicture = $profilePicture;
         return $this;
     }
 
@@ -278,17 +137,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastLogin(?\DateTimeInterface $lastLogin): static
     {
         $this->lastLogin = $lastLogin;
-        return $this;
-    }
-
-    public function getCompany(): ?LegalPerson
-    {
-        return $this->company;
-    }
-
-    public function setCompany(?LegalPerson $company): static
-    {
-        $this->company = $company;
         return $this;
     }
 
@@ -440,6 +288,45 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __toString(): string
     {
-        return $this->firstName . ' ' . $this->lastName;
+        return $this->getFirstName() . ' ' . $this->getLastName();
+    }
+
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): static
+    {
+        $this->phone = $phone;
+        return $this;
+    }
+
+    public function getPosition(): ?string
+    {
+        return $this->position;
+    }
+
+    public function setPosition(?string $position): static
+    {
+        $this->position = $position;
+        return $this;
+    }
+
+    public function getCreatedAt(): \DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(): static
+    {
+        $this->updatedAt = new \DateTimeImmutable();
+        return $this;
     }
 }

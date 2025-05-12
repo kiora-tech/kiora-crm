@@ -38,6 +38,8 @@ class PhysicalPerson extends Person
 
     #[ORM\Column(type: "string", length: 255, nullable: true)]
     private ?string $profilePicture = null;
+    #[ORM\ManyToOne(targetEntity: LegalPerson::class)]
+    private ?LegalPerson $company = null;
 
     public function __construct()
     {
@@ -195,6 +197,9 @@ class PhysicalPerson extends Person
             }
         }
 
+        // Mettre à jour la référence directe à l'entreprise
+        $this->company = $employer;
+
         // Ajouter la nouvelle relation d'employeur
         if ($employer !== null) {
             $relation = new Relation();
@@ -204,6 +209,17 @@ class PhysicalPerson extends Person
             $this->addIncomingRelation($relation);
         }
 
+        return $this;
+    }
+
+    public function getCompany(): ?LegalPerson
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?LegalPerson $company): static
+    {
+        $this->company = $company;
         return $this;
     }
 }

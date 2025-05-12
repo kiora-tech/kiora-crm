@@ -39,7 +39,7 @@ class LegalPerson extends Person
     #[ORM\Column(type: "string", length: 2, nullable: true)]
     private ?string $countryCode = null;
 
-    #[ORM\OneToMany(mappedBy: "company", targetEntity: User::class)]
+    #[ORM\OneToMany(mappedBy: "company", targetEntity: PhysicalPerson::class)]
     private Collection $users;
 
     public function __construct()
@@ -156,29 +156,29 @@ class LegalPerson extends Person
     }
 
     /**
-     * @return Collection<int, User>
+     * @return Collection<int, PhysicalPerson>
      */
     public function getUsers(): Collection
     {
         return $this->users;
     }
 
-    public function addUser(User $user): static
+    public function addUser(PhysicalPerson $user): static
     {
         if (!$this->users->contains($user)) {
             $this->users->add($user);
-            $user->setCompany($this);
+            $user->setEmployer($this); // Using setEmployer instead of setCompany
         }
 
         return $this;
     }
 
-    public function removeUser(User $user): static
+    public function removeUser(PhysicalPerson $user): static
     {
         if ($this->users->removeElement($user)) {
             // set the owning side to null (unless already changed)
-            if ($user->getCompany() === $this) {
-                $user->setCompany(null);
+            if ($user->getEmployer() === $this) {
+                $user->setEmployer(null);
             }
         }
 

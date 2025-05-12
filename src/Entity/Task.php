@@ -41,8 +41,8 @@ class Task
     #[ORM\OneToMany(mappedBy: "task", targetEntity: Interaction::class)]
     private Collection $interactions;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "assignedTasks")]
-    private ?User $assignee = null;
+    #[ORM\ManyToOne(targetEntity: PhysicalPerson::class, inversedBy: "assignedTasks")]
+    private ?PhysicalPerson $assignee = null;
 
     #[ORM\Column(type: "datetime_immutable")]
     private \DateTimeImmutable $createdAt;
@@ -184,12 +184,12 @@ class Task
         return $this;
     }
 
-    public function getAssignee(): ?User
+    public function getAssignee(): ?PhysicalPerson
     {
         return $this->assignee;
     }
 
-    public function setAssignee(?User $assignee): static
+    public function setAssignee(?PhysicalPerson $assignee): static
     {
         $this->assignee = $assignee;
         return $this;

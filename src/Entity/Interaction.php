@@ -36,9 +36,9 @@ class Interaction
     #[ORM\ManyToOne(targetEntity: Person::class, inversedBy: "interactions")]
     private ?Person $contact = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "interactions")]
+    #[ORM\ManyToOne(targetEntity: PhysicalPerson::class, inversedBy: "interactions")]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
+    private ?PhysicalPerson $user = null;
 
     #[ORM\Column(type: "datetime_immutable")]
     private \DateTimeImmutable $createdAt;
@@ -147,12 +147,12 @@ class Interaction
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUser(): ?PhysicalPerson
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): static
+    public function setUser(?PhysicalPerson $user): static
     {
         $this->user = $user;
         return $this;
