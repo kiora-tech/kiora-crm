@@ -52,8 +52,10 @@
                             {% if otherPerson %}
                                 {% if otherPerson is instanceof('App\\Entity\\LegalPerson') %}
                                     <a href="{{ path('legal_person_show', {'id': otherPerson.id}) }}">{{ otherPerson.name }}</a>
-                                {% else %}
+                                {% elseif otherPerson is instanceof('App\\Entity\\PhysicalPerson') %}
                                     <a href="{{ path('physical_person_show', {'id': otherPerson.id}) }}">{{ otherPerson.firstName }} {{ otherPerson.lastName }}</a>
+                                {% else %}
+                                    {{ otherPerson.name }}
                                 {% endif %}
                             {% else %}
                                 -

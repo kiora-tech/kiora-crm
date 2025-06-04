@@ -1,42 +1,56 @@
-services:
-  postgres-master:
-    image: citusdata/citus:13.0.3
-    environment:
-      NODE_ROLE: master
-      POSTGRES_PASSWORD: postgres
-    deploy:
-      placement:
-        constraints:
-          - node.role == manager
+version: '3.8'
 
-  postgres-worker:
-    image: citusdata/citus:13.0.3
-    environment:
-      NODE_ROLE: worker
-      POSTGRES_PASSWORD: postgres
-    deploy:
-      replicas: 1
-      placement:
-        constraints:
-          - node.role == worker
-    depends_on:
-      - postgres-master
+x-common-env: &common-env
+  APP_ENV: prod
+  DATABASE_URL: pgsql://kiora_crm_user:${POSTGRES_PASSWORD}@${DB_HOST:-192.168.1.21}:5432/kiora_crm?serverVersion=15&charset=utf8
+
+x-common-deploy: &common-deploy
+  placement:
+    constraints:
+      - node.hostname == raspberrypi5peo16
+
+x-common-php: &common-php
+  image: registry.kiora.tech/kiora/kiora-crm_php:0.1.1
+  user: "www-data"
+  environment:
+    <<: *common-env
+  deploy:
+    <<: *common-deploy
+
+services:
   php:
-    image: registry.kiora.tech/kiora/kiora-crm_php:0.0.2
-    user: "www-data"
-    depends_on:
-      - postgres-master
+    <<: *common-php
     environment:
-      - APP_ENV=prod
-      - DATABASE_URL=pgsql://postgres:postgres@postgres-master:5432/postgres
-      - MAILER_DSN=${MAILER_DSN:-smtp://mailer:1025}
-    restart:
-      always
+      <<: *common-env
+      MAILER_DSN: ${MAILER_DSN:-smtp://mailer:1025}
+      SYMFONY_TRUSTED_PROXIES: ${SYMFONY_TRUSTED_PROXIES:-127.0.0.1}
+      SYMFONY_TRUSTED_HEADERS: ${SYMFONY_TRUSTED_HEADERS:-X_FORWARDED_FOR, X_FORWARDED_HOST, X_FORWARDED_PROTO, X_FORWARDED_PORT}
+    volumes:
+      - /srv/swarm-data/${ENV:-prod}/kiora-crm/uploads:/var/www/kiora-crm/public/uploads
+      - /srv/swarm-data/${ENV:-prod}/kiora-crm/logs:/var/www/kiora-crm/var/log
+      - /srv/swarm-data/${ENV:-prod}/kiora-crm/cache:/var/www/kiora-crm/var/cache/prod
+    restart: always
+    deploy:
+      <<: *common-deploy
+      replicas: 1
+
   nginx:
-    image: registry.kiora.tech/kiora/kiora-crm_nginx:0.0.2
+    image: registry.kiora.tech/kiora/kiora-crm_nginx:0.1.1
     depends_on:
       - php
-      - postgres-master
-    restart:
-      always
+    ports:
+      - "${NGINX_PORT:-81}:80"
+    volumes:
+      - /srv/swarm-data/${ENV:-prod}/kiora-crm/logs:/var/log/nginx
+      - /srv/swarm-data/${ENV:-prod}/kiora-crm/uploads:/var/www/website/public/uploads:ro
+    restart: always
+    deploy:
+      <<: *common-deploy
 
+  migrations:
+    <<: *common-php
+    command: sh -c "php bin/console doctrine:migrations:migrate --no-interaction"
+    deploy:
+      <<: *common-deploy
+      restart_policy:
+        condition: none

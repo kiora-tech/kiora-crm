@@ -2,6 +2,9 @@ FROM php:8.4-fpm AS base
 
 ARG USER_ID=33
 ARG GROUP_ID=33
+ARG APP_ENV=prod
+
+ENV APP_ENV=${APP_ENV}
 
 # Utilisation de la version officielle de l'extension installer
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
@@ -42,9 +45,9 @@ RUN if [ ${USER_ID} -ne 33 ] || [ ${GROUP_ID} -ne 33 ]; then \
     groupmod -g ${GROUP_ID} www-data \
 ; fi
 
-WORKDIR /var/www/website
+WORKDIR /var/www/kiora-crm
 
-FROM base AS build
+FROM registry.kiora.tech/kiora/kiora-crm_php_base:0.0.2 AS build
 
 RUN curl -sS https://getcomposer.org/installer | php -- \
     --install-dir=/usr/local/bin \
@@ -62,14 +65,11 @@ COPY ./docker/php/dev-php.ini /usr/local/etc/php/conf.d/dev-php.ini
 USER www-data
 
 # Étape de production
-FROM base AS prod
+FROM registry.kiora.tech/kiora/kiora-crm_php_base:0.0.2 AS prod
 
 USER root
 
 COPY --chown=www-data:www-data . .
-
-# Installation des dépendances de production
-RUN composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction --no-ansi
 
 # Configuration PHP spécifique production
 COPY ./docker/php/prod-php.ini /usr/local/etc/php/conf.d/prod-php.ini

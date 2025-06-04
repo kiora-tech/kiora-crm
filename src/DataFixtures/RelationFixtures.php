@@ -73,7 +73,6 @@ class RelationFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             LegalPersonFixtures::class,
-            CompanyFixtures::class,
             PhysicalPersonFixtures::class,
         ];
     }

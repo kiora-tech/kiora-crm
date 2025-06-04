@@ -1,0 +1,351 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'client_dashboard.title'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="pagetitle">
+        <h1>{{ 'client_dashboard.title'|trans }}</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('homepage') }}">{{ 'menu.home'|trans }}</a></li>
+                <li class="breadcrumb-item active">{{ 'menu.clients'|trans }}</li>
+            </ol>
+        </nav>
+    </div>
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ 'client_dashboard.quick_add'|trans }}</h5>
+                        <div class="d-flex gap-2">
+                            <twig:Button
+                                link="{{ path('physical_person_new') }}"
+                                theme="primary"
+                                icon="person-plus"
+                                :label="'physical_person.new'|trans"
+                            />
+                            <twig:Button
+                                link="{{ path('legal_person_new') }}"
+                                theme="primary"
+                                icon="building-plus"
+                                :label="'legal_person.new'|trans"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card info-card sales-card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ 'client_dashboard.total_clients'|trans }}</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{ clientsCount }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="card info-card revenue-card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ 'client_dashboard.companies'|trans }}</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-building"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{ companiesCount }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="card info-card customers-card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ 'client_dashboard.contacts'|trans }}</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-person"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{ contactsCount }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="card info-card prospects-card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ 'client_dashboard.prospects'|trans }}</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-person-plus"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{ prospectsCount }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body pt-3">
+                        <ul class="nav nav-tabs nav-tabs-bordered">
+                            <li class="nav-item">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#all-tab">{{ 'client_dashboard.all'|trans }}</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#companies-tab">{{ 'client_dashboard.companies'|trans }}</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#contacts-tab">{{ 'client_dashboard.contacts'|trans }}</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content pt-2">
+                            <div class="tab-pane fade show active" id="all-tab">
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="client-search" placeholder="{{ 'client_dashboard.search_placeholder'|trans }}" />
+                                        <button class="btn btn-outline-secondary" type="button">{{ 'client_dashboard.search'|trans }}</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="table-responsive">
+                                    <table class="table table-striped" id="all-clients-table">
+                                        <thead>
+                                            <tr>
+                                                <th>{{ 'client_dashboard.type'|trans }}</th>
+                                                <th>{{ 'client_dashboard.name'|trans }}</th>
+                                                <th>{{ 'client_dashboard.email'|trans }}</th>
+                                                <th>{{ 'client_dashboard.phone'|trans }}</th>
+                                                <th>{{ 'client_dashboard.category'|trans }}</th>
+                                                <th>{{ 'client_dashboard.actions'|trans }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for client in allClients %}
+                                                <tr>
+                                                    <td>
+                                                        {% if client is instanceof('App\\Entity\\LegalPerson') %}
+                                                            <i class="bi bi-building"></i>
+                                                        {% else %}
+                                                            <i class="bi bi-person"></i>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>{{ client.name }}</td>
+                                                    <td>{{ client.email|default('-') }}</td>
+                                                    <td>{{ client.phone|default('-') }}</td>
+                                                    <td>
+                                                        {% set isClient = false %}
+                                                        {% set isProspect = false %}
+                                                        {% set isSupplier = false %}
+                                                        {% set isPartner = false %}
+                                                        
+                                                        {% for relation in client.incomingRelations %}
+                                                            {% if relation.type.value == 'CLIENT' %}
+                                                                {% set isClient = true %}
+                                                            {% elseif relation.type.value == 'PROSPECT' %}
+                                                                {% set isProspect = true %}
+                                                            {% elseif relation.type.value == 'SUPPLIER' %}
+                                                                {% set isSupplier = true %}
+                                                            {% elseif relation.type.value == 'PARTNER' %}
+                                                                {% set isPartner = true %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                        
+                                                        {% if isClient %}
+                                                            <span class="badge bg-success">{{ 'relation_type.client'|trans }}</span>
+                                                        {% elseif isProspect %}
+                                                            <span class="badge bg-info">{{ 'relation_type.prospect'|trans }}</span>
+                                                        {% elseif isSupplier %}
+                                                            <span class="badge bg-warning">{{ 'relation_type.supplier'|trans }}</span>
+                                                        {% elseif isPartner %}
+                                                            <span class="badge bg-dark">{{ 'relation_type.partner'|trans }}</span>
+                                                        {% else %}
+                                                            <span class="badge bg-secondary">{{ 'relation_type.none'|trans }}</span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex gap-2">
+                                                            {% if client is instanceof('App\\Entity\\LegalPerson') %}
+                                                                <twig:Button
+                                                                    link="{{ path('legal_person_show', {'id': client.id}) }}"
+                                                                    theme="primary"
+                                                                    size="sm"
+                                                                    :outline="true"
+                                                                    icon="eye"
+                                                                    :attributes="{'title': 'button.show'|trans}"
+                                                                />
+                                                            {% else %}
+                                                                <twig:Button
+                                                                    link="{{ path('physical_person_show', {'id': client.id}) }}"
+                                                                    theme="primary"
+                                                                    size="sm"
+                                                                    :outline="true"
+                                                                    icon="eye"
+                                                                    :attributes="{'title': 'button.show'|trans}"
+                                                                />
+                                                            {% endif %}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="d-flex justify-content-center mt-3">
+                                    {{ knp_pagination_render(allClients, 'knpPaginator/pagination/custom_bootstrap_v5_pagination.html.twig') }}
+                                </div>
+                            </div>
+                            
+                            <div class="tab-pane fade" id="companies-tab">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>{{ 'legal_person.name'|trans }}</th>
+                                                <th>{{ 'legal_person.industry'|trans }}</th>
+                                                <th>{{ 'legal_person.email'|trans }}</th>
+                                                <th>{{ 'legal_person.phone'|trans }}</th>
+                                                <th>{{ 'legal_person.contacts'|trans }}</th>
+                                                <th>{{ 'legal_person.actions'|trans }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for company in companies %}
+                                                <tr>
+                                                    <td>{{ company.name }}</td>
+                                                    <td>{{ company.industry|default('-') }}</td>
+                                                    <td>{{ company.email|default('-') }}</td>
+                                                    <td>{{ company.phone|default('-') }}</td>
+                                                    <td>{{ company.users|length }}</td>
+                                                    <td>
+                                                        <div class="d-flex gap-2">
+                                                            <twig:Button
+                                                                link="{{ path('legal_person_show', {'id': company.id}) }}"
+                                                                theme="primary"
+                                                                size="sm"
+                                                                :outline="true"
+                                                                icon="eye"
+                                                                :attributes="{'title': 'button.show'|trans}"
+                                                            />
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="d-flex justify-content-center mt-3">
+                                    {{ knp_pagination_render(companies, 'knpPaginator/pagination/custom_bootstrap_v5_pagination.html.twig') }}
+                                </div>
+                            </div>
+                            
+                            <div class="tab-pane fade" id="contacts-tab">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>{{ 'physical_person.name'|trans }}</th>
+                                                <th>{{ 'physical_person.position'|trans }}</th>
+                                                <th>{{ 'physical_person.email'|trans }}</th>
+                                                <th>{{ 'physical_person.phone'|trans }}</th>
+                                                <th>{{ 'physical_person.company'|trans }}</th>
+                                                <th>{{ 'physical_person.actions'|trans }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for contact in contacts %}
+                                                <tr>
+                                                    <td>{{ contact.firstName }} {{ contact.lastName }}</td>
+                                                    <td>{{ contact.position|default('-') }}</td>
+                                                    <td>{{ contact.email|default('-') }}</td>
+                                                    <td>{{ contact.mobile|default(contact.phone|default('-')) }}</td>
+                                                    <td>
+                                                        {% if contact.company %}
+                                                            <a href="{{ path('legal_person_show', {'id': contact.company.id}) }}">
+                                                                {{ contact.company.name }}
+                                                            </a>
+                                                        {% else %}
+                                                            -
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex gap-2">
+                                                            <twig:Button
+                                                                link="{{ path('physical_person_show', {'id': contact.id}) }}"
+                                                                theme="primary"
+                                                                size="sm"
+                                                                :outline="true"
+                                                                icon="eye"
+                                                                :attributes="{'title': 'button.show'|trans}"
+                                                            />
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="d-flex justify-content-center mt-3">
+                                    {{ knp_pagination_render(contacts, 'knpPaginator/pagination/custom_bootstrap_v5_pagination.html.twig') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('client-search');
+            const table = document.getElementById('all-clients-table');
+            const rows = table.getElementsByTagName('tr');
+
+            searchInput.addEventListener('keyup', function() {
+                const searchValue = searchInput.value.toLowerCase();
+                
+                for (let i = 1; i < rows.length; i++) {
+                    let found = false;
+                    const cells = rows[i].getElementsByTagName('td');
+                    
+                    for (let j = 1; j < 4; j++) { // Cherche dans les colonnes nom, email et téléphone
+                        const cellText = cells[j].textContent.toLowerCase();
+                        if (cellText.indexOf(searchValue) > -1) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    
+                    rows[i].style.display = found ? '' : 'none';
+                }
+            });
+        });
+    </script>
+{% endblock %}

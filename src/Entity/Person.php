@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: PersonRepository::class)]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
-#[ORM\DiscriminatorMap(["physical" => "PhysicalPerson", "legal" => "LegalPerson"])]
+#[ORM\DiscriminatorMap(["physical" => "PhysicalPerson", "legal" => "LegalPerson", "user" => "User"])]
 abstract class Person
 {
     #[ORM\Id]

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Menu;
 
-use App\Entity\Company;
+use App\Entity\LegalPerson;
 use App\Entity\User;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
@@ -28,7 +28,7 @@ final readonly class Builder
     {
     }
 
-    private function getCompany(): Company
+    private function getCompany(): LegalPerson
     {
         $user = $this->security->getUser();
         if (!$user instanceof User) {
@@ -53,6 +53,11 @@ final readonly class Builder
         $clients = $menu->addChild('menu.clients', ['uri' => '#'])
             ->setLabel((string)t('menu.clients'))
             ->setExtra('icon', 'bi bi-people')
+            ->setExtra('safe_label', true);
+            
+        $clients->addChild('menu.client_dashboard', ['route' => 'client_dashboard_index'])
+            ->setLabel((string)t('menu.client_dashboard'))
+            ->setExtra('icon', 'bi bi-speedometer2')
             ->setExtra('safe_label', true);
             
         $clients->addChild('menu.physical_persons', ['route' => 'physical_person_index'])
@@ -91,7 +96,7 @@ final readonly class Builder
                 ->setExtra('icon', 'bi bi-gear')
                 ->setExtra('safe_label', true);
                 
-            $admin->addChild('menu.company', ['route' => 'app_company_index'])
+            $admin->addChild('menu.company', ['route' => 'legal_person_index'])
                 ->setLabel((string)t('menu.company'))
                 ->setExtra('icon', 'bi bi-building-gear')
                 ->setExtra('safe_label', true);

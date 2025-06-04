@@ -33,12 +33,11 @@ class User extends PhysicalPerson implements UserInterface, PasswordAuthenticate
     #[ORM\Column(type: "datetime", nullable: true)]
     private ?\DateTimeInterface $lastLogin = null;
 
-    #[ORM\OneToMany(mappedBy: "manager", targetEntity: Project::class)]
+    #[ORM\OneToMany(targetEntity: Project::class, mappedBy: "manager")]
     private Collection $managedProjects;
 
-    #[ORM\OneToMany(mappedBy: "assignee", targetEntity: Task::class)]
+    #[ORM\OneToMany(targetEntity: Task::class, mappedBy: "assignee")]
     private Collection $assignedTasks;
-
 
     public function __construct()
     {
@@ -303,16 +302,6 @@ class User extends PhysicalPerson implements UserInterface, PasswordAuthenticate
         return $this;
     }
 
-    public function getPosition(): ?string
-    {
-        return $this->position;
-    }
-
-    public function setPosition(?string $position): static
-    {
-        $this->position = $position;
-        return $this;
-    }
 
     public function getCreatedAt(): \DateTimeImmutable
     {

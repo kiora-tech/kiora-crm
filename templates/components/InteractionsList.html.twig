@@ -51,13 +51,15 @@
                     </div>
                     <div class="small text-muted mt-1">
                         {{ ('interaction.' ~ interaction.type.value)|trans }} 
-                        - {{ interaction.user.fullName }}
+                        - {{ interaction.user }}
                         {% if interaction.contact and interaction.contact.id != entity.id %}
                             - {{ 'with'|trans }} 
                             {% if interaction.contact is instanceof('App\\Entity\\LegalPerson') %}
                                 <a href="{{ path('legal_person_show', {'id': interaction.contact.id}) }}">{{ interaction.contact.name }}</a>
-                            {% else %}
+                            {% elseif interaction.contact is instanceof('App\\Entity\\PhysicalPerson') %}
                                 <a href="{{ path('physical_person_show', {'id': interaction.contact.id}) }}">{{ interaction.contact.firstName }} {{ interaction.contact.lastName }}</a>
+                            {% else %}
+                                {{ interaction.contact.name }}
                             {% endif %}
                         {% endif %}
                         {% if interaction.project %}

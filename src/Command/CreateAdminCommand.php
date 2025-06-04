@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Entity\Company;
+use App\Entity\LegalPerson;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -34,13 +34,13 @@ class CreateAdminCommand extends Command
             return Command::FAILURE;
         }
 
-        $company = new Company();
+        $legalPerson = new LegalPerson();
         $companyName = $io->ask('Company name', 'Kiora');
         if (!is_string($companyName)) {
             throw new \RuntimeException('Invalid company name');
         }
 
-        $company->setName($companyName);
+        $legalPerson->setName($companyName);
 
         $user = new User();
         $email = $io->ask('Email', validator: function ($value) {
@@ -60,7 +60,7 @@ class CreateAdminCommand extends Command
             throw new \RuntimeException('Invalid password');
         }
         $user->setPassword($this->passwordHasher->hashPassword($user, $password));
-        $user->setCompany($company);
+        $user->setCompany($legalPerson);
         $name = $io->ask('First name');
         if (!is_string($name)) {
             throw new \RuntimeException('Invalid first name');
@@ -74,7 +74,7 @@ class CreateAdminCommand extends Command
         }
         $user->setLastName($lastName);
 
-        $this->em->persist($company);
+        $this->em->persist($legalPerson);
         $this->em->persist($user);
         $this->em->flush();
 
