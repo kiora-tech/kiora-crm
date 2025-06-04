@@ -208,10 +208,11 @@
                                 <twig:InteractionsList
                                     :interactions="interactions"
                                     :entity="person"
-                                    entityType="person"
+                                    entityType="physical_person"
                                     emptyMessage="{{ 'physical_person.no_interactions'|trans }}"
                                     addUrl="{{ path('interaction_new_physical_person', {'id': person.id}) }}"
                                     addLabel="{{ 'interaction.add'|trans }}"
+                                    title="{{ 'physical_person.interactions'|trans }}"
                                 />
                             </div>
                             
@@ -222,6 +223,7 @@
                                     emptyMessage="{{ 'physical_person.no_relations'|trans }}"
                                     addUrl="{{ path('relation_new_physical_person', {'id': person.id}) }}"
                                     addLabel="{{ 'relation.add'|trans }}"
+                                    title="{{ 'physical_person.relations'|trans }}"
                                 />
                             </div>
                         </div>

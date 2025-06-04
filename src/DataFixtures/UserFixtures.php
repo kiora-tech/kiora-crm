@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Company;
 use App\Entity\LegalPerson;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -21,7 +20,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     {
         $user = new User();
         $user->setFirstName('test');
-        $user->setLastname('test1');
+        $user->setLastName('test1');
         $user->setEmail('test@test.com');
         $user->setPassword($this->passwordHasher->hashPassword(
             $user,
@@ -36,7 +35,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-            CompanyFixtures::class,
+            LegalPersonFixtures::class,
         ];
     }
 }

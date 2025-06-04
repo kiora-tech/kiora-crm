@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
+use App\Enum\RelationType;
 use App\Repository\PhysicalPersonRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PhysicalPersonRepository::class)]
 class PhysicalPerson extends Person
@@ -38,7 +38,8 @@ class PhysicalPerson extends Person
 
     #[ORM\Column(type: "string", length: 255, nullable: true)]
     private ?string $profilePicture = null;
-    #[ORM\ManyToOne(targetEntity: LegalPerson::class)]
+    #[ORM\ManyToOne(targetEntity: LegalPerson::class, inversedBy: "users")]
+    #[ORM\JoinColumn(name: "company_id", referencedColumnName: "id")]
     private ?LegalPerson $company = null;
 
     public function __construct()
@@ -177,7 +178,7 @@ class PhysicalPerson extends Person
     public function getEmployer(): ?LegalPerson
     {
         foreach ($this->incomingRelations as $relation) {
-            if ($relation->getType() === \App\Enum\RelationType::SUBSIDIARY && $relation->getSourcePerson() instanceof LegalPerson) {
+            if ($relation->getType() === RelationType::SUBSIDIARY && $relation->getSourcePerson() instanceof LegalPerson) {
                 return $relation->getSourcePerson();
             }
         }
@@ -192,7 +193,7 @@ class PhysicalPerson extends Person
     {
         // Supprimer les anciennes relations d'employeur
         foreach ($this->incomingRelations as $relation) {
-            if ($relation->getType() === \App\Enum\RelationType::SUBSIDIARY && $relation->getSourcePerson() instanceof LegalPerson) {
+            if ($relation->getType() === RelationType::SUBSIDIARY && $relation->getSourcePerson() instanceof LegalPerson) {
                 $this->removeIncomingRelation($relation);
             }
         }
@@ -205,7 +206,7 @@ class PhysicalPerson extends Person
             $relation = new Relation();
             $relation->setSourcePerson($employer);
             $relation->setTargetPerson($this);
-            $relation->setType(\App\Enum\RelationType::SUBSIDIARY);
+            $relation->setType(RelationType::SUBSIDIARY);
             $this->addIncomingRelation($relation);
         }
 

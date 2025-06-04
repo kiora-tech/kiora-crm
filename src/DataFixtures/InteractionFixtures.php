@@ -257,7 +257,7 @@ Cordialement,
             ProjectFixtures::class,
             TaskFixtures::class,
             PhysicalPersonFixtures::class,
-            CompanyFixtures::class,
+            LegalPersonFixtures::class,
             UserFixtures::class,
         ];
     }

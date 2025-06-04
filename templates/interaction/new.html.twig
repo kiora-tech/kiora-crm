@@ -12,8 +12,10 @@
                 {% if entity_type == 'physical_person' %}
                     <li class="breadcrumb-item">{{ 'menu.clients'|trans }}</li>
                     <li class="breadcrumb-item"><a href="{{ path('physical_person_index') }}">{{ 'menu.physical_persons'|trans }}</a></li>
+                    {% if entity.id is defined %}
                     <li class="breadcrumb-item"><a href="{{ path('physical_person_show', {'id': entity.id}) }}">{{ entity.firstName }} {{ entity.lastName }}</a></li>
-                {% elseif entity_type == 'legal_person' %}
+                    {% endif %}
+                    {% elseif entity_type == 'legal_person' %}
                     <li class="breadcrumb-item">{{ 'menu.clients'|trans }}</li>
                     <li class="breadcrumb-item"><a href="{{ path('legal_person_index') }}">{{ 'menu.legal_persons'|trans }}</a></li>
                     <li class="breadcrumb-item"><a href="{{ path('legal_person_show', {'id': entity.id}) }}">{{ entity.name }}</a></li>

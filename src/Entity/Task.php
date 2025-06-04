@@ -31,18 +31,18 @@ class Task
     #[ORM\Column(type: "string", enumType: TaskStatus::class)]
     private TaskStatus $status;
 
-    #[ORM\Column(type: "string", enumType: TaskPriority::class, nullable: true)]
-    private ?TaskPriority $priority = null;
+    #[ORM\Column(type: "string", nullable: true, enumType: TaskPriority::class)]
+    private ?TaskPriority $priority;
 
     #[ORM\ManyToOne(targetEntity: Project::class, inversedBy: "tasks")]
     #[ORM\JoinColumn(nullable: false)]
     private ?Project $project = null;
 
-    #[ORM\OneToMany(mappedBy: "task", targetEntity: Interaction::class)]
+    #[ORM\OneToMany(targetEntity: Interaction::class, mappedBy: "task")]
     private Collection $interactions;
 
-    #[ORM\ManyToOne(targetEntity: PhysicalPerson::class, inversedBy: "assignedTasks")]
-    private ?PhysicalPerson $assignee = null;
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "assignedTasks")]
+    private ?User $assignee = null;
 
     #[ORM\Column(type: "datetime_immutable")]
     private \DateTimeImmutable $createdAt;
@@ -184,12 +184,12 @@ class Task
         return $this;
     }
 
-    public function getAssignee(): ?PhysicalPerson
+    public function getAssignee(): ?User
     {
         return $this->assignee;
     }
 
-    public function setAssignee(?PhysicalPerson $assignee): static
+    public function setAssignee(?User $assignee): static
     {
         $this->assignee = $assignee;
         return $this;

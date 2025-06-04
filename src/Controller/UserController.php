@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Company;
+use App\Entity\LegalPerson;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Notification\NewCollaboratorNotification;
@@ -67,8 +67,8 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/company/{id}', name: 'app_user_company_index', requirements: ['id' => Requirement::POSITIVE_INT], methods: ['GET'])]
-    public function companyIndex(Company $company): Response
+    #[Route('/legal-person/{id}', name: 'app_user_company_index', requirements: ['id' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    public function companyIndex(LegalPerson $legalPerson): Response
     {
         $user = $this->getUser();
         if (!$user instanceof User) {
@@ -76,7 +76,7 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/index.html.twig', [
-            'users' => $company->getUsers(),
+            'users' => $legalPerson->getUsers(),
             'impersonate' => true,
         ]);
     }

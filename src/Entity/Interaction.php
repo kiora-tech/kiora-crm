@@ -36,7 +36,7 @@ class Interaction
     #[ORM\ManyToOne(targetEntity: Person::class, inversedBy: "interactions")]
     private ?Person $contact = null;
 
-    #[ORM\ManyToOne(targetEntity: PhysicalPerson::class, inversedBy: "interactions")]
+    #[ORM\ManyToOne(targetEntity: PhysicalPerson::class)]
     #[ORM\JoinColumn(nullable: false)]
     private ?PhysicalPerson $user = null;
 

@@ -44,9 +44,9 @@ class Project
     #[ORM\OneToMany(targetEntity: Interaction::class, mappedBy: "project")]
     private Collection $interactions;
 
-    #[ORM\ManyToOne(targetEntity: PhysicalPerson::class, inversedBy: "managedProjects")]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "managedProjects")]
     #[ORM\JoinColumn(nullable: false)]
-    private ?PhysicalPerson $manager = null;
+    private ?User $manager = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private \DateTimeImmutable $createdAt;
@@ -203,12 +203,12 @@ class Project
         return $this;
     }
 
-    public function getManager(): ?PhysicalPerson
+    public function getManager(): ?User
     {
         return $this->manager;
     }
 
-    public function setManager(?PhysicalPerson $manager): static
+    public function setManager(?User $manager): static
     {
         $this->manager = $manager;
         return $this;

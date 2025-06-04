@@ -5,11 +5,19 @@
     </button>
     <div class="position-absolute w-100" style="top: 100%; left: 0;">
         <ul class="list-group mt-2" style="z-index: 1000; max-height: 200px; overflow-y: auto;">
-            {% for customer in this.results %}
+            {% for person in this.results %}
                 <li class="list-group-item">
-                    <a href="{{ path('app_customer_show', {id: customer.id}) }}">
-                        {{ customer.name }}
-                    </a>
+                    {% if person is instanceof('App\\Entity\\PhysicalPerson') %}
+                        <a href="{{ path('physical_person_show', {id: person.id}) }}">
+                            <i class="bi bi-person-fill"></i> {{ person.name }}
+                        </a>
+                    {% elseif person is instanceof('App\\Entity\\LegalPerson') %}
+                        <a href="{{ path('legal_person_show', {id: person.id}) }}">
+                            <i class="bi bi-building"></i> {{ person.name }}
+                        </a>
+                    {% else %}
+                        {{ person.name }}
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>

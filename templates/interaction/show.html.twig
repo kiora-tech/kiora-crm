@@ -14,9 +14,11 @@
                     {% if interaction.contact is instanceof('App\\Entity\\PhysicalPerson') %}
                         <li class="breadcrumb-item"><a href="{{ path('physical_person_index') }}">{{ 'menu.physical_persons'|trans }}</a></li>
                         <li class="breadcrumb-item"><a href="{{ path('physical_person_show', {'id': interaction.contact.id}) }}">{{ interaction.contact.firstName }} {{ interaction.contact.lastName }}</a></li>
-                    {% else %}
+                    {% elseif interaction.contact is instanceof('App\\Entity\\LegalPerson') %}
                         <li class="breadcrumb-item"><a href="{{ path('legal_person_index') }}">{{ 'menu.legal_persons'|trans }}</a></li>
                         <li class="breadcrumb-item"><a href="{{ path('legal_person_show', {'id': interaction.contact.id}) }}">{{ interaction.contact.name }}</a></li>
+                    {% else %}
+                        <li class="breadcrumb-item"><a href="{{ path('client_dashboard_index') }}">{{ 'menu.client_dashboard'|trans }}</a></li>
                     {% endif %}
                 {% elseif interaction.project %}
                     <li class="breadcrumb-item"><a href="{{ path('project_index') }}">{{ 'menu.projects'|trans }}</a></li>
@@ -105,12 +107,19 @@
                                         icon="arrow-left"
                                         :label="'button.back_to_contact'|trans"
                                     />
-                                {% else %}
+                                {% elseif interaction.contact is instanceof('App\\Entity\\LegalPerson') %}
                                     <twig:Button
                                         link="{{ path('legal_person_show', {'id': interaction.contact.id}) }}"
                                         theme="secondary"
                                         icon="arrow-left"
                                         :label="'button.back_to_company'|trans"
+                                    />
+                                {% else %}
+                                    <twig:Button
+                                        link="{{ path('client_dashboard_index') }}"
+                                        theme="secondary"
+                                        icon="arrow-left"
+                                        :label="'button.back'|trans"
                                     />
                                 {% endif %}
                             {% elseif interaction.project %}
@@ -145,10 +154,12 @@
                                     <a href="{{ path('physical_person_show', {'id': interaction.contact.id}) }}">
                                         {{ interaction.contact.firstName }} {{ interaction.contact.lastName }}
                                     </a>
-                                {% else %}
+                                {% elseif interaction.contact is instanceof('App\\Entity\\LegalPerson') %}
                                     <a href="{{ path('legal_person_show', {'id': interaction.contact.id}) }}">
                                         {{ interaction.contact.name }}
                                     </a>
+                                {% else %}
+                                    {{ interaction.contact.name }}
                                 {% endif %}
                             </div>
                         {% endif %}
