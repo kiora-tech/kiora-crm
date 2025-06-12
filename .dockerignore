@@ -1,0 +1,10 @@
+.git
+.claude
+.idea
+
+.env.test
+.env.local
+.env.dev
+.phpunit.result.cache
+
+compose.override.yaml

@@ -10,7 +10,7 @@ x-common-deploy: &common-deploy
       - node.hostname == raspberrypi5peo16
 
 x-common-php: &common-php
-  image: registry.kiora.tech/kiora/kiora-crm_php:0.1.1
+  image: registry.kiora.tech/kiora/kiora-crm_php:0.1.2
   user: "www-data"
   environment:
     <<: *common-env
@@ -24,7 +24,6 @@ services:
       <<: *common-env
       MAILER_DSN: ${MAILER_DSN:-smtp://mailer:1025}
       SYMFONY_TRUSTED_PROXIES: ${SYMFONY_TRUSTED_PROXIES:-127.0.0.1}
-      SYMFONY_TRUSTED_HEADERS: ${SYMFONY_TRUSTED_HEADERS:-X_FORWARDED_FOR, X_FORWARDED_HOST, X_FORWARDED_PROTO, X_FORWARDED_PORT}
     volumes:
       - /srv/swarm-data/${ENV:-prod}/kiora-crm/uploads:/var/www/kiora-crm/public/uploads
       - /srv/swarm-data/${ENV:-prod}/kiora-crm/logs:/var/www/kiora-crm/var/log
@@ -35,7 +34,7 @@ services:
       replicas: 1
 
   nginx:
-    image: registry.kiora.tech/kiora/kiora-crm_nginx:0.1.1
+    image: registry.kiora.tech/kiora/kiora-crm_nginx:0.1.2
     depends_on:
       - php
     ports:
